@@ -85,7 +85,7 @@
 
             </Border>
 
-            <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" >
+            <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" Click="createJson_Click" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
