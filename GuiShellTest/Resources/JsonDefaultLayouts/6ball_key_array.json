@@ -1,4 +1,9 @@
 {
+  "desc": {
+    "manufacturer": "Linguini Enterprises",
+    "description": "i made dis",
+    "product_name": "6-bal, idk why tho"
+  },
   "spec": {
     "avrdude": {
       "partno": "m32u4",
@@ -7,8 +12,8 @@
     "matrix_spec": {
       "rows": 5,
       "cols": 14,
-      "row_pins": [ "D0", "D5"],
-      "col_pins": [ "F1", "F0", "B0"]
+      "row_pins": [ "D0", "D5" ],
+      "col_pins": [ "F1", "F0", "B0" ]
     },
     "diode_direction": "col2row"
   },

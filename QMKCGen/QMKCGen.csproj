@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
     <Compile Include="Keyboard_items\Key_items\Binding.cs" />
     <Compile Include="Keyboard_items\Key_items\Graphics.cs" />
     <Compile Include="Keyboard_items\Key_items\Key.cs" />
@@ -58,14 +59,28 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Keyboard_items\Spec_items\Spec.cs" />
+    <Compile Include="Utils\Cout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Content Include="Templates\C\keyboard.c.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\C\keyboard.h.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Make\rules.mk.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Templates\C\" />
-    <Folder Include="Resources\Templates\Make\" />
+    <Folder Include="Template_Generatos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Templates\C\config.h.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
