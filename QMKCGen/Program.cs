@@ -25,17 +25,10 @@ namespace QMKCGen
             string json_raw = File.ReadAllText(args[0]);
             Keyboard keyboard = JsonConvert.DeserializeObject<Keyboard>(json_raw);
 
-            ////register hbs helpers
-            //Handlebars.RegisterHelper("comma_list", (output, context, arguments) =>
-            //{
-            //    output.Write(String.Join(",", arguments));
-            //});
-
             var assembly = Assembly.GetExecutingAssembly();
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
             string hbsResourceURI = "Templates" + System.IO.Path.DirectorySeparatorChar;
             string hbsFilePath = System.IO.Path.Combine(rootDirectory, hbsResourceURI);
-            //roughly, what I want to do is
             var files = new Dictionary<string, string>();
             foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories))
             {
@@ -60,7 +53,6 @@ namespace QMKCGen
                 Console.WriteLine("==============================");
                 Console.Write(thing.Value);
             }
-            //then organize into directory
             Console.ReadKey();
         }
     }

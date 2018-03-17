@@ -64,13 +64,19 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="Templates\C\keyboard.c.hbs">
+    <Content Include="Templates\C\keyboard\project_template.c.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\C\keyboard.h.hbs">
+    <Content Include="Templates\C\keyboard\project_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Make\rules.mk.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\C\keymap\keymap_template.c.hbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\C\keymap\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -78,7 +84,7 @@
     <Folder Include="Template_Generatos\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\C\config.h.hbs">
+    <Content Include="Templates\C\keyboard\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
