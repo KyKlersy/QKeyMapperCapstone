@@ -64,8 +64,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\c_templates\" />
-    <Folder Include="Resources\make_templates\" />
+    <Folder Include="Resources\Templates\C\" />
+    <Folder Include="Resources\Templates\Make\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

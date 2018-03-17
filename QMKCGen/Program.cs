@@ -15,14 +15,14 @@ namespace QMKCGen
     {
         static void Main(string[] args)
         {
-            if(args.Length != 1)
+            if (args.Length != 1)
             {
-                Console.WriteLine("Usage: {} file.json", System.AppDomain.CurrentDomain.FriendlyName);
+                Console.WriteLine(string.Format("Usage: {0} file.json", System.AppDomain.CurrentDomain.FriendlyName));
                 return;
             }
             string json_raw = File.ReadAllText(args[0]);
             Keyboard keyboard = JsonConvert.DeserializeObject<Keyboard>(json_raw);
-
+            Console.Write(JsonConvert.SerializeObject(keyboard, Formatting.Indented));
             Console.ReadKey();
         }
     }
