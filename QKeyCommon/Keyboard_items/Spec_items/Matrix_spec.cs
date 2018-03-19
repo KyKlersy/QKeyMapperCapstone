@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen.Keyboard_items.Spec_items
+namespace QKeyCommon.Keyboard_items.Spec_items
 {
-    class Matrix_spec
+    public class Matrix_spec
     {
         public int rows { get; set; }
         public int cols { get; set; }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen.Keyboard_items.Desc_items
+namespace QKeyCommon.Keyboard_items.Desc_items
 {
-    class Desc
+    public class Desc
     {
         public string manufacturer { get; set; }
         public string description { get; set; }

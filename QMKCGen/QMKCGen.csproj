@@ -48,17 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
-    <Compile Include="Keyboard_items\Key_items\Binding.cs" />
-    <Compile Include="Keyboard_items\Key_items\Graphics.cs" />
-    <Compile Include="Keyboard_items\Key_items\Key.cs" />
-    <Compile Include="Keyboard_items\Keyboard.cs" />
-    <Compile Include="Keyboard_items\Key_items\Matrix.cs" />
-    <Compile Include="Keyboard_items\Spec_items\Avrdude.cs" />
-    <Compile Include="Keyboard_items\Spec_items\Matrix_spec.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Keyboard_items\Spec_items\Spec.cs" />
     <Compile Include="Utils\Cout.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +78,12 @@
     <Content Include="Templates\C\keyboard\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QKeyCommon\QKeyCommon.csproj">
+      <Project>{aac8cf30-b0fd-4e37-9a60-c5e3af6f479a}</Project>
+      <Name>QKeyCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

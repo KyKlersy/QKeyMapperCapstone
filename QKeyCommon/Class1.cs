@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen
+namespace QKeyCommon
 {
-    class Matrix
+    public class Class1
     {
-        public string row;
-        public string col;
     }
 }

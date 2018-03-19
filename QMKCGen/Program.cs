@@ -7,7 +7,7 @@ using HandlebarsDotNet;
 using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using QMKCGen.Keyboard_items;
+using QKeyCommon.Keyboard_items;
 using QMKCGen.Utils;
 using System.Reflection;
 

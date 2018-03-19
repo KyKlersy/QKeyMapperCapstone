@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen.Keyboard_items.Key_items
+namespace QKeyCommon.Keyboard_items.Key_items
 {
-    class Binding
+    public class Binding
     {
         public string[] on_tap;
         public string[] on_hold;

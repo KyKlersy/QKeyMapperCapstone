@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen.Keyboard_items.Spec_items
+namespace QKeyCommon.Keyboard_items.Spec_items
 {
-    class Avrdude
+    public class Avrdude
     { 
         public string partno { get; set; }
         public string programmer { get; set; }
