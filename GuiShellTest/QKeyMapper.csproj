@@ -73,6 +73,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
+    <Compile Include="Keyboard_items\Keyboard.cs" />
+    <Compile Include="Keyboard_items\Key_items\Binding.cs" />
+    <Compile Include="Keyboard_items\Key_items\Graphics.cs" />
+    <Compile Include="Keyboard_items\Key_items\Key.cs" />
+    <Compile Include="Keyboard_items\Key_items\Matrix.cs" />
+    <Compile Include="Keyboard_items\Spec_items\Avrdude.cs" />
+    <Compile Include="Keyboard_items\Spec_items\Matrix_spec.cs" />
+    <Compile Include="Keyboard_items\Spec_items\Spec.cs" />
     <Compile Include="MacroEditorPage.xaml.cs">
       <DependentUpon>MacroEditorPage.xaml</DependentUpon>
     </Compile>
