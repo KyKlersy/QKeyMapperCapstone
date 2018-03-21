@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Handlebars, Version=1.8.1.0, Culture=neutral, PublicKeyToken=22225d0bf33cd661, processorArchitecture=MSIL">
+      <HintPath>..\packages\Handlebars.Net.1.9.0\lib\net40\Handlebars.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,6 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CreateLayout.cs" />
     <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
     <Compile Include="Keyboard_items\Keyboard.cs" />
     <Compile Include="Keyboard_items\Key_items\Binding.cs" />

@@ -21,6 +21,7 @@ using System.Web.Script.Serialization;
 
 namespace QKeyMapper
 {
+    /* REPLACED WITH CHRIS`S CLASSES
 
     public class Rootobject
     {
@@ -81,10 +82,10 @@ namespace QKeyMapper
         public int row { get; set; }
         public int column { get; set; }
     }
+    List<Rootobject> JsonInfo = new List<Rootobject>(1);  //List Contains Json Info
 
 
-
-
+    */
 
 
 
@@ -96,7 +97,7 @@ namespace QKeyMapper
     {
 
 
-        List<Rootobject> JsonInfo = new List<Rootobject>(1);  //List Contains Json Info
+        
 
         public LayoutEditorPage()
         {
@@ -177,13 +178,14 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-
-            JsonInfo.Add(new Rootobject(key: "key1", width: "1u", row: 0, column: 0, text: "", on_tap: null , Matrixrow: 1 , Matrixcolumn: 1 ));
+            CreateLayout createLayout = new CreateLayout();
+            createLayout.CreateNewLayout(layoutNameTextbox.Text);
+            //JsonInfo.Add(new Rootobject(key: "key1", width: "1u", row: 0, column: 0, text: "", on_tap: null , Matrixrow: 1 , Matrixcolumn: 1 ));
 
             JavaScriptSerializer ser = new JavaScriptSerializer(); // Serializer 
-            string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
+            //string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+         //   System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
             MessageBox.Show("Keyboard Layout created in a Json file");
 
