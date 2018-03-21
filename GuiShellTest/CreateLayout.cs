@@ -23,7 +23,7 @@ namespace QKeyMapper
             string hbsResourceURI = "Templates" + System.IO.Path.DirectorySeparatorChar;
             string hbsFilePath = System.IO.Path.Combine(rootDirectory, hbsResourceURI);
             var files = new Dictionary<string, string>();
-            foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories))
+            foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories)  )
             {
                 string hbs_raw = null;
                 try

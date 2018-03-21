@@ -1,0 +1,46 @@
+﻿/*
+Copyright 2017 REPLACE_WITH_YOUR_NAME
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0000
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    {{desc.manufacturer}}
+#define PRODUCT         {{desc.product_name}}
+#define DESCRIPTION     {{desc.description}}
+
+/* key matrix size */
+#define MATRIX_ROWS {{spec.matrix_spec.rows}}
+#define MATRIX_COLS {{spec.matrix_spec.cols}}
+
+#define MATRIX_ROW_PINS { {{#each spec.matrix_spec.row_pins}}{{#if @index}}, {{/if}}{{this}}{{/each}} }
+#define MATRIX_COL_PINS { {{#each spec.matrix_spec.col_pins}}{{#if @index}}, {{/if}}{{this}}{{/each}} }
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+#define DIODE_DIRECTION {{spec.diode_direction}}
+
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCING_DELAY 5
+
+#endif
