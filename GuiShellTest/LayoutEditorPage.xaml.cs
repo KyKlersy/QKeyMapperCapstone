@@ -1,19 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Web.Script.Serialization;
 
@@ -97,7 +87,7 @@ namespace QKeyMapper
     {
 
 
-        
+
 
         public LayoutEditorPage()
         {
@@ -178,14 +168,14 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            CreateLayout createLayout = new CreateLayout();
-            createLayout.CreateNewLayout(layoutNameTextbox.Text);
-            //JsonInfo.Add(new Rootobject(key: "key1", width: "1u", row: 0, column: 0, text: "", on_tap: null , Matrixrow: 1 , Matrixcolumn: 1 ));
-
+            //CreateLayout createLayout = new CreateLayout();
+            //createLayout.CreateNewLayout(layoutNameTextbox.Text);
+            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
+            JsonInfo.Add(new QKeyCommon.Keyboard_items.Keyboard());
             JavaScriptSerializer ser = new JavaScriptSerializer(); // Serializer 
-            //string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
+            string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-         //   System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
             MessageBox.Show("Keyboard Layout created in a Json file");
 
