@@ -148,6 +148,12 @@
     <AppDesigner Include="Properties\" />
     <None Include="Resources\JsonDefaultLayouts\6ball.json" />
     <None Include="Resources\JsonDefaultLayouts\9ball.json" />
+    <None Include="Templates\C\keyboard\config_template.h.hbs" />
+    <None Include="Templates\C\keyboard\project_template.c.hbs" />
+    <None Include="Templates\C\keyboard\project_template.h.hbs" />
+    <None Include="Templates\C\keymap\config_template.h.hbs" />
+    <None Include="Templates\C\keymap\keymap_template.c.hbs" />
+    <None Include="Templates\Make\rules.mk.hbs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
