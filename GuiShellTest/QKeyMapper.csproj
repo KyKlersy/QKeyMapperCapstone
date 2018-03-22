@@ -141,7 +141,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QKeyCommon\QKeyCommon.csproj">
+      <Project>{aac8cf30-b0fd-4e37-9a60-c5e3af6f479a}</Project>
+      <Name>QKeyCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\keyCapClearCorners_48_50.png" />
   </ItemGroup>
