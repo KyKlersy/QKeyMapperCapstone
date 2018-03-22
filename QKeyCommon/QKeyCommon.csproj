@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
     <Compile Include="Keyboard_items\Keyboard.cs" />
     <Compile Include="Keyboard_items\Key_items\Binding.cs" />
