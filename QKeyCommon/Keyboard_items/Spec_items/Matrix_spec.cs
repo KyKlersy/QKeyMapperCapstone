@@ -10,7 +10,12 @@ namespace QKeyCommon.Keyboard_items.Spec_items
     {
         public int rows { get; set; }
         public int cols { get; set; }
-        public string[] row_pins { get; set; }
-        public string[] col_pins { get; set; }
+        public List<string> row_pins { get; set; }
+        public List<string> col_pins { get; set; }
+        public Matrix_spec()
+        {
+            this.row_pins = new List<string>();
+            this.col_pins = new List<string>();
+        }
     }
 }

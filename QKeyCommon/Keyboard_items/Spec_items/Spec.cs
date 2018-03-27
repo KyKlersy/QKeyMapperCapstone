@@ -11,5 +11,10 @@ namespace QKeyCommon.Keyboard_items.Spec_items
         public Avrdude avrdude { get; set; }
         public Matrix_spec matrix_spec { get; set; }
         public string diode_direction { get; set; }
+        public Spec()
+        {
+            this.avrdude = new Avrdude();
+            this.matrix_spec = new Matrix_spec();
+        }
     }
 }

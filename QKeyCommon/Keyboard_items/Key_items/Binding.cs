@@ -8,8 +8,14 @@ namespace QKeyCommon.Keyboard_items.Key_items
 {
     public class Binding
     {
-        public string[] on_tap;
-        public string[] on_hold;
-        public string[] on_up;
+        public List<string> on_tap;
+        public List<string> on_hold;
+        public List<string> on_up;
+        public Binding()
+        {
+            this.on_hold = new List<string>();
+            this.on_tap = new List<string>();
+            this.on_up = new List<string>();
+        }
     }
 }

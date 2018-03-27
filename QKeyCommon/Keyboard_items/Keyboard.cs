@@ -13,7 +13,11 @@ namespace QKeyCommon.Keyboard_items
     {
         public Desc desc { get; set; }
         public Spec spec { get; set; }
-        public Key[] keys { get; set; }
-        
+        public List<Key> keys { get; set; }
+        public Keyboard()
+        {
+            this.desc = new Desc();
+            this.spec = new Spec();
+        }
     }
 }

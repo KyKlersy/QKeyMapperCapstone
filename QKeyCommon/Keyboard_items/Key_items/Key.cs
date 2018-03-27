@@ -11,5 +11,11 @@ namespace QKeyCommon.Keyboard_items.Key_items
         public Graphics graphics;
         public Binding binding;
         public Matrix matrix;
+        public Key()
+        {
+            this.graphics = new Graphics();
+            this.binding = new Binding();
+            this.matrix = new Matrix();
+        }
     }
 }

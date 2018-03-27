@@ -14,7 +14,7 @@ using System.Reflection;
 namespace QMKCGen
 {
     class Program
-    {
+    { 
         static void Main(string[] args)
         {
             if (args.Length != 1)
