@@ -19,7 +19,7 @@ namespace QMKCGen
         {
             if (args.Length != 1)
             { 
-                Cout.printf("Usage: {0} file.json", AppDomain.CurrentDomain.FriendlyName, "hello");
+                Cout.printf("Usage: {0} file.json", AppDomain.CurrentDomain.FriendlyName);
                 return;
             }
             string json_raw = File.ReadAllText(args[0]);
@@ -46,7 +46,7 @@ namespace QMKCGen
                     Console.WriteLine(e.Message);
                 }
                 var hbs_template = Handlebars.Compile(hbs_raw);
-                files.Add(template_path, hbs_template(keyboard));
+                files[template_path] = hbs_template(keyboard);
             }
             foreach(var thing in files)
             {
