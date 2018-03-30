@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Web.Script.Serialization;
 using qk = QKeyCommon.Keyboard_items;
-
+using Newtonsoft.Json;
 
 namespace QKeyMapper
 {
@@ -84,9 +84,9 @@ namespace QKeyMapper
             Rectangle rec = (Rectangle)sender;
             DataObject dataObj = new DataObject(rec);
             DragDrop.DoDragDrop(rec, dataObj, DragDropEffects.Move);
-            // Console.WriteLine(Grid.GetColumn(rec));
-            //Console.WriteLine(Grid.GetRow(rec));
-           // keeb.keys.Add(new qk.Key_items.Key() );
+             Console.WriteLine(Grid.GetColumn(rec));
+            Console.WriteLine(Grid.GetRow(rec));
+          
 
 
         }
@@ -109,8 +109,8 @@ namespace QKeyMapper
             //}
 
             JsonInfo.Add(keeb);
-            JavaScriptSerializer ser = new JavaScriptSerializer(); // Serializer 
-            string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
+           
+            string output = JsonConvert.SerializeObject(JsonInfo,Formatting.Indented); //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
