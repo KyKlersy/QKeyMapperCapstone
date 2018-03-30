@@ -17,7 +17,7 @@ namespace QKeyMapper
     //
     public partial class LayoutEditorPage : Page
     {
-        
+
 
         public LayoutEditorPage()
         {
@@ -54,7 +54,7 @@ namespace QKeyMapper
                 for (int j = 0; j < 10; j++)
                 {
 
-                    dropBorder = dropableBorder(i,j,bc);
+                    dropBorder = dropableBorder(i, j, bc);
 
 
                     Grid.SetRow(dropBorder, i);
@@ -85,9 +85,9 @@ namespace QKeyMapper
             Rectangle rec = (Rectangle)sender;
             DataObject dataObj = new DataObject(rec);
             DragDrop.DoDragDrop(rec, dataObj, DragDropEffects.Move);
-             Console.WriteLine(Grid.GetColumn(rec));
+            Console.WriteLine(Grid.GetColumn(rec));
             Console.WriteLine(Grid.GetRow(rec));
-          
+
 
 
         }
@@ -110,8 +110,8 @@ namespace QKeyMapper
             //}
 
             JsonInfo.Add(keeb);
-           
-            string output = JsonConvert.SerializeObject(JsonInfo,Formatting.Indented); //Serialize the List and add to output string
+
+            string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
@@ -120,9 +120,6 @@ namespace QKeyMapper
 
 
         }
-
-
-    }
 
 
         private void removeRowButton_Click(object sender, RoutedEventArgs e)
@@ -159,7 +156,7 @@ namespace QKeyMapper
 
             return cbd;
         }
-
+    }
 }
 
 /*
