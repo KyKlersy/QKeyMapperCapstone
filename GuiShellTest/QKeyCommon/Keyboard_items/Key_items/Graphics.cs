@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace QKeyCommon.Keyboard_items.Key_items
 {
-    public class Binding
+    public class Graphics
     {
-        public string[] on_tap;
-        public string[] on_hold;
-        public string[] on_up;
+        public int row { get; set; }
+        public int column { get; set; }
+        public string text { get; set; }
     }
 }
