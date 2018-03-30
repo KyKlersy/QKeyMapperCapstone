@@ -35,9 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Handlebars, Version=1.8.1.0, Culture=neutral, PublicKeyToken=22225d0bf33cd661, processorArchitecture=MSIL">
+      <HintPath>..\packages\Handlebars.Net.1.9.0\lib\net40\Handlebars.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,6 +76,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CreateLayout.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Desc_items\Desc.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Keyboard.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Binding.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Graphics.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Key.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Matrix.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Avrdude.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Matrix_spec.cs" />
+    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Spec.cs" />
     <Compile Include="MacroEditorPage.xaml.cs">
       <DependentUpon>MacroEditorPage.xaml</DependentUpon>
     </Compile>
@@ -122,6 +140,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -140,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QKeyCommon\QKeyCommon.csproj">

@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web.Script.Serialization;
+using qk = QKeyCommon.Keyboard_items;
+using Newtonsoft.Json;
 
 namespace QKeyMapper
 {
-    /// <summary>
-    /// Interaction logic for Page4.xaml
-    /// </summary>
+    //
     public partial class LayoutEditorPage : Page
     {
+        
+
         public LayoutEditorPage()
         {
             InitializeComponent();
 
             BrushConverter bc = new BrushConverter();
             UIElement dropBorder = null;
+
 
             for (int defaultGridSize = 0; defaultGridSize < 10; defaultGridSize++)
             {
@@ -62,9 +61,12 @@ namespace QKeyMapper
                     Grid.SetColumn(dropBorder, j);
                     Debug.WriteLine("Row: " + i + "Col: " + j);
                     visualEditorGrid.Children.Add(dropBorder);
+
                 }
+
             }
         }
+
 
         private void Border_Drop(object sender, DragEventArgs e)
         {
@@ -76,40 +78,52 @@ namespace QKeyMapper
             targetBorder.Child = copyRect;
 
         }
+        qk.Keyboard keeb = new qk.Keyboard();
 
         private void keyRect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle rec = (Rectangle)sender;
             DataObject dataObj = new DataObject(rec);
             DragDrop.DoDragDrop(rec, dataObj, DragDropEffects.Move);
+             Console.WriteLine(Grid.GetColumn(rec));
+            Console.WriteLine(Grid.GetRow(rec));
+          
+
+
         }
 
-        private void addRowButton_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            RowDefinition rd = new RowDefinition();
-            rd.Height = new GridLength(1.0, GridUnitType.Star);
-            visualEditorGrid.RowDefinitions.Add(rd);
+            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
+
+
+            //foreach (var item in LayoutEditorPage.)
+            //{
+            //    var key = new qk.Key_items.Key();
+            //    keeb.spec.matrix_spec.col_pins.Add("F0");
+            //    key.matrix.col = item.col;
+            //    key.matrix.row = item.row;
+            //    keeb.keys.Add(key);
+            //}
+
+            JsonInfo.Add(keeb);
+           
+            string output = JsonConvert.SerializeObject(JsonInfo,Formatting.Indented); //Serialize the List and add to output string
+            string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
+            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+            Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+            MessageBox.Show("Keyboard Layout created in a Json file");
 
 
 
-            var newRowCount = (visualEditorGrid.ColumnDefinitions.Count - 1);
-            BrushConverter bc = new BrushConverter();
-            UIElement borderElement = null;
-
-            for(int newGridItems = 0; newGridItems <= newRowCount; newGridItems++)
-            {
-                Debug.WriteLine("Row count " + (visualEditorGrid.RowDefinitions.Count - 1));
-                Debug.WriteLine("Column count " + (newGridItems));
-
-                borderElement = dropableBorder((newRowCount + 1), newGridItems, bc);
-                Grid.SetRow(borderElement, newRowCount);
-                Grid.SetColumn(borderElement, newGridItems);
-                Debug.WriteLine("Row: " + newRowCount + "Col: " + newGridItems);
-                visualEditorGrid.Children.Add(borderElement);
-            }
-
-            //Debug.WriteLine("New Row added: " + (visualEditorGrid.RowDefinitions.Count - 1));
         }
+
+
+    }
+
 
         private void removeRowButton_Click(object sender, RoutedEventArgs e)
         {
@@ -145,5 +159,50 @@ namespace QKeyMapper
 
             return cbd;
         }
-    }
+
 }
+
+/*
+public class KeyboardLayout
+{
+
+    public string KeyName { get; set; }
+    public int Row { get; set; }
+    public int Coloumn { get; set; }
+
+
+
+    public override string ToString()
+    {
+        return "keyname:" + this.KeyName + " ROW: " + this.Row + " Coloumn:" + this.Coloumn;
+        private void addRowButton_Click(object sender, RoutedEventArgs e)
+        {
+            RowDefinition rd = new RowDefinition();
+            rd.Height = new GridLength(1.0, GridUnitType.Star);
+            visualEditorGrid.RowDefinitions.Add(rd);
+
+
+
+            var newRowCount = (visualEditorGrid.ColumnDefinitions.Count - 1);
+            BrushConverter bc = new BrushConverter();
+            UIElement borderElement = null;
+
+            for(int newGridItems = 0; newGridItems <= newRowCount; newGridItems++)
+            {
+                Debug.WriteLine("Row count " + (visualEditorGrid.RowDefinitions.Count - 1));
+                Debug.WriteLine("Column count " + (newGridItems));
+
+                borderElement = dropableBorder((newRowCount + 1), newGridItems, bc);
+                Grid.SetRow(borderElement, newRowCount);
+                Grid.SetColumn(borderElement, newGridItems);
+                Debug.WriteLine("Row: " + newRowCount + "Col: " + newGridItems);
+                visualEditorGrid.Children.Add(borderElement);
+            }
+
+            //Debug.WriteLine("New Row added: " + (visualEditorGrid.RowDefinitions.Count - 1));
+        }
+    }
+}*/
+
+
+
