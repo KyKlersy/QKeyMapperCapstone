@@ -6,88 +6,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Web.Script.Serialization;
-
+using qk = QKeyCommon.Keyboard_items;
 
 
 namespace QKeyMapper
 {
-    /* REPLACED WITH CHRIS`S CLASSES
-
-    public class Rootobject
-    {
-        public string keyname { get; set; }
-        public Rootobject( string key ,string width, int row, int column, string text, object[] on_tap, int Matrixrow, int Matrixcolumn)
-        {
-            this.keyname = key;
-            new Graphics(width, row, column, text);
-            new Binding(on_tap);
-            new Matrix(Matrixrow, Matrixcolumn);
-
-        }
-
-        public Key key { get; set; }
-    }
-
-    public class Key
-    {
-        public Graphics graphics { get; set; }
-        public Binding binding { get; set; }
-        public Matrix matrix { get; set; }
-    }
-
-    public class Graphics
-    {
-        public Graphics(string width, int row, int column, string text)
-        {
-            this.width = width;
-            this.row = row;
-            this.column = column;
-            this.text = text;
-        }
-
-        public string width { get; set; }
-        public int row { get; set; }
-        public int column { get; set; }
-        public string text { get; set; }
-    }
-
-    public class Binding
-    {
-        public Binding(object[] on_tap)
-        {
-            this.on_tap = on_tap;
-        }
-
-        public object[] on_tap { get; set; }
-    }
-
-    public class Matrix
-    {
-        public Matrix(int row, int column)
-        {
-            this.row = row;
-            this.column = column;
-        }
-
-        public int row { get; set; }
-        public int column { get; set; }
-    }
-    List<Rootobject> JsonInfo = new List<Rootobject>(1);  //List Contains Json Info
-
-
-    */
-
-
-
-
-    /// <summary>
-    /// Interaction logic for Page4.xaml
-    /// </summary>
+    //
     public partial class LayoutEditorPage : Page
     {
-
-
-
+        
 
         public LayoutEditorPage()
         {
@@ -150,6 +77,7 @@ namespace QKeyMapper
             targetBorder.Child = copyRect;
 
         }
+        qk.Keyboard keeb = new qk.Keyboard();
 
         private void keyRect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -158,7 +86,7 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(rec, dataObj, DragDropEffects.Move);
             // Console.WriteLine(Grid.GetColumn(rec));
             //Console.WriteLine(Grid.GetRow(rec));
-      
+           // keeb.keys.Add(new qk.Key_items.Key() );
 
 
         }
@@ -168,10 +96,19 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            //CreateLayout createLayout = new CreateLayout();
-            //createLayout.CreateNewLayout(layoutNameTextbox.Text);
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
-            JsonInfo.Add(new QKeyCommon.Keyboard_items.Keyboard());
+
+
+            //foreach (var item in LayoutEditorPage.)
+            //{
+            //    var key = new qk.Key_items.Key();
+            //    keeb.spec.matrix_spec.col_pins.Add("F0");
+            //    key.matrix.col = item.col;
+            //    key.matrix.row = item.row;
+            //    keeb.keys.Add(key);
+            //}
+
+            JsonInfo.Add(keeb);
             JavaScriptSerializer ser = new JavaScriptSerializer(); // Serializer 
             string output = ser.Serialize(JsonInfo);                 //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
@@ -205,4 +142,11 @@ public class KeyboardLayout
         return "keyname:" + this.KeyName + " ROW: " + this.Row + " Coloumn:" + this.Coloumn;
     }
 }
+
+
+
+
+
 */
+
+
