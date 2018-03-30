@@ -127,15 +127,28 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\JsonDefaultLayouts\6ball.json" />
-    <None Include="Resources\JsonDefaultLayouts\9ball.json" />
+    <EmbeddedResource Include="Resources\csvTest.csv" />
+    <Content Include="Resources\JsonDefaultLayouts\6ball.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\JsonDefaultLayouts\9ball.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\JsonDefaultLayouts\6ball_key_array.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Images\keyCapClearCorners_48_50.png" />
+    <ProjectReference Include="..\QKeyCommon\QKeyCommon.csproj">
+      <Project>{aac8cf30-b0fd-4e37-9a60-c5e3af6f479a}</Project>
+      <Name>QKeyCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\keyCapClearCorners_48_50.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

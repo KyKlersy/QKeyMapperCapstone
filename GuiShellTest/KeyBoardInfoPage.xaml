@@ -1,4 +1,5 @@
 ﻿<Page x:Class="QKeyMapper.KeyBoardInfoPage"
+      Name="keyboardInfoPageWindow"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -243,14 +244,16 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="2*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="35" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
@@ -262,17 +265,30 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <ComboBox Grid.Row="2" Grid.Column="0" x:Name="microControllerComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="10,0,0,0">
-                    <ComboBoxItem>ATmega1284RFR2</ComboBoxItem>
-                    <ComboBoxItem>AT90USB1287</ComboBoxItem>
-                </ComboBox>
+            <ComboBox Grid.Row="2" 
+                      Grid.Column="0" 
+                      x:Name="microControllerComboBox"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center" 
+                      Width="Auto" 
+                      Background="#FF34353B" 
+                      BorderBrush="#FF8D8D8D" 
+                      Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                      Template="{DynamicResource ComboBoxEditableTemplate}"
+                      IsReadOnly="True" 
+                      IsEditable="False" 
+                      MinWidth="120" 
+                      Margin="25,0,0,0" 
+                      MaxDropDownHeight="80"  
+                      />
 
-                <Label Grid.Row="2" Grid.Column="2" x:Name="microControllerLabel" VerticalAlignment="Center" Content="MicroController" Foreground="#FFF1F1F1"></Label>
-            <ComboBox Grid.Row="3" Grid.Column="0" x:Name="keyboardLayoutComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="10,0,0,0">
-                <ComboBoxItem>Custom</ComboBoxItem>
+
+            <Label Grid.Row="2" Grid.Column="1" x:Name="microControllerLabel" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="MicroController" Foreground="#FFF1F1F1" Margin="0,0,10,0"/>
+
+            <ComboBox Grid.Row="4" Grid.Column="0" x:Name="keyboardLayoutComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="25,0,0,0">
             </ComboBox>
-            <Label Grid.Row="3" Grid.Column="2" x:Name="keyboardLayoutLabel" VerticalAlignment="Center" Content="Keyboard Layout" Foreground="#FFF1F1F1"></Label>
-                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="beginMappingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="10,0" Content="Begin Mapping" Click="beginMappingButton_Click">
+            <Label Grid.Row="4" Grid.Column="1" x:Name="keyboardLayoutLabel" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="Keyboard Layout" Foreground="#FFF1F1F1"></Label>
+                <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Name="beginMappingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="25,0" Padding="6" Content="Begin Mapping" Click="beginMappingButton_Click">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFFF8736" Offset="0"/>
