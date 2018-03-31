@@ -35,14 +35,16 @@
         </ScrollViewer>
         <Grid Grid.Row="2" Grid.Column="2" Background="#4F535B">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="28*" />
+                <RowDefinition Height="18*" />
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="29*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -50,45 +52,48 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.ColumnSpan="2" Name="layoutNameLabel" Content="Layout Name" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" Margin="5,0" VerticalAlignment="Bottom" />
             <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="layoutNameTextbox" Margin="5,5" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" />
-            <Border Grid.Row="2" Grid.ColumnSpan="2" Margin="5,0" Height="25" CornerRadius="5">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFF25204" Offset="0"/>
-                        <GradientStop Color="#FFFF8736" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border Grid.Row="2" Grid.ColumnSpan="2" Height="25" BorderThickness="1" BorderBrush="#FF8D8D8D" Background="#43464E">
                 <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
             </Border>
 
             <TextBox x:Name="rowCountTextBox" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="40,0,10,0"/>
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="85,1"></Label>
             <TextBox x:Name="colCountTextBox" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,0,40,0"/>
 
-            <Border Grid.Row="4" Grid.ColumnSpan="2" Margin="5,0" Height="25" CornerRadius="5">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,0" Content="Create Grid" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Border Grid.Row="5" Grid.ColumnSpan="2" Height="25" Background="#43464E" BorderThickness="1" BorderBrush="#FF8D8D8D">
+                <!-- <Border.Background>
+                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFF25204" Offset="0"/>
                         <GradientStop Color="#FFFF8736" Offset="1"/>
                     </LinearGradientBrush>
-                </Border.Background>
+                </Border.Background> !-->
                 <TextBlock Text="Diode Direction" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
             </Border>
 
-            <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="40,0,40,0" x:Name="diodeDirectionComboBox" >
+            <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="40,0,40,0" x:Name="diodeDirectionComboBox" >
                 <ComboBoxItem>Row to Column</ComboBoxItem>
                 <ComboBoxItem>Column to Row</ComboBoxItem>
                 <ComboBoxItem>None</ComboBoxItem>
             </ComboBox>
 
-            <Border Grid.Row="6" Grid.Column="0" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" >
+            <Border Grid.Row="7" Grid.Column="0" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" Grid.RowSpan="2" >
                 <Rectangle Name="keyRect" Margin="5" Fill="White" MouseLeftButtonDown="keyRect_MouseLeftButtonDown" />
             </Border>
 
-            <Border Grid.Row="6" Grid.Column="1" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" >
+            <Border Grid.Row="7" Grid.Column="1" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" Grid.RowSpan="2" >
 
             </Border>
 
-            <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" Click="createJson_Click" >
+            <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" Click="createJson_Click" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
