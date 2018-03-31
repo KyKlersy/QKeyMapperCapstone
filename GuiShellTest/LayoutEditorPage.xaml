@@ -57,11 +57,12 @@
                         <GradientStop Color="#FFFF8736" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock Text="Add / Remove Rows" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
+                <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
             </Border>
 
-            <Button Grid.Row="3" Grid.Column="0" Name="addRowButton" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="50,0,5,0"/>
-            <Button Grid.Row="3" Grid.Column="1" Name="removeRowButton" Content="-" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,0,50,0" Click="removeRowButton_Click"/>
+            <TextBox x:Name="rowCountTextBox" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="40,0,10,0"/>
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            <TextBox x:Name="colCountTextBox" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="10,0,40,0"/>
 
             <Border Grid.Row="4" Grid.ColumnSpan="2" Margin="5,0" Height="25" CornerRadius="5">
                 <Border.Background>
@@ -70,12 +71,14 @@
                         <GradientStop Color="#FFFF8736" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock Text="Add / Remove Columns" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
+                <TextBlock Text="Diode Direction" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
             </Border>
 
-            <Button Grid.Row="5" Grid.Column="0" Name="addColButton" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="50,0,5,0" />
-            <Button Grid.Row="5" Grid.Column="1" Name="removeColButton" Content="-"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,0,50,0" />
-
+            <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="40,0,40,0" x:Name="diodeDirectionComboBox" >
+                <ComboBoxItem>Row to Column</ComboBoxItem>
+                <ComboBoxItem>Column to Row</ComboBoxItem>
+                <ComboBoxItem>None</ComboBoxItem>
+            </ComboBox>
 
             <Border Grid.Row="6" Grid.Column="0" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" >
                 <Rectangle Name="keyRect" Margin="5" Fill="White" MouseLeftButtonDown="keyRect_MouseLeftButtonDown" />
