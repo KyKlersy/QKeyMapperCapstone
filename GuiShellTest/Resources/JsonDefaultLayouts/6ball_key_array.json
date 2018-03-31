@@ -20,10 +20,9 @@
   "keys": [
     {
       "graphics": {
-        "width": "1u",
-        "row": 0,
-        "col": 0,
-        "text": ""
+        "row": 1,
+        "col": 1,
+        "text": "h-esc"
       },
       "binding": {
         "on_tap": [ "ctrl", "10ms", "alt", "del" ]
@@ -35,28 +34,26 @@
     },
     {
       "graphics": {
-        "width": "1u",
-        "row": 0,
-        "col": 1,
-        "text": ""
+        "row": 1,
+        "col": 2,
+        "text": "w"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["w"]
       },
       "matrix": {
         "row": 1,
-        "col": 1
+        "col": 2
       }
     },
     {
       "graphics": {
-        "width": "1u",
-        "row": 0,
-        "col": 2,
-        "text": ""
+        "row": 1,
+        "col": 3,
+        "text": "find"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["ctrl", "10ms", "f"]
       },
       "matrix": {
         "row": 1,
@@ -65,46 +62,43 @@
     },
     {
       "graphics": {
-        "width": "1u",
-        "row": 1,
-        "col": 0,
-        "text": ""
-      },
-      "binding": {
-        "on_tap": []
-      },
-      "matrix": {
-        "row": 1,
-        "col": 1
-      }
-    },
-    {
-      "graphics": {
-        "width": "1u",
-        "row": 1,
+        "row": 2,
         "col": 1,
-        "text": ""
+        "text": "a"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["a"]
       },
       "matrix": {
-        "row": 1,
+        "row": 2,
         "col": 1
       }
     },
     {
       "graphics": {
-        "width": "1u",
-        "row": 1,
+        "row": 2,
         "col": 2,
-        "text": ""
+        "text": "s"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["s"]
       },
       "matrix": {
-        "row": 1,
+        "row": 2,
+        "col": 2
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 3,
+        "text": "d"
+      },
+      "binding": {
+        "on_tap": ["d"]
+      },
+      "matrix": {
+        "row": 2,
         "col": 3
       }
     }
