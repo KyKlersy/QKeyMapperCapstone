@@ -9,7 +9,7 @@ namespace QKeyCommon.Keyboard_items.Key_items
     public class Graphics
     { 
         public int row { get; set; }
-        public int column { get; set; }
+        public int col { get; set; }
         public string text { get; set; }
     }
 }

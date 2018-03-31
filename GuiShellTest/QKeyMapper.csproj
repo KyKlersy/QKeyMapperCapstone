@@ -77,15 +77,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreateLayout.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Desc_items\Desc.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Keyboard.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Binding.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Graphics.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Key.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Key_items\Matrix.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Avrdude.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Matrix_spec.cs" />
-    <Compile Include="QKeyCommon\Keyboard_items\Spec_items\Spec.cs" />
     <Compile Include="MacroEditorPage.xaml.cs">
       <DependentUpon>MacroEditorPage.xaml</DependentUpon>
     </Compile>
