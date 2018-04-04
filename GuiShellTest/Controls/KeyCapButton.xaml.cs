@@ -23,6 +23,7 @@ namespace GuiShellTest.Controls
         public KeyCapButton()
         {
             InitializeComponent();
+
         }
     }
 }

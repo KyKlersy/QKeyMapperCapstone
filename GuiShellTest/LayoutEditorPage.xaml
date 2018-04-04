@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GuiShellTest"
       xmlns:controls="clr-namespace:GuiShellTest.Controls"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="Page4">
 
     <Page.Resources>
@@ -45,7 +45,26 @@
                 </Grid>
             </Viewbox>
         </ScrollViewer>
-        <Grid Grid.Row="2" Grid.Column="2" Background="#4F535B">
+        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="True">
+            <Grid Background="#4F535B">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="1" Content="X" FontSize="25" Padding="15,0" MaxWidth="80" MaxHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <TextBox Grid.Row="1" Grid.Column="0" Name="keyTextInput" MinHeight="150" VerticalAlignment="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Margin="0,150" Content="Key Text" FontSize="50" />
+                
+
+            </Grid>
+        </Expander>
+        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="False">
+            <Grid Background="#4F535B">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*" />
                 <RowDefinition Height="28*" />
@@ -108,7 +127,9 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
+                <ContentControl Content="ContentControl" Grid.Column="1" HorizontalAlignment="Left" Margin="202.6,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
-        </Grid>
+            </Grid>
+        </Expander>
     </Grid>
 </Page>
