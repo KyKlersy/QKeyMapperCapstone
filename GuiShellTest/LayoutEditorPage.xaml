@@ -60,22 +60,6 @@
                 <TextBlock Text="Add / Remove Rows" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
             </Border>
 
-            <Button Grid.Row="3" Grid.Column="0" Name="addRowButton" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="50,0,5,0"/>
-            <Button Grid.Row="3" Grid.Column="1" Name="removeRowButton" Content="-" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,0,50,0" Click="removeRowButton_Click"/>
-
-            <Border Grid.Row="4" Grid.ColumnSpan="2" Margin="5,0" Height="25" CornerRadius="5">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFF25204" Offset="0"/>
-                        <GradientStop Color="#FFFF8736" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <TextBlock Text="Add / Remove Columns" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1"/>
-            </Border>
-
-            <Button Grid.Row="5" Grid.Column="0" Name="addColButton" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="50,0,5,0" />
-            <Button Grid.Row="5" Grid.Column="1" Name="removeColButton" Content="-"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="5,0,50,0" />
-
 
             <Border Grid.Row="6" Grid.Column="0" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" >
                 <Rectangle Name="keyRect" Margin="5" Fill="White" MouseLeftButtonDown="keyRect_MouseLeftButtonDown" />
@@ -86,6 +70,18 @@
             </Border>
 
             <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" Click="createJson_Click" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="84,21,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="3" Grid.ColumnSpan="2" x:Name="Columns" Content="Rows   X  Columns" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" Margin="5,0,5,28" VerticalAlignment="Bottom" Grid.RowSpan="2" />
+            <TextBox Grid.Row="4" x:Name="Row" Margin="10,0,24,10" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" />
+            <TextBox Grid.Row="4" x:Name="Column" Margin="10,0,23,10" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" TextChanged="layoutNameTextbox_Copy1_TextChanged" Grid.Column="1" />
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Create_Grid" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,26,5,6" Content="Create Grid" Click="CreateGrid" Grid.RowSpan="2" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>

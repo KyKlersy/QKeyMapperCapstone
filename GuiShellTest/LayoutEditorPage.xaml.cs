@@ -92,7 +92,11 @@ namespace QKeyMapper
 
         }
 
+        private void CreateGrid_Click(object sender, RoutedEventArgs e)
+        {
 
+
+        }
 
 
         private void createJson_Click(object sender, RoutedEventArgs e)
@@ -155,6 +159,12 @@ namespace QKeyMapper
             cbd.AddHandler(Border.DropEvent, new DragEventHandler(Border_Drop));
 
             return cbd;
+        }
+
+        private void CreateGrid(object sender, RoutedEventArgs e)
+        {
+            int RowIterations=int.Parse(Row.Text);
+            int ColomnIterations = int.Parse(Column.Text);
         }
     }
 }
