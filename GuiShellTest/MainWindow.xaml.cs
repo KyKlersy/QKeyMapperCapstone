@@ -31,8 +31,7 @@ namespace QKeyMapper
             int panelDebug = 1;
 
             InitializeComponent();
-
-
+            
             switch (panelDebug)
             {
                 case 0:
