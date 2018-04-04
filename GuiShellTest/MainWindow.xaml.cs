@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace QKeyMapper
 {
     /// <summary>
@@ -31,7 +32,8 @@ namespace QKeyMapper
 
             InitializeComponent();
 
-            switch(panelDebug)
+
+            switch (panelDebug)
             {
                 case 0:
                     mainFrame.Content = new KeyBoardInfoPage();
