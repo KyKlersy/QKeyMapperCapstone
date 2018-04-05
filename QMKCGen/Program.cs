@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using QKeyCommon.Keyboard_items;
 using QMKCGen.Utils;
 using System.Reflection;
+using QMKCGen.Template_helpers;
 
 namespace QMKCGen
 {
@@ -27,10 +28,10 @@ namespace QMKCGen
 
             //register helpers
             Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) => {
-                writer.Write("<a href='" + context.url + "'>" + context.text + "</a>");
+                writer.Write(matrix_helpers.user_friendly(keyboard));
             });
             Handlebars.RegisterHelper("keymap_with_kc_no", (writer, context, parameters) => {
-                writer.Write("<a href='" + context.url + "'>" + context.text + "</a>");
+                writer.Write(matrix_helpers.with_kc_no(keyboard));
             });
 
             var assembly = Assembly.GetExecutingAssembly();

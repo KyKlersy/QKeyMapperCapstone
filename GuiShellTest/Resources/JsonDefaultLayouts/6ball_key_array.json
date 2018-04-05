@@ -28,8 +28,8 @@
         "on_tap": [ "ctrl", "10ms", "alt", "10ms", "del" ]
       },
       "matrix": {
-        "row": 0,
-        "col": 0
+        "row": "D0",
+        "col": "F1"
       }
     },
     {
@@ -42,8 +42,8 @@
         "on_tap": ["w"]
       },
       "matrix": {
-        "row": 0,
-        "col": 1
+        "row": "D0",
+        "col": "F0"
       }
     },
     {
@@ -56,8 +56,8 @@
         "on_tap": ["ctrl", "10ms", "f"]
       },
       "matrix": {
-        "row": 0,
-        "col": 2
+        "row": "D0",
+        "col": "B0"
       }
     },
     {
@@ -70,8 +70,8 @@
         "on_tap": ["a"]
       },
       "matrix": {
-        "row": 1,
-        "col": 0
+        "row": "D5",
+        "col": "F1"
       }
     },
     {
@@ -84,8 +84,8 @@
         "on_tap": ["s"]
       },
       "matrix": {
-        "row": 1,
-        "col": 1
+        "row": "D5",
+        "col": "F0"
       }
     },
     {
@@ -98,8 +98,8 @@
         "on_tap": ["d"]
       },
       "matrix": {
-        "row": 1,
-        "col": 2
+        "row": "D5",
+        "col": "B0"
       }
     }
   ]
