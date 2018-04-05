@@ -11,6 +11,8 @@ using System.Windows.Shapes;
 using System.Web.Script.Serialization;
 using qk = QKeyCommon.Keyboard_items;
 using Newtonsoft.Json;
+using GuiShellTest.Controls;
+
 
 namespace QKeyMapper
 {
@@ -26,15 +28,37 @@ namespace QKeyMapper
             BrushConverter bc = new BrushConverter();
             UIElement dropBorder = null;
 
+            //KeyImageButton keybutton1 = new KeyImageButton();
+
+
+            /*RowDefinition rd = new RowDefinition();
+            rd.Height = new GridLength(1.0, GridUnitType.Star);
+            visualEditorGrid.RowDefinitions.Add(rd);
+
+            ColumnDefinition cd = new ColumnDefinition();
+            cd.Width = new GridLength(1.0, GridUnitType.Star);
+            visualEditorGrid.ColumnDefinitions.Add(cd);
+
+            dropBorder = dropableBorder(0, 0, bc);
+            Grid.SetRow(dropBorder, 0);
+            Grid.SetColumn(dropBorder, 0);
+            Debug.WriteLine("Row: " + 0 + "Col: " + 0);
+            visualEditorGrid.Children.Add(dropBorder);
+
+            Border bdr = (Border)dropBorder;
+            bdr.Child = keybutton1;*/
+
+
+
 
             for (int defaultGridSize = 0; defaultGridSize < 10; defaultGridSize++)
             {
                 RowDefinition rd = new RowDefinition();
-                rd.Height = new GridLength(1.0, GridUnitType.Star);
+                rd.Height = new GridLength(0, GridUnitType.Star);
                 visualEditorGrid.RowDefinitions.Add(rd);
 
                 ColumnDefinition cd = new ColumnDefinition();
-                cd.Width = new GridLength(1.0, GridUnitType.Star);
+                cd.Width = new GridLength(0,GridUnitType.Star);
                 visualEditorGrid.ColumnDefinitions.Add(cd);
 
 
@@ -44,12 +68,12 @@ namespace QKeyMapper
             {
 
 
-                /*Border rbd = new Border();
+                Border rbd = new Border();
                 rbd.Background = Brushes.Transparent;
                 rbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
                 rbd.BorderThickness = new Thickness(1.0);
                 Grid.SetRow(rbd, i);
-                visualEditorGrid.Children.Add(rbd);*/
+                visualEditorGrid.Children.Add(rbd);
 
                 for (int j = 0; j < 10; j++)
                 {
@@ -64,6 +88,8 @@ namespace QKeyMapper
 
                 }
 
+
+
             }
         }
 
@@ -71,25 +97,21 @@ namespace QKeyMapper
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
-            Border targetBorder = (Border)e.OriginalSource;
-            Rectangle sentRect = (Rectangle)e.Data.GetData(typeof(Rectangle));
-            Rectangle copyRect = new Rectangle();
-            copyRect.Fill = sentRect.Fill;
-            targetBorder.Child = copyRect;
+            if(e.OriginalSource is Border)
+            {
+                Border targetBorder = (Border)e.OriginalSource;
 
+                targetBorder.Child = new KeyCapButton();
+            }
         }
+
         qk.Keyboard keeb = new qk.Keyboard();
 
         private void keyRect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Rectangle rec = (Rectangle)sender;
-            DataObject dataObj = new DataObject(rec);
-            DragDrop.DoDragDrop(rec, dataObj, DragDropEffects.Move);
-            Console.WriteLine(Grid.GetColumn(rec));
-            Console.WriteLine(Grid.GetRow(rec));
-
-
-
+            Image img = (Image)sender;
+            DataObject dataObj = new DataObject(img);
+            DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
 

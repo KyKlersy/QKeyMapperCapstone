@@ -239,8 +239,10 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-            <Grid x:Name="keyBoardGridPicker" Grid.Row="0" Grid.Column="0" Background="#43464E" Margin="5,5"></Grid>
+        <ScrollViewer Name="bindingEditorScrollBar" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Viewbox Name="bindingEditorViewBox" Stretch="Fill">
+                <Grid x:Name="keyBoardGridPicker" Grid.Row="0" Grid.Column="0" Background="#43464E" Margin="5,5"></Grid>
+            </Viewbox>
         </ScrollViewer>
 
         <Grid x:Name="keyMapperControlGrid" Grid.Row="0" Grid.Column="1" Background="#43464E" Margin="5,5">
