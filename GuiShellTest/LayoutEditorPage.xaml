@@ -78,9 +78,13 @@
                 </Button.Background>
             </Button>
             <Label Content="Label" HorizontalAlignment="Left" Margin="84,21,0,0" VerticalAlignment="Top"/>
-            <Label Grid.Row="3" Grid.ColumnSpan="2" x:Name="Columns" Content="Rows   X  Columns" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" Margin="5,0,5,28" VerticalAlignment="Bottom" Grid.RowSpan="2" />
-            <TextBox Grid.Row="4" x:Name="Row" Margin="10,0,24,10" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" />
-            <TextBox Grid.Row="4" x:Name="Column" Margin="10,0,23,10" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" TextChanged="layoutNameTextbox_Copy1_TextChanged" Grid.Column="1" />
+            <Canvas Grid.ColumnSpan="2" Margin="5,0,5,28" Grid.Row="3" Grid.RowSpan="2">
+                <Label x:Name="Columns" Content="Rows   X  Columns" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" VerticalAlignment="Bottom" Width="177" />
+            </Canvas>
+            <Canvas Grid.ColumnSpan="2" Margin="10,0,23,10" Grid.Row="4">
+                <TextBox x:Name="Row" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" Height="21" Width="60" />
+                <TextBox x:Name="Column" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1"  Height="21" Canvas.Left="94" Width="60" />
+            </Canvas>
             <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Create_Grid" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,26,5,6" Content="Create Grid" Click="CreateGrid" Grid.RowSpan="2" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

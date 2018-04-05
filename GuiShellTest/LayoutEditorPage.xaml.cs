@@ -22,7 +22,7 @@ namespace QKeyMapper
         public LayoutEditorPage()
         {
             InitializeComponent();
-
+            /*
             BrushConverter bc = new BrushConverter();
             UIElement dropBorder = null;
 
@@ -49,7 +49,7 @@ namespace QKeyMapper
                 rbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
                 rbd.BorderThickness = new Thickness(1.0);
                 Grid.SetRow(rbd, i);
-                visualEditorGrid.Children.Add(rbd);*/
+                visualEditorGrid.Children.Add(rbd); //
 
                 for (int j = 0; j < 10; j++)
                 {
@@ -64,10 +64,48 @@ namespace QKeyMapper
 
                 }
 
-            }
+            } 
+        */
         }
+            //Kyles` function to create grid passing only row and coloumn recieved from textboxes
+        private void GridCreate(int row,int coloumn) {
+            BrushConverter bc = new BrushConverter();
+            UIElement dropBorder = null;
+            for (int defaultGridSize = 0; defaultGridSize < coloumn; defaultGridSize++)
+            {
+                RowDefinition rd = new RowDefinition();
+                rd.Height = new GridLength(1.0, GridUnitType.Star);
+                visualEditorGrid.RowDefinitions.Add(rd);
+
+                ColumnDefinition cd = new ColumnDefinition();
+                cd.Width = new GridLength(1.0, GridUnitType.Star);
+                visualEditorGrid.ColumnDefinitions.Add(cd);
 
 
+
+            }
+
+
+            for (int i = 0; i < 10; i++)
+            {
+
+                for (int j = 0; j < row; j++)
+                {
+
+                    dropBorder = dropableBorder(i, j, bc);
+
+
+                    Grid.SetRow(dropBorder, i);
+                    Grid.SetColumn(dropBorder, j);
+                    Debug.WriteLine("Row: " + i + "Col: " + j);
+                    visualEditorGrid.Children.Add(dropBorder);
+
+                }
+
+            }
+
+
+        }
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
@@ -165,7 +203,9 @@ namespace QKeyMapper
         {
             int RowIterations=int.Parse(Row.Text);
             int ColomnIterations = int.Parse(Column.Text);
-        }
+            GridCreate(RowIterations, ColomnIterations);
+        
+}
     }
 }
 
