@@ -16,7 +16,7 @@ using GuiShellTest.Controls;
 
 namespace QKeyMapper
 {
-    //
+    //omercan
     public partial class LayoutEditorPage : Page
     {
 
@@ -24,9 +24,13 @@ namespace QKeyMapper
         public LayoutEditorPage()
         {
             InitializeComponent();
-
+           
+        }
+        //Kyles` function to create grid passing only row and coloumn recieved from textboxes
+        private void GridCreate(int row,int coloumn) {
             BrushConverter bc = new BrushConverter();
             UIElement dropBorder = null;
+
 
             //KeyImageButton keybutton1 = new KeyImageButton();
 
@@ -49,8 +53,6 @@ namespace QKeyMapper
             bdr.Child = keybutton1;*/
 
 
-
-
             for (int defaultGridSize = 0; defaultGridSize < 10; defaultGridSize++)
             {
                 RowDefinition rd = new RowDefinition();
@@ -62,10 +64,14 @@ namespace QKeyMapper
                 visualEditorGrid.ColumnDefinitions.Add(cd);
 
 
-            }
 
-            for (int i = 0; i < 10; i++)
+            }   
+                //for (int i = 0; i < 10; i++)
+                for (int i = 0; i < row; i++)
             {
+
+
+                for (int j = 0; j < coloumn; j++)
 
 
                 Border rbd = new Border();
@@ -74,7 +80,7 @@ namespace QKeyMapper
                 rbd.BorderThickness = new Thickness(1.0);
                 Grid.SetRow(rbd, i);
                 visualEditorGrid.Children.Add(rbd);
-
+/*
                 for (int j = 0; j < 10; j++)
                 {
 
@@ -87,13 +93,13 @@ namespace QKeyMapper
                     visualEditorGrid.Children.Add(dropBorder);
 
                 }
-
+*/
 
 
             }
+
+
         }
-
-
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
@@ -114,7 +120,11 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
+        private void CreateGrid_Click(object sender, RoutedEventArgs e)
+        {
 
+
+        }
 
 
         private void createJson_Click(object sender, RoutedEventArgs e)
@@ -178,10 +188,26 @@ namespace QKeyMapper
 
             return cbd;
         }
+
+        private void CreateGrid(object sender, RoutedEventArgs e)
+        {
+           
+            try
+            {
+                int RowIterations = int.Parse(Row.Text);
+                int ColomnIterations = int.Parse(Column.Text);
+                GridCreate(RowIterations, ColomnIterations); // Make grid great again
+            }
+            catch {
+                Console.WriteLine("not valid input");
+            }
+}
+
+       
     }
 }
 
-/*
+/*  
 public class KeyboardLayout
 {
 
@@ -224,4 +250,48 @@ public class KeyboardLayout
 }*/
 
 
+        // Create Grid Kyles` way...
+/*
+       BrushConverter bc = new BrushConverter();
+       UIElement dropBorder = null;
 
+
+       for (int defaultGridSize = 0; defaultGridSize < 10; defaultGridSize++)
+       {
+           RowDefinition rd = new RowDefinition();
+           rd.Height = new GridLength(1.0, GridUnitType.Star);
+           visualEditorGrid.RowDefinitions.Add(rd);
+
+           ColumnDefinition cd = new ColumnDefinition();
+           cd.Width = new GridLength(1.0, GridUnitType.Star);
+           visualEditorGrid.ColumnDefinitions.Add(cd);
+
+
+       }
+
+       for (int i = 0; i < 10; i++)
+       {
+
+
+           /*Border rbd = new Border();
+           rbd.Background = Brushes.Transparent;
+           rbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
+           rbd.BorderThickness = new Thickness(1.0);
+           Grid.SetRow(rbd, i);
+           visualEditorGrid.Children.Add(rbd); //
+
+           for (int j = 0; j < 10; j++)
+           {
+
+               dropBorder = dropableBorder(i, j, bc);
+
+
+               Grid.SetRow(dropBorder, i);
+               Grid.SetColumn(dropBorder, j);
+               Debug.WriteLine("Row: " + i + "Col: " + j);
+               visualEditorGrid.Children.Add(dropBorder);
+
+           }
+
+       } 
+   */

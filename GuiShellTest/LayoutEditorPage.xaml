@@ -81,6 +81,10 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
+<!--
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Name="layoutNameLabel" Content="Layout Name" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" Margin="5,0" VerticalAlignment="Bottom" />
+            <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="layoutNameTextbox" Margin="5,5" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" />
+-->
             <Label Grid.Row="0" Grid.ColumnSpan="2" Name="layoutNameLabel" Content="Layout Name" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="24" Padding="5,0" VerticalAlignment="Bottom" />
             <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="layoutNameTextbox" Style="{StaticResource textfields}" />
             <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#FF8D8D8D" Background="#43464E" Margin="0,15">
@@ -103,6 +107,7 @@
             <Border Grid.Row="5" Grid.ColumnSpan="2" Background="#43464E" BorderThickness="1" Margin="0,15" BorderBrush="#FF8D8D8D">
                 <TextBlock Text="Diode Direction" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18"/>
             </Border>
+
 
             <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="diodeDirectionComboBox" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="80" Margin="40,0,40,0">
                 <ComboBoxItem>Row to Column</ComboBoxItem>
@@ -127,7 +132,46 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-                <ContentControl Content="ContentControl" Grid.Column="1" HorizontalAlignment="Left" Margin="202.6,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+<!--
+            <Label Content="Label" HorizontalAlignment="Left" Margin="84,21,0,0" VerticalAlignment="Top"/>
+            <Canvas Grid.ColumnSpan="2" Margin="5,0,5,28" Grid.Row="3" Grid.RowSpan="2">
+                <Label x:Name="Columns" Content="Rows    X  Columns " Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" VerticalAlignment="Bottom" Width="177" Canvas.Top="-31" />
+            </Canvas>
+            <Canvas Grid.ColumnSpan="2" Margin="10,0,23,10" Grid.Row="4">
+                <Canvas Height="21" Width="154">
+                    <TextBox x:Name="Row" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" RenderTransformOrigin="0.5,0.5" Canvas.Left="-1" Canvas.Top="-30" MinWidth="80" MinHeight="25" Margin="5" >
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                    <TextBox x:Name="Column" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" Canvas.Left="92" RenderTransformOrigin="0.5,0.5" Canvas.Top="-30" MinWidth="80" MinHeight="25" Margin="5" >
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                </Canvas>
+            </Canvas>
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Create_Grid" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,11,5,21" Content="Create Grid" Click="CreateGrid" Grid.RowSpan="2" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+                <ContentControl Content="ContentControl" Grid.Column="1" HorizontalAlignment="Left" Margin="202.6,10,0,0" Grid.Row="1" VerticalAlignment="Top"/> -->
+
 
             </Grid>
         </Expander>
