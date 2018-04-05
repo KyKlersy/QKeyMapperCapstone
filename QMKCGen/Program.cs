@@ -25,9 +25,17 @@ namespace QMKCGen
             string json_raw = File.ReadAllText(args[0]);
             Keyboard keyboard = JsonConvert.DeserializeObject<Keyboard>(json_raw);
 
+            //register helpers
+            Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) => {
+                writer.Write("<a href='" + context.url + "'>" + context.text + "</a>");
+            });
+            Handlebars.RegisterHelper("keymap_with_kc_no", (writer, context, parameters) => {
+                writer.Write("<a href='" + context.url + "'>" + context.text + "</a>");
+            });
+
             var assembly = Assembly.GetExecutingAssembly();
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
-            string hbsResourceURI = "Templates" + System.IO.Path.DirectorySeparatorChar;
+            string hbsResourceURI = "Templates";// + System.IO.Path.DirectorySeparatorChar;
             string hbsFilePath = System.IO.Path.Combine(rootDirectory, hbsResourceURI);
             var files = new Dictionary<string, string>();
             foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories))
