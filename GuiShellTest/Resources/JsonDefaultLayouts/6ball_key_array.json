@@ -10,8 +10,8 @@
       "programmer": "89isp"
     },
     "matrix_spec": {
-      "rows": 5,
-      "cols": 14,
+      "rows": 2,
+      "cols": 3,
       "row_pins": [ "D0", "D5" ],
       "col_pins": [ "F1", "F0", "B0" ]
     },
@@ -20,73 +20,68 @@
   "keys": [
     {
       "graphics": {
-        "width": "1u",
         "row": 0,
         "col": 0,
-        "text": ""
+        "text": "h-esc"
       },
       "binding": {
-        "on_tap": [ "ctrl", "10ms", "alt", "del" ]
+        "on_tap": [ "ctrl", "10ms", "alt", "10ms", "del" ]
       },
       "matrix": {
-        "row": 1,
-        "col": 1
+        "row": 0,
+        "col": 0
       }
     },
     {
       "graphics": {
-        "width": "1u",
         "row": 0,
         "col": 1,
-        "text": ""
+        "text": "w"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["w"]
       },
       "matrix": {
-        "row": 1,
+        "row": 0,
         "col": 1
       }
     },
     {
       "graphics": {
-        "width": "1u",
         "row": 0,
         "col": 2,
-        "text": ""
+        "text": "find"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["ctrl", "10ms", "f"]
       },
       "matrix": {
-        "row": 1,
-        "col": 3
+        "row": 0,
+        "col": 2
       }
     },
     {
       "graphics": {
-        "width": "1u",
         "row": 1,
         "col": 0,
-        "text": ""
+        "text": "a"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["a"]
       },
       "matrix": {
         "row": 1,
-        "col": 1
+        "col": 0
       }
     },
     {
       "graphics": {
-        "width": "1u",
         "row": 1,
         "col": 1,
-        "text": ""
+        "text": "s"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["s"]
       },
       "matrix": {
         "row": 1,
@@ -95,17 +90,16 @@
     },
     {
       "graphics": {
-        "width": "1u",
         "row": 1,
         "col": 2,
-        "text": ""
+        "text": "d"
       },
       "binding": {
-        "on_tap": []
+        "on_tap": ["d"]
       },
       "matrix": {
         "row": 1,
-        "col": 3
+        "col": 2
       }
     }
   ]
