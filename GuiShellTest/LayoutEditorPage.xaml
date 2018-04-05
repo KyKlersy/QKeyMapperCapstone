@@ -39,13 +39,13 @@
         </Rectangle>
 
         <ScrollViewer Name="visualEditorScrollViewer" Grid.Row="2" Grid.Column="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-            <Viewbox Name="visualEditorViewBox" Stretch="Fill">
-                <Grid x:Name="visualEditorGrid" Background="#4F535B" HorizontalAlignment="Stretch" AllowDrop="True">
+            <Viewbox Name="visualEditorViewBox" Stretch="Uniform">
+                <Grid x:Name="visualEditorGrid" Background="#4F535B" AllowDrop="True">
 
                 </Grid>
             </Viewbox>
         </ScrollViewer>
-        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="True">
+        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="False">
             <Grid Background="#4F535B">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*" />
@@ -63,7 +63,7 @@
 
             </Grid>
         </Expander>
-        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="False">
+        <Expander Grid.Row="2" Grid.Column="2" ExpandDirection="Down" IsExpanded="True">
             <Grid Background="#4F535B">
             <Grid.RowDefinitions>
                 <RowDefinition Height="28*" />
@@ -91,11 +91,11 @@
                 <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18" Padding="5"/>
             </Border>
 
-            <TextBox x:Name="rowCountTextBox" Grid.Row="3" Grid.Column="0" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
+                <TextBox x:Name="Row" Grid.Row="3" Grid.Column="0" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="85,1" Foreground="#FFF1F1F1"></Label>
-            <TextBox x:Name="colCountTextBox" Grid.Row="3" Grid.Column="1" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
+                <TextBox x:Name="Column" Grid.Row="3" Grid.Column="1" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
 
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,10" Content="Create Grid" FontSize="16" >
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,10" Content="Create Grid" FontSize="16" Click="CreateGrid" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
