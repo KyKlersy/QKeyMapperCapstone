@@ -228,4 +228,6 @@
         <Setter Property="Foreground" Value="#FFF1F1F1" />
         <Setter Property="TextAlignment" Value="Center" />
     </Style>
+    
+    
 </ResourceDictionary>

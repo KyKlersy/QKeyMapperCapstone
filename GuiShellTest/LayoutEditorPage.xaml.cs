@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 using qk = QKeyCommon.Keyboard_items;
 using Newtonsoft.Json;
 using GuiShellTest.Controls;
+using System.ComponentModel;
 
 
 namespace QKeyMapper
@@ -20,12 +21,14 @@ namespace QKeyMapper
     public partial class LayoutEditorPage : Page
     {
 
+        private GuiShellTest.Models.layoutEditorModel model;
 
         public LayoutEditorPage()
         {
             InitializeComponent();
-           
-           
+            model = new GuiShellTest.Models.layoutEditorModel();
+            DataContext = model;
+
         }
 
         //Kyles` function to create grid passing only row and coloumn recieved from textboxes
@@ -72,8 +75,11 @@ namespace QKeyMapper
             if(e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
+                KeyCapButton kcb = new KeyCapButton();
 
-                targetBorder.Child = new KeyCapButton();
+                kcb.keyButton.Click += PopOpenSelector;
+
+                targetBorder.Child = kcb;
             }
         }
 
@@ -88,6 +94,20 @@ namespace QKeyMapper
 
         private void CreateGrid_Click(object sender, RoutedEventArgs e)
         {
+
+
+        }
+
+        private void PopOpenSelector(object sender, RoutedEventArgs e)
+        {
+            keyDataForm.Visibility = Visibility.Visible;
+            visualControlPanel.Visibility = Visibility.Hidden;
+
+            Button btn = (Button)sender;
+            KeyCapButton data = (KeyCapButton)btn.DataContext;
+
+            keyDataForm.DataContext = data;
+            
 
 
         }
@@ -175,7 +195,13 @@ namespace QKeyMapper
             }
 }
 
-       
+        private void closeKeyDataForm(object sender, RoutedEventArgs e)
+        {
+
+            keyDataForm.Visibility = Visibility.Hidden;
+            visualControlPanel.Visibility = Visibility.Visible;
+
+        }
     }
 }
 

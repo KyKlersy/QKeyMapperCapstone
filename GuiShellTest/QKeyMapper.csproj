@@ -128,6 +128,7 @@
     <Compile Include="LayoutEditorPage.xaml.cs">
       <DependentUpon>LayoutEditorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\layoutEditorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

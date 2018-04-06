@@ -16,6 +16,8 @@ namespace QKeyCommon.Keyboard_items.Key_items
             this.graphics = new Graphics();
             this.binding = new Binding();
             this.matrix = new Matrix();
+
         }
+
     }
 }
