@@ -161,6 +161,9 @@
     <Content Include="Resources\JsonDefaultLayouts\6ball_key_array.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\JsonDefaultLayouts\6ball_no_macro.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

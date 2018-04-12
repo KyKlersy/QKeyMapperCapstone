@@ -33,6 +33,9 @@ namespace QMKCGen
             Handlebars.RegisterHelper("keymap_with_kc_no", (writer, context, parameters) => {
                 writer.Write(matrix_helpers.with_kc_no(keyboard));
             });
+            Handlebars.RegisterHelper("keymap", (writer, context, parameters) => {
+                writer.Write(matrix_helpers.keymap(keyboard));
+            });
 
             var assembly = Assembly.GetExecutingAssembly();
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
