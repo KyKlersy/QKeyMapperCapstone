@@ -10,6 +10,17 @@ namespace QMKCGen.Template_helpers
 {
     class matrix_helpers
     {
+        public static Key[,] fill_key_matrix(Keyboard keeb)
+        {
+            Key[,] key_matrix = new Key[keeb.spec.matrix_spec.rows, keeb.spec.matrix_spec.cols];
+            var pin_map = pins_to_index(keeb);
+            foreach (var key in keeb.keys)
+            {
+                key_matrix[pin_map[key.matrix.row], pin_map[key.matrix.col]] = key;
+            }
+            return key_matrix;
+        }
+
         public static Dictionary<string, int> pins_to_index(Keyboard keeb)
         {
             var row_pins = keeb.spec.matrix_spec.row_pins;
@@ -38,16 +49,11 @@ namespace QMKCGen.Template_helpers
         public static string user_friendly(Keyboard keeb)
         {
             string result = "";
-            Key[,] key_matrix = new Key[keeb.spec.matrix_spec.rows, keeb.spec.matrix_spec.cols];
-            var pin_map = pins_to_index(keeb);
-            foreach(var key in keeb.keys)
-            {
-                key_matrix[pin_map[key.matrix.row], pin_map[key.matrix.col]] = key;
-            }
+            Key[,] key_matrix = fill_key_matrix(keeb);
 
             for(int i = 0; i < key_matrix.GetLength(0); i++) //row
             {
-                result += "    ";
+                result += "    "; //indentation to prettify
                 for (int j = 0; j < key_matrix.GetLength(1); j++) //col
                 {
                     if (key_matrix[i, j] != null)
@@ -66,12 +72,7 @@ namespace QMKCGen.Template_helpers
         public static string with_kc_no(Keyboard keeb)
         {
             string result = "";
-            Key[,] key_matrix = new Key[keeb.spec.matrix_spec.rows, keeb.spec.matrix_spec.cols];
-            var pin_map = pins_to_index(keeb);
-            foreach (var key in keeb.keys)
-            {
-                key_matrix[pin_map[key.matrix.row], pin_map[key.matrix.col]] = key;
-            }
+            Key[,] key_matrix = fill_key_matrix(keeb);
 
             for (int i = 0; i < key_matrix.GetLength(0); i++) //row
             {
@@ -91,6 +92,27 @@ namespace QMKCGen.Template_helpers
                     result += "\n";
             }
 
+            return result;
+        }
+
+        public static string keymap(Keyboard keeb)
+        {
+            string result = "";
+            Key[,] key_matrix = fill_key_matrix(keeb);
+            for (int i = 0; i < key_matrix.GetLength(0); i++) //row
+            {
+                result += "    "; //indentation to prettify
+                for (int j = 0; j < key_matrix.GetLength(1); j++) //col
+                {
+                    if (key_matrix[i, j] != null)
+                        result += "KC_" + key_matrix[i, j].binding.on_tap[0].ToUpper(); //only handling single key binding atm
+                    if (!(i == key_matrix.GetLength(0) - 1 && j == key_matrix.GetLength(1) - 1))
+                        result += ", ";
+                }
+                result += " \\";
+                if (i != key_matrix.GetLength(0) - 1)
+                    result += "\n";
+            }
             return result;
         }
     }
