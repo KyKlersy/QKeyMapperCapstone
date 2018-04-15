@@ -2,11 +2,12 @@
   "desc": {
     "manufacturer": "Linguini Enterprises",
     "description": "i made dis",
-    "product_name": "6-bal, idk why tho"
+    "product_name": "6_ball_test"
   },
   "spec": {
     "avrdude": {
       "partno": "m32u4",
+      "partno_verbose": "atmega32u4",
       "programmer": "89isp"
     },
     "matrix_spec": {
@@ -15,7 +16,7 @@
       "row_pins": [ "D0", "D5" ],
       "col_pins": [ "F1", "F0", "B0" ]
     },
-    "diode_direction": "col2row"
+    "diode_direction": "COL2ROW"
   },
   "keys": [
     {

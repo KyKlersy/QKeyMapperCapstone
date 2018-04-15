@@ -1,0 +1,32 @@
+﻿{
+  "directories": [
+    ["keymaps"],
+    ["keymaps", "default" ]
+  ],
+  "files": [
+    {
+      "relative_path": "config.h",
+      "template_path": "Templates/C/keyboard/config_template.h.hbs"
+    },
+    {
+      "relative_path": "{{desc.product_name}}.h",
+      "template_path": "Templates/C/keyboard/project_template.h.hbs"
+    },
+    {
+      "relative_path": "{{desc.product_name}}.c",
+      "template_path": "Templates/C/keyboard/project_template.c.hbs"
+    },
+    {
+      "relative_path": "rules.mk",
+      "template_path": "Templates/Make/rules.mk.hbs"
+    },
+    {
+      "relative_path": "keymaps/default/config.h",
+      "template_path": "Templates/C/keymap/config_template.h.hbs"
+    },
+    {
+      "relative_path": "keymaps/default/keymap.c",
+      "template_path": "Templates/C/keymap/keymap_template.c.hbs"
+    }
+  ]
+}
