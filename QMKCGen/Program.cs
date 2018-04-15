@@ -10,7 +10,8 @@ using Newtonsoft.Json.Linq;
 using QKeyCommon.Keyboard_items;
 using QMKCGen.Utils;
 using System.Reflection;
-using QMKCGen.Template_helpers;
+using QMKCGen.helpers;
+using QMKCGen.directory_structures;
 
 namespace QMKCGen
 {
@@ -39,33 +40,77 @@ namespace QMKCGen
 
             var assembly = Assembly.GetExecutingAssembly();
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
-            string hbsResourceURI = "Templates";// + System.IO.Path.DirectorySeparatorChar;
-            string hbsFilePath = System.IO.Path.Combine(rootDirectory, hbsResourceURI);
-            var files = new Dictionary<string, string>();
-            foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories))
+
+            string directoryStructureJson = Self.getFileContents(assembly,
+                "directory_structures" +
+                System.IO.Path.DirectorySeparatorChar +
+                "templates" +
+                System.IO.Path.DirectorySeparatorChar +
+                "default_project_structure.json");
+            DirectoryStructure defaultStructure = JsonConvert.DeserializeObject<DirectoryStructure>(directoryStructureJson);
+            //generate the folders needed
+            foreach (var pathArray in defaultStructure.directories)
             {
-                string hbs_raw = null;
-                try
-                { 
-                    using (StreamReader reader = new StreamReader(template_path))
-                    {
-                        hbs_raw = reader.ReadToEnd();
-                    }
-                }
-                catch (Exception e)
+                string newDirectory = "";
+                foreach (var str in pathArray)
                 {
-                    Console.WriteLine("The file could not be read:");
-                    Console.WriteLine(e.Message);
+                    newDirectory += str + System.IO.Path.DirectorySeparatorChar;
                 }
-                var hbs_template = Handlebars.Compile(hbs_raw);
-                files[template_path] = hbs_template(keyboard);
+                var f = new FileInfo(System.IO.Path.Combine(
+                    rootDirectory, 
+                    keyboard.desc.product_name +
+                    System.IO.Path.DirectorySeparatorChar +
+                    newDirectory
+                ));
+                if (!f.Directory.Exists)
+                {
+                    System.IO.Directory.CreateDirectory(f.DirectoryName);
+                }
             }
-            foreach(var thing in files)
+            //fill them out
+            foreach (var template_file in defaultStructure.files)
             {
-                Console.WriteLine("==============================");
-                Console.Write(thing.Value);
+                template_file.resolve_hbs(keyboard);
+                using (System.IO.StreamWriter file =
+                     new System.IO.StreamWriter(
+                        keyboard.desc.product_name + 
+                        System.IO.Path.DirectorySeparatorChar +
+                        template_file.relative_path
+                ))
+                {
+                    string hbs_raw = Self.getFileContents(assembly, template_file.template_path);
+                    var hbs_template = Handlebars.Compile(hbs_raw);
+                    file.Write(hbs_template(keyboard));
+                }
             }
-            Console.ReadKey();
+
+            //string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
+            //string hbsResourceURI = "Templates";// + System.IO.Path.DirectorySeparatorChar;
+            //string hbsFilePath = System.IO.Path.Combine(rootDirectory, hbsResourceURI);
+            //var files = new Dictionary<string, string>();
+            //foreach (string template_path in Directory.GetFiles(hbsFilePath, "*.hbs", SearchOption.AllDirectories))
+            //{
+            //    string hbs_raw = null;
+            //    try
+            //    { 
+            //        using (StreamReader reader = new StreamReader(template_path))
+            //        {
+            //            hbs_raw = reader.ReadToEnd();
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine("The file could not be read:");
+            //        Console.WriteLine(e.Message);
+            //    }
+            //    var hbs_template = Handlebars.Compile(hbs_raw);
+            //    files[template_path] = hbs_template(keyboard);
+            //}
+            //foreach(var thing in files)
+            //{
+            //    Console.WriteLine("==============================");
+            //    Console.Write(thing.Value);
+            //}
         }
     }
 }
