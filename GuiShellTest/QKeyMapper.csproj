@@ -128,7 +128,13 @@
     <Compile Include="LayoutEditorPage.xaml.cs">
       <DependentUpon>LayoutEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\layoutEditorModel.cs" />
+    <Compile Include="Models\DiodeDirection.cs" />
+    <Compile Include="Models\JsonTemplateLayout.cs" />
+    <Compile Include="Models\KeyMacro.cs" />
+    <Compile Include="Models\Microprocessor.cs" />
+    <Compile Include="ViewModels\bindingEditorModel.cs" />
+    <Compile Include="ViewModels\keyboardInfoModel.cs" />
+    <Compile Include="ViewModels\layoutEditorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -152,7 +158,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EmbeddedResource Include="Resources\csvTest.csv" />
+    <EmbeddedResource Include="Resources\supportedProcs.csv" />
     <Content Include="Resources\JsonDefaultLayouts\6ball.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,6 +168,7 @@
     <Content Include="Resources\JsonDefaultLayouts\6ball_key_array.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\singleKeyMacros.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
