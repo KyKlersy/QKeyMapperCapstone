@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QMKCGen.Template_helpers
+namespace QMKCGen.helpers
 {
     class matrix_helpers
     {
