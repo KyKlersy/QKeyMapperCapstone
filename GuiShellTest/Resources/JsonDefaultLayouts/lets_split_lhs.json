@@ -8,7 +8,7 @@
     "avrdude": {
       "partno": "m32u4",
       "partno_verbose": "atmega32u4",
-      "programmer": "89isp"
+      "programmer": ""
     },
     "matrix_spec": {
       "rows": 4,
@@ -26,7 +26,7 @@
         "text": "q"
       },
       "binding": {
-        "on_tap": ["q"]
+        "on_tap": [ "q" ]
       },
       "matrix": {
         "row": "B5",
@@ -40,7 +40,7 @@
         "text": "w"
       },
       "binding": {
-        "on_tap": ["w"]
+        "on_tap": [ "w" ]
       },
       "matrix": {
         "row": "B5",
@@ -54,11 +54,53 @@
         "text": "e"
       },
       "binding": {
-        "on_tap": ["e"]
+        "on_tap": [ "e" ]
       },
       "matrix": {
         "row": "B5",
         "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 3,
+        "text": "r"
+      },
+      "binding": {
+        "on_tap": [ "r" ]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "F7"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 4,
+        "text": "t"
+      },
+      "binding": {
+        "on_tap": [ "t" ]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "B1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 5,
+        "text": "y"
+      },
+      "binding": {
+        "on_tap": [ "y" ]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "B3"
       }
     },
     {
@@ -68,7 +110,7 @@
         "text": "a"
       },
       "binding": {
-        "on_tap": ["a"]
+        "on_tap": [ "a" ]
       },
       "matrix": {
         "row": "B4",
@@ -82,7 +124,7 @@
         "text": "s"
       },
       "binding": {
-        "on_tap": ["s"]
+        "on_tap": [ "s" ]
       },
       "matrix": {
         "row": "B4",
@@ -96,11 +138,221 @@
         "text": "d"
       },
       "binding": {
-        "on_tap": ["d"]
+        "on_tap": [ "d" ]
       },
       "matrix": {
         "row": "B4",
         "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 3,
+        "text": "f"
+      },
+      "binding": {
+        "on_tap": [ "f" ]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F7"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 4,
+        "text": "g"
+      },
+      "binding": {
+        "on_tap": [ "g" ]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "B1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 5,
+        "text": "h"
+      },
+      "binding": {
+        "on_tap": [ "h" ]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "B3"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 0,
+        "text": "z"
+      },
+      "binding": {
+        "on_tap": [ "z" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "F4"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 1,
+        "text": "x"
+      },
+      "binding": {
+        "on_tap": [ "x" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "F5"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 2,
+        "text": "c"
+      },
+      "binding": {
+        "on_tap": [ "c" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 3,
+        "text": "v"
+      },
+      "binding": {
+        "on_tap": [ "v" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "F7"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 4,
+        "text": "b"
+      },
+      "binding": {
+        "on_tap": [ "b" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "B1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 5,
+        "text": "n"
+      },
+      "binding": {
+        "on_tap": [ "n" ]
+      },
+      "matrix": {
+        "row": "E6",
+        "col": "B3"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 0,
+        "text": "1"
+      },
+      "binding": {
+        "on_tap": [ "1" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "F4"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 1,
+        "text": "2"
+      },
+      "binding": {
+        "on_tap": [ "2" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "F5"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 2,
+        "text": "3"
+      },
+      "binding": {
+        "on_tap": [ "3" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 3,
+        "text": "4"
+      },
+      "binding": {
+        "on_tap": [ "4" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "F7"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 4,
+        "text": "5"
+      },
+      "binding": {
+        "on_tap": [ "5" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "B1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 3,
+        "col": 5,
+        "text": "6"
+      },
+      "binding": {
+        "on_tap": [ "6" ]
+      },
+      "matrix": {
+        "row": "D7",
+        "col": "B3"
       }
     }
   ]
