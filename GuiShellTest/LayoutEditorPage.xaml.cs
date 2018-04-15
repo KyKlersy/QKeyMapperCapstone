@@ -121,9 +121,7 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            /*qk.Keyboard keeb = new qk.Keyboard();
-            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
-
+            ///*
             //foreach (var item in LayoutEditorPage.)
             //{
             //    var key = new qk.Key_items.Key();
@@ -133,14 +131,14 @@ namespace QKeyMapper
             //    keeb.keys.Add(key);
             //}
 
-            JsonInfo.Add(keeb);
-
-            string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
+            List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
+            string output = JsonConvert.SerializeObject(KeyItems, Formatting.Indented); //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
             MessageBox.Show("Keyboard Layout created in a Json file");
-            */
+            
+            //*/
 
 
 
@@ -158,7 +156,7 @@ namespace QKeyMapper
 
              */
 
-            Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
+          //  Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
 
 
             List<qk.Key_items.Key> keyD = getKeyData();
