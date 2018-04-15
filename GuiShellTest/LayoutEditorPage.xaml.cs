@@ -18,7 +18,7 @@ using System.ComponentModel;
 
 namespace QKeyMapper
 {
-    //omercan
+    //omercan was here
     public partial class LayoutEditorPage : Page
     {
         private MainWindow mainWindow;
