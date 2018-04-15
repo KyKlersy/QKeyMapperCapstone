@@ -12,6 +12,8 @@ using System.Web.Script.Serialization;
 using qk = QKeyCommon.Keyboard_items;
 using Newtonsoft.Json;
 using GuiShellTest.Controls;
+using GuiShellTest.ViewModels;
+using System.ComponentModel;
 
 
 namespace QKeyMapper
@@ -19,13 +21,27 @@ namespace QKeyMapper
     //omercan
     public partial class LayoutEditorPage : Page
     {
-
+        private MainWindow mainWindow;
+        private layoutEditorModel model;
 
         public LayoutEditorPage()
         {
             InitializeComponent();
-           
-           
+            model = new layoutEditorModel();
+            DataContext = model;
+            keyDataForm.DataContext = null;
+
+        }
+
+
+        public LayoutEditorPage(MainWindow mainwindow)
+        {
+            mainWindow = mainwindow;
+            InitializeComponent();
+            model = mainwindow.layouteditormodel;
+            DataContext = model;
+            keyDataForm.DataContext = null;
+
         }
 
         //Kyles` function to create grid passing only row and coloumn recieved from textboxes
@@ -52,7 +68,6 @@ namespace QKeyMapper
             for (int i = 0; i < row; i++)
             {
 
-
                 for (int j = 0; j < coloumn; j++)
                 {
 
@@ -66,18 +81,22 @@ namespace QKeyMapper
             }
 
         }
+
+
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
             if(e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
+                KeyCapButton kcb = new KeyCapButton();
 
-                targetBorder.Child = new KeyCapButton();
+                kcb.keyButton.Click += PopOpenSelector;
+
+                targetBorder.Child = kcb;
             }
         }
 
-        qk.Keyboard keeb = new qk.Keyboard();
 
         private void keyRect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -86,17 +105,24 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
-        private void CreateGrid_Click(object sender, RoutedEventArgs e)
+
+        private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
+            keyDataForm.Visibility = Visibility.Visible;
+            visualControlPanel.Visibility = Visibility.Hidden;
 
+            Button btn = (Button)sender;
+            KeyCapButton data = (KeyCapButton)btn.DataContext;
 
+            keyDataForm.DataContext = data;
+            
         }
-
+        
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
+            /*qk.Keyboard keeb = new qk.Keyboard();
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
-
 
             //foreach (var item in LayoutEditorPage.)
             //{
@@ -114,8 +140,32 @@ namespace QKeyMapper
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
             MessageBox.Show("Keyboard Layout created in a Json file");
+            */
 
 
+
+            /* Commented out your prior code, to hook some things while testing::
+                You can retrieve the information selected from the first two combo boxe's like below by calling into the keyboardinfomodel
+                see keyboardinfomodel class under viewmodels 
+                SelectedMicroProc , SelectedJsonLayout are both class properties, see their data model classes in the folder models.
+
+                with the way this is setup you should be able to just call into the two class properties above into their class object members to get the data
+                you need to add serialize out a complete Keyboard.cs
+
+                use the function getKeyData, returns a list of qk.Key_Items.Key. The line below is debugging it just prints out the list contents for key info.
+                You can test it by creating a grid, adding a key, clicking the key, adding information. It will print the console the matrix row/col entered for the key.
+                it will return empty nulls for parts of the grid that no key exists, this should serialize out nicely.
+
+             */
+
+            Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
+
+
+            List<qk.Key_items.Key> keyD = getKeyData();
+            keyD.ForEach(qd =>
+            {
+                Debug.WriteLine("mrow: " + qd.matrix.row + " mcol: " + qd.matrix.col);
+            });
 
         }
 
@@ -175,7 +225,50 @@ namespace QKeyMapper
             }
 }
 
-       
+        private void closeKeyDataForm(object sender, RoutedEventArgs e)
+        {
+
+            keyDataForm.Visibility = Visibility.Hidden;
+            visualControlPanel.Visibility = Visibility.Visible;
+
+        }
+
+        private List<qk.Key_items.Key> getKeyData()
+        {
+
+            List<qk.Key_items.Key> keyData = new List<qk.Key_items.Key>();
+            Border bd;
+            
+
+            foreach (UIElement control in visualEditorGrid.Children)
+            {
+                if (control is Border && ((Border)control).Child != null)
+                {
+                    bd = (Border)control;
+                    KeyCapButton kcb = (KeyCapButton)bd.Child;
+                    qk.Key_items.Key key = new qk.Key_items.Key();
+
+                    key.graphics.row = Grid.GetRow(control);
+                    key.graphics.col = Grid.GetColumn(control);
+                    key.graphics.text = kcb.text;
+
+                    key.matrix.row = kcb.matrixrow;
+                    key.matrix.col = kcb.matrixcol;
+
+                    keyData.Add( key );
+           
+                }
+                else
+                {
+                    qk.Key_items.Key key = new qk.Key_items.Key();
+                    keyData.Add(key);
+                }
+            }
+
+
+            return keyData;
+        }
+
     }
 }
 

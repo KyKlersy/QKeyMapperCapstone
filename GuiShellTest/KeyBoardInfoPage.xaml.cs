@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Reflection;
+using GuiShellTest.ViewModels;
 
 namespace QKeyMapper
 {
@@ -22,59 +23,30 @@ namespace QKeyMapper
     /// </summary>
     public partial class KeyBoardInfoPage : Page
     {
-        public Dictionary<String, String> supportedMC { get; set; }
-        public Dictionary<String, String> jsonLayouts { get; set; }
+        private MainWindow mainWindow;
+        public keyboardInfoModel keyboardinfomodel;
 
         public KeyBoardInfoPage()
         {
 
-            supportedMC = new Dictionary<string, string>();
-            jsonLayouts = new Dictionary<string, string>();
-            
-            this.DataContext = this;
+            keyboardinfomodel = new keyboardInfoModel();
 
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "GuiShellTest.Resources.csvTest.csv";
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var readLine = reader.ReadLine();
-                    var tokens = readLine.Split(',');
-                    supportedMC.Add(tokens[0], tokens[1]);
-                }
-            }
-
-            string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
-            string jsonResourceURI = "Resources" + System.IO.Path.DirectorySeparatorChar + "JsonDefaultLayouts" + System.IO.Path.DirectorySeparatorChar;
-            string jsonFilePath = System.IO.Path.Combine(rootDirectory, jsonResourceURI);
-
-            string[] supportedJsonLayouts = Directory.GetFiles(jsonFilePath, "*.json");
-
-
-            foreach(string jsonConfigPath in supportedJsonLayouts )
-            {
-                string fileName = System.IO.Path.GetFileName(jsonConfigPath);
-                fileName = fileName.Substring(0, (fileName.Length - 5));
-
-                jsonLayouts.Add(fileName, jsonConfigPath);
-            }
-
-            jsonLayouts.Add("Custom", "Custom");
+            DataContext = keyboardinfomodel;
 
             InitializeComponent();
 
-            microControllerComboBox.ItemsSource = supportedMC;
-            microControllerComboBox.DisplayMemberPath = "Key";
-            microControllerComboBox.SelectedValuePath = "Value";
-            
-            
-            keyboardLayoutComboBox.ItemsSource = jsonLayouts;
-            keyboardLayoutComboBox.DisplayMemberPath = "Key";
-            keyboardLayoutComboBox.SelectedValuePath = "Value";
 
+        }
+
+        public KeyBoardInfoPage(MainWindow mainwindow)
+        {
+            mainWindow = mainwindow;
+
+            keyboardinfomodel = mainwindow.keyboardinfomodel;
+
+            DataContext = keyboardinfomodel;
+
+            InitializeComponent();
         }
 
         //Todo :: add check for null selection, refuse navigation until choice is made
@@ -83,7 +55,8 @@ namespace QKeyMapper
         {
             if (keyboardLayoutComboBox.SelectedValue.Equals("Custom"))
             {
-                LayoutEditorPage layoutEditorPage = new LayoutEditorPage();
+
+                LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
                 NavigationService.Navigate(layoutEditorPage);
             }
             else

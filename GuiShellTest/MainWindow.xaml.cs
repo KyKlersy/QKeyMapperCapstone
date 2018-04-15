@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GuiShellTest.ViewModels;
 
 
 namespace QKeyMapper
@@ -21,6 +23,10 @@ namespace QKeyMapper
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public keyboardInfoModel keyboardinfomodel;
+        public layoutEditorModel layouteditormodel;
+
         public MainWindow()
         {
             //0 set to 0 to load default panel
@@ -28,14 +34,20 @@ namespace QKeyMapper
             //2 set to 2 to load binding editor panel
             //3 set to 3 to load macro editor panel
             //4 set to 4 to load flashing page panel
-            int panelDebug = 1;
+            int panelDebug = 0;
+
+            keyboardinfomodel = new keyboardInfoModel();
+            layouteditormodel = new layoutEditorModel();
+
 
             InitializeComponent();
+
+
             
             switch (panelDebug)
             {
                 case 0:
-                    mainFrame.Content = new KeyBoardInfoPage();
+                    mainFrame.Content = new KeyBoardInfoPage(this);
                     break;
                 case 1:
                     mainFrame.Content = new LayoutEditorPage();

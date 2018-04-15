@@ -8,11 +8,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <!--MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}, Path=ActualWidth}" -->
-    <Button HorizontalAlignment="Center" MinWidth="50" MinHeight="48">
+    <Button x:Name="keyButton" HorizontalAlignment="Center" MinWidth="50" MinHeight="48">
         <Grid>
             <Image x:Name="keyimage" Grid.Row="0" Source="/Resources/Images/keycap.png"></Image>
             <!--<Label Grid.Row="0" Content="Deleteeee" Margin="48,47,43,45" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="65" ></Label> -->
-            <TextBlock Grid.Row="0" Text="Deleteeeeeeeeeeeeeeeeeeeeee"  VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Justify" FontSize="35"  TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+            <TextBlock Grid.Row="0" Text="{Binding text}"  VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Justify" FontSize="35"  TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                        MaxWidth="{Binding ElementName=keyimage, Path=ActualWidth}" MaxHeight="{Binding ElementName=keyimage, Path=ActualHeight}" />
 
         </Grid>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GuiShellTest.Properties
+namespace gst.Properties
 {
 
 

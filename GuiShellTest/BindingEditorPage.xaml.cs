@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuiShellTest.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace QKeyMapper
     /// </summary>
     public partial class BindingEditorPage : Page
     {
+        private bindingEditorModel model;
+
         public BindingEditorPage()
         {
             InitializeComponent();
+            model = new bindingEditorModel();
+            DataContext = model;
         }
 
         private void beginFlashingButton_Click(object sender, RoutedEventArgs e)

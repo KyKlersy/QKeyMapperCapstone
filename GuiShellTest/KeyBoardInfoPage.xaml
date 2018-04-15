@@ -53,26 +53,51 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-            <ComboBox Grid.Row="2" 
-                      Grid.Column="0" 
-                      x:Name="microControllerComboBox"
-                      Width="Auto" 
-                      Background="#FF34353B" 
-                      BorderBrush="#FF8D8D8D" 
-                      Style="{DynamicResource ComboBoxStyle_Capstone}" 
-                      Template="{DynamicResource ComboBoxEditableTemplate}"
-                      IsReadOnly="True" 
-                      IsEditable="False" 
-                      MinWidth="120" 
-                      Margin="25,10,0,10" 
-                      MaxDropDownHeight="80"  
-                      />
+            <ComboBox 
+                Grid.Row="2" 
+                Grid.Column="0" 
+                x:Name="microControllerComboBox"
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}"
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="120" 
+                Margin="25,10,0,10" 
+                MaxDropDownHeight="80" 
+                ItemsSource="{Binding SupportedProcs}"
+                SelectedItem="{Binding SelectedMicroProc}"
+                DisplayMemberPath="mpName"
+                SelectedValuePath="mpCode"
+                Text="{Binding SelectedMicroProc.mpName}"
+            />
 
 
             <Label Grid.Row="2" Grid.Column="1" x:Name="microControllerLabel" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="MicroController" Foreground="#FFF1F1F1" Margin="0,0,10,0" FontSize="20"/>
 
-            <ComboBox Grid.Row="4" Grid.Column="0" x:Name="keyboardLayoutComboBox" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="25,10,0,10">
-            </ComboBox>
+            <ComboBox 
+                Grid.Row="4" 
+                Grid.Column="0" 
+                x:Name="keyboardLayoutComboBox" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="120" 
+                Margin="25,10,0,10"
+                ItemsSource="{Binding JsonLayouts}"
+                SelectedItem="{Binding SelectedJsonLayout}"
+                DisplayMemberPath="layoutName"
+                SelectedValuePath="layoutPath"
+                Text="{Binding SelectedJsonLayout.layoutName}"
+            />
+
+
             <Label Grid.Row="4" Grid.Column="1" x:Name="keyboardLayoutLabel" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="Keyboard Layout" Foreground="#FFF1F1F1" FontSize="20"></Label>
                 <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Name="beginMappingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="25,0" Padding="6" Content="Begin Mapping" Click="beginMappingButton_Click" FontSize="24">
                     <Button.Background>
