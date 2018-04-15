@@ -1,0 +1,107 @@
+{
+  "desc": {
+    "manufacturer": "gorbachev",
+    "description": "lets split left side only",
+    "product_name": "lets_split_lhs"
+  },
+  "spec": {
+    "avrdude": {
+      "partno": "m32u4",
+      "partno_verbose": "atmega32u4",
+      "programmer": "89isp"
+    },
+    "matrix_spec": {
+      "rows": 4,
+      "cols": 3,
+      "row_pins": [ "B5", "B4", "E6", "D7" ],
+      "col_pins": [ "F4", "F5", "F6", "F7", "B1", "B3" ]
+    },
+    "diode_direction": "COL2ROW"
+  },
+  "keys": [
+    {
+      "graphics": {
+        "row": 0,
+        "col": 0,
+        "text": "q"
+      },
+      "binding": {
+        "on_tap": ["q"]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "F4"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 1,
+        "text": "w"
+      },
+      "binding": {
+        "on_tap": ["w"]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "F5"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 2,
+        "text": "e"
+      },
+      "binding": {
+        "on_tap": ["e"]
+      },
+      "matrix": {
+        "row": "B5",
+        "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 0,
+        "text": "a"
+      },
+      "binding": {
+        "on_tap": ["a"]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F4"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 1,
+        "text": "s"
+      },
+      "binding": {
+        "on_tap": ["s"]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F5"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 2,
+        "text": "d"
+      },
+      "binding": {
+        "on_tap": ["d"]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F6"
+      }
+    }
+  ]
+}
