@@ -121,7 +121,9 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            ///*
+            // /*
+
+
             //foreach (var item in LayoutEditorPage.)
             //{
             //    var key = new qk.Key_items.Key();
@@ -130,15 +132,21 @@ namespace QKeyMapper
             //    key.matrix.row = item.row;
             //    keeb.keys.Add(key);
             //}
-
+            qk.Keyboard keeb = new qk.Keyboard();
+            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
-            string output = JsonConvert.SerializeObject(KeyItems, Formatting.Indented); //Serialize the List and add to output string
+            keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+            keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+            keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+            keeb.keys = KeyItems;
+            JsonInfo.Add(keeb);
+            string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
             System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
             Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
             MessageBox.Show("Keyboard Layout created in a Json file");
-            
-            //*/
+
+            //  */
 
 
 
@@ -156,7 +164,7 @@ namespace QKeyMapper
 
              */
 
-          //  Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
+            Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
 
 
             List<qk.Key_items.Key> keyD = getKeyData();
@@ -167,6 +175,10 @@ namespace QKeyMapper
 
         }
 
+        private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
+        {
+            return KeyItems;
+        }
 
         private void removeRowButton_Click(object sender, RoutedEventArgs e)
         {
