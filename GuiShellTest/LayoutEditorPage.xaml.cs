@@ -14,46 +14,33 @@ using Newtonsoft.Json;
 using GuiShellTest.Controls;
 using GuiShellTest.ViewModels;
 using System.ComponentModel;
-
-
 namespace QKeyMapper
 {
 
     public partial class LayoutEditorPage : Page
     {
+
+
         private MainWindow mainWindow;
         private layoutEditorModel model;
 
+    
+        public void ChangeButtonColor() {
+
+
+          
+        }
+
         public LayoutEditorPage()
         {
+        
+
             InitializeComponent();
             model = new layoutEditorModel();
             DataContext = model;
             keyDataForm.DataContext = null;
 
-        }
-        public void ErrorChecking(object o) {
-            try
-            {
-                if (o == typeof(string))
-                {
-                    var x = Convert.ToString(o);
-                    if (!(x.Length > 0 && x.Length < 40)) { MessageBox.Show("Layout Name Should be 0-40 characters in length"); }
-
-                }
-
-                else if (o == typeof(int))
-                {
-                    var x = Convert.ToInt64(o);
-                    if (!(x > 0 && x <= 100)) { MessageBox.Show("Row & Column Should be 1-100"); }
-
-                }
-            }
-
-            catch { MessageBox.Show("An error occured while cheking errors");
-                    LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
-                    NavigationService.Navigate(layoutEditorPage); }
-            finally { Console.WriteLine("Error checking completed"); }
+          
         }
 
         public LayoutEditorPage(MainWindow mainwindow)
@@ -67,10 +54,10 @@ namespace QKeyMapper
         }
 
         //Kyles` function to create grid passing only row and coloumn recieved from textboxes
-        private void GridCreate(int row,int coloumn)
+        private void GridCreate(int row, int coloumn)
         {
             BrushConverter bc = new BrushConverter();
-            
+
 
             for (int defaultGridSize = 0; defaultGridSize < row; defaultGridSize++)
             {
@@ -108,7 +95,7 @@ namespace QKeyMapper
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
-            if(e.OriginalSource is Border)
+            if (e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
                 KeyCapButton kcb = new KeyCapButton();
@@ -137,19 +124,21 @@ namespace QKeyMapper
             KeyCapButton data = (KeyCapButton)btn.DataContext;
 
             keyDataForm.DataContext = data;
-            
+
         }
-        
+
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
+
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-            ErrorChecking(KeyboardLayoutName);
+           
             qk.Keyboard keeb = new qk.Keyboard();
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
-            {
+            {   if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
+                { DiodeLabel.Visibility = Visibility.Visible; }
                 keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
@@ -300,6 +289,5 @@ namespace QKeyMapper
 
             return keyData;
         }
-
     }
 }
