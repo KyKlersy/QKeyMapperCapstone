@@ -172,6 +172,9 @@
     <Content Include="Resources\JsonDefaultLayouts\6ball_no_macro.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\JsonDefaultLayouts\lets_split_lhs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
