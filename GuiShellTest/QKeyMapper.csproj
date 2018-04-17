@@ -168,10 +168,10 @@
     <Content Include="Resources\JsonDefaultLayouts\6ball_key_array.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\singleKeyMacros.csv" />
     <Content Include="Resources\JsonDefaultLayouts\6ball_no_macro.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\singleKeyMacros.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
