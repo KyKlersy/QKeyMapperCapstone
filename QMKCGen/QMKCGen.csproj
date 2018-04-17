@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="directory_structures\DirectoryStructure.cs" />
-    <Compile Include="directory_structures\FileTemplate.cs" />
+    <Compile Include="QMKStructures\DirectoryStructure.cs" />
+    <Compile Include="QMKStructures\FileTemplate.cs" />
     <Compile Include="helpers\Self.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,7 +59,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="directory_structures\templates\default_project_structure.json">
+    <None Include="QMKStructures\templates\default_qmk_structure.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Templates\C\keyboard\project_template.c.hbs">

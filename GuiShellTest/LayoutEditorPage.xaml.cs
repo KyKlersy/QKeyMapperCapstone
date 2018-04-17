@@ -14,25 +14,34 @@ using Newtonsoft.Json;
 using GuiShellTest.Controls;
 using GuiShellTest.ViewModels;
 using System.ComponentModel;
-
-
 namespace QKeyMapper
 {
-    //omercan
+
     public partial class LayoutEditorPage : Page
     {
+
+
         private MainWindow mainWindow;
         private layoutEditorModel model;
 
+    
+        public void ChangeButtonColor() {
+
+
+          
+        }
+
         public LayoutEditorPage()
         {
+        
+
             InitializeComponent();
             model = new layoutEditorModel();
             DataContext = model;
             keyDataForm.DataContext = null;
 
+          
         }
-
 
         public LayoutEditorPage(MainWindow mainwindow)
         {
@@ -45,10 +54,10 @@ namespace QKeyMapper
         }
 
         //Kyles` function to create grid passing only row and coloumn recieved from textboxes
-        private void GridCreate(int row,int coloumn)
+        private void GridCreate(int row, int coloumn)
         {
             BrushConverter bc = new BrushConverter();
-            
+
 
             for (int defaultGridSize = 0; defaultGridSize < row; defaultGridSize++)
             {
@@ -86,7 +95,7 @@ namespace QKeyMapper
         private void Border_Drop(object sender, DragEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
-            if(e.OriginalSource is Border)
+            if (e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
                 KeyCapButton kcb = new KeyCapButton();
@@ -115,32 +124,33 @@ namespace QKeyMapper
             KeyCapButton data = (KeyCapButton)btn.DataContext;
 
             keyDataForm.DataContext = data;
-            
+
         }
-        
+
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-            /*qk.Keyboard keeb = new qk.Keyboard();
-            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
 
-            //foreach (var item in LayoutEditorPage.)
-            //{
-            //    var key = new qk.Key_items.Key();
-            //    keeb.spec.matrix_spec.col_pins.Add("F0");
-            //    key.matrix.col = item.col;
-            //    key.matrix.row = item.row;
-            //    keeb.keys.Add(key);
-            //}
-
-            JsonInfo.Add(keeb);
-
-            string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-            System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-            Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-            MessageBox.Show("Keyboard Layout created in a Json file");
-            */
+           
+            qk.Keyboard keeb = new qk.Keyboard();
+            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
+            List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
+            try
+            {   if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
+                { DiodeLabel.Visibility = Visibility.Visible; }
+                keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+                keeb.keys = KeyItems;
+                JsonInfo.Add(keeb);
+                string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
+                System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+                Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+                MessageBox.Show("Keyboard Layout created in a Json file");
+            }
+            catch { MessageBox.Show("An error occured while serializing the object"); }
+           
 
 
 
@@ -156,7 +166,7 @@ namespace QKeyMapper
                 You can test it by creating a grid, adding a key, clicking the key, adding information. It will print the console the matrix row/col entered for the key.
                 it will return empty nulls for parts of the grid that no key exists, this should serialize out nicely.
 
-             */
+          
 
             Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
 
@@ -166,9 +176,13 @@ namespace QKeyMapper
             {
                 Debug.WriteLine("mrow: " + qd.matrix.row + " mcol: " + qd.matrix.col);
             });
-
+               */
         }
 
+        private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
+        {
+            return KeyItems;
+        }
 
         private void removeRowButton_Click(object sender, RoutedEventArgs e)
         {
@@ -176,13 +190,12 @@ namespace QKeyMapper
             var lastcol = (visualEditorGrid.ColumnDefinitions.Count - 1);
 
             UIElement element = null;
-
+            
             for (var col = lastcol; col >= 0; col--)
             {
 
                 element = visualEditorGrid.Children.Cast<UIElement>()
                    .First(i => Grid.GetRow(i) == lastrow && Grid.GetColumn(i) == col);
-
                 visualEditorGrid.Children.Remove(element);
 
             }
@@ -207,23 +220,31 @@ namespace QKeyMapper
 
         private void CreateGrid(object sender, RoutedEventArgs e)
         {
-           
             try
             {
                 int RowIterations = int.Parse(Row.Text);
                 int ColomnIterations = int.Parse(Column.Text);
-
-                if(visualEditorGrid.Children.Count != 0)
+                if ((visualEditorGrid.Children.Count != 0)|| RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
                 {
+                    MessageBox.Show("Row and Column values should be 0-100");
                     visualEditorGrid.Children.Clear();
+                    Row.Clear();
+                    Column.Clear();
                 }
 
-                GridCreate(RowIterations, ColomnIterations); // Make grid great again
+                else
+                {
+                    GridCreate(RowIterations, ColomnIterations); // Make grid great again
+                }
             }
             catch {
-                Console.WriteLine("not valid input");
+                Console.WriteLine("Not a valid input");
+                visualEditorGrid.Children.Clear();
+                Row.Clear();
+                Column.Clear();
             }
-}
+        }
+    
 
         private void closeKeyDataForm(object sender, RoutedEventArgs e)
         {
@@ -268,95 +289,5 @@ namespace QKeyMapper
 
             return keyData;
         }
-
     }
 }
-
-/*  
-public class KeyboardLayout
-{
-
-    public string KeyName { get; set; }
-    public int Row { get; set; }
-    public int Coloumn { get; set; }
-
-
-
-    public override string ToString()
-    {
-        return "keyname:" + this.KeyName + " ROW: " + this.Row + " Coloumn:" + this.Coloumn;
-        private void addRowButton_Click(object sender, RoutedEventArgs e)
-        {
-            RowDefinition rd = new RowDefinition();
-            rd.Height = new GridLength(1.0, GridUnitType.Star);
-            visualEditorGrid.RowDefinitions.Add(rd);
-
-
-
-            var newRowCount = (visualEditorGrid.ColumnDefinitions.Count - 1);
-            BrushConverter bc = new BrushConverter();
-            UIElement borderElement = null;
-
-            for(int newGridItems = 0; newGridItems <= newRowCount; newGridItems++)
-            {
-                Debug.WriteLine("Row count " + (visualEditorGrid.RowDefinitions.Count - 1));
-                Debug.WriteLine("Column count " + (newGridItems));
-
-                borderElement = dropableBorder((newRowCount + 1), newGridItems, bc);
-                Grid.SetRow(borderElement, newRowCount);
-                Grid.SetColumn(borderElement, newGridItems);
-                Debug.WriteLine("Row: " + newRowCount + "Col: " + newGridItems);
-                visualEditorGrid.Children.Add(borderElement);
-            }
-
-            //Debug.WriteLine("New Row added: " + (visualEditorGrid.RowDefinitions.Count - 1));
-        }
-    }
-}*/
-
-
-        // Create Grid Kyles` way...
-/*
-       BrushConverter bc = new BrushConverter();
-       UIElement dropBorder = null;
-
-
-       for (int defaultGridSize = 0; defaultGridSize < 10; defaultGridSize++)
-       {
-           RowDefinition rd = new RowDefinition();
-           rd.Height = new GridLength(1.0, GridUnitType.Star);
-           visualEditorGrid.RowDefinitions.Add(rd);
-
-           ColumnDefinition cd = new ColumnDefinition();
-           cd.Width = new GridLength(1.0, GridUnitType.Star);
-           visualEditorGrid.ColumnDefinitions.Add(cd);
-
-
-       }
-
-       for (int i = 0; i < 10; i++)
-       {
-
-
-           /*Border rbd = new Border();
-           rbd.Background = Brushes.Transparent;
-           rbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
-           rbd.BorderThickness = new Thickness(1.0);
-           Grid.SetRow(rbd, i);
-           visualEditorGrid.Children.Add(rbd); //
-
-           for (int j = 0; j < 10; j++)
-           {
-
-               dropBorder = dropableBorder(i, j, bc);
-
-
-               Grid.SetRow(dropBorder, i);
-               Grid.SetColumn(dropBorder, j);
-               Debug.WriteLine("Row: " + i + "Col: " + j);
-               visualEditorGrid.Children.Add(dropBorder);
-
-           }
-
-       } 
-   */
