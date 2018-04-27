@@ -30,7 +30,13 @@ namespace GuiShellTest.Controls
 
             keyItem = new qk.Key_items.Key();
             DataContext = this;
+        }
 
+        public KeyCapButton(qk.Key_items.Key key)
+        {
+            InitializeComponent();
+            keyItem = key;
+            DataContext = this;
         }
 
         public string text {

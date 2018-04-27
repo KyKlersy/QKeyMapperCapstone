@@ -27,7 +27,6 @@ namespace QKeyMapper
     {
         private bindingEditorModel model;
         private MainWindow mainWindow;
-        private QK.Keyboard current_layout;
 
         public BindingEditorPage()
         {
@@ -36,15 +35,34 @@ namespace QKeyMapper
             DataContext = model;
         }
 
-        public BindingEditorPage(MainWindow mainWindow)
-        {
+        public BindingEditorPage(MainWindow mainWindow) {
             InitializeComponent();
             model = new bindingEditorModel();
             this.mainWindow = mainWindow;
             DataContext = model;
+            //store the path to the json file
             var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
-            current_layout = get_keyboard_json_from_path(json_path);
+            //create keyboard oject and initialize with the contents within the json file
+            QK.Keyboard current_layout = get_keyboard_json_from_path(json_path);
+            
+            ////For print the object's key properties to a file (testing purposes)
+            //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\COSC4354_Senior_Capstone_Project\TestOutput\tOutput.txt")) {
+            //    foreach (var element in current_layout.keys) {
+            //        if (element.matrix.row == null)
+            //        {
+            //            file.WriteLine("Its a null");
+            //            if (element.matrix.row == "")
+            //            { file.WriteLine("Treated as empty string"); }
+            //        }
+            //        file.WriteLine("Row: "+ element.matrix.row + "\n");
+            //        file.WriteLine("Column: " + element.matrix.col + "\n");
+            //    }
+            //}  
+
+            //create the grid for the binding editor
             GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
+            //generate the json specified keycaps
+            generateKeyCaps(current_layout);
         }
 
         private QK.Keyboard get_keyboard_json_from_path(string path)
@@ -75,7 +93,6 @@ namespace QKeyMapper
                 RowDefinition rd = new RowDefinition();
                 rd.Height = new GridLength(0, GridUnitType.Star);
                 keyBoardGridPicker.RowDefinitions.Add(rd);
-
             }
 
             for (int defaultGridSize = 0; defaultGridSize < coloumn; defaultGridSize++)
@@ -87,23 +104,19 @@ namespace QKeyMapper
 
             for (int i = 0; i < row; i++)
             {
-
                 for (int j = 0; j < coloumn; j++)
                 {
-
                     UIElement dropzone = dropableBorder(row, coloumn, bc);
                     Grid.SetRow(dropzone, i);
                     Grid.SetColumn(dropzone, j);
                     keyBoardGridPicker.Children.Add(dropzone);
                     dropzone = null;
-
                 }
             }
         }
 
         public UIElement dropableBorder(int rowNum, int colNum, BrushConverter bc)
         {
-
             Border cbd = new Border();
             cbd.Background = Brushes.Transparent;
             cbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
@@ -129,6 +142,20 @@ namespace QKeyMapper
                 //kcb.keyButton.Click += PopOpenSelector;
 
                 targetBorder.Child = kcb;
+            }
+        }
+
+        private void generateKeyCaps(QK.Keyboard kc) {
+            foreach (var key in kc.keys) {
+                int row = key.graphics.row;
+                int col = key.graphics.col;
+                KeyCapButton kcb = new KeyCapButton(key);
+                if (key.matrix.row == null && key.matrix.col == null)
+                {/*skip*/}
+                else
+                    keyBoardGridPicker.Children.Add(kcb);
+                Grid.SetRow(kcb, row);
+                Grid.SetColumn(kcb, col);
             }
         }
     }

@@ -1,0 +1,110 @@
+{
+  "ui_desc": {
+    "rows": 2,
+    "cols": 3
+  },
+  "desc": {
+    "manufacturer": "Linguini Enterprises",
+    "description": "i made dis",
+    "product_name": "6-bal, idk why tho"
+  },
+  "spec": {
+    "avrdude": {
+      "partno": "m32u4",
+      "programmer": "89isp"
+    },
+    "matrix_spec": {
+      "rows": 2,
+      "cols": 3,
+      "row_pins": [ "D0", "D5" ],
+      "col_pins": [ "F1", "F0", "B0" ]
+    },
+    "diode_direction": "col2row"
+  },
+  "keys": [
+    {
+      "graphics": {
+        "row": 0,
+        "col": 0,
+        "text": null
+      },
+      "binding": {
+        "on_tap": [ "ctrl", "10ms", "alt", "10ms", "del" ]
+      },
+      "matrix": {
+        "row": null,
+        "col": null
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 1,
+        "text": "Up"
+      },
+      "binding": {
+        "on_tap": [ "w" ]
+      },
+      "matrix": {
+        "row": "D0",
+        "col": "F0"
+      }
+    },
+    {
+      "graphics": {
+        "row": 0,
+        "col": 2,
+        "text": null
+      },
+      "binding": {
+        "on_tap": [ "ctrl", "10ms", "f" ]
+      },
+      "matrix": {
+        "row": null,
+        "col": null
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 0,
+        "text": "Left"
+      },
+      "binding": {
+        "on_tap": [ "a" ]
+      },
+      "matrix": {
+        "row": "D5",
+        "col": "F1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 1,
+        "text": "Down"
+      },
+      "binding": {
+        "on_tap": [ "s" ]
+      },
+      "matrix": {
+        "row": "D5",
+        "col": "F0"
+      }
+    },
+    {
+      "graphics": {
+        "row": 1,
+        "col": 2,
+        "text": "Right"
+      },
+      "binding": {
+        "on_tap": [ "d" ]
+      },
+      "matrix": {
+        "row": "D5",
+        "col": "B0"
+      }
+    }
+  ]
+}
