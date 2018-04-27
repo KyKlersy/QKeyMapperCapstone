@@ -26,7 +26,7 @@
             <ColumnDefinition Width="7*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        
+
         <ScrollViewer Name="bindingEditorScrollBar" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
             <Viewbox Name="bindingEditorViewBox" Stretch="Fill">
                 <Grid x:Name="keyBoardGridPicker" Grid.Row="0" Grid.Column="0" Background="#43464E" Margin="5,5"></Grid>
@@ -86,6 +86,14 @@
                 </Button.Background>
             </Button>
             <Button Grid.Row="6" Grid.Column="0" x:Name="beginFlashingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Begin Flashing" Click="beginFlashingButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="0" x:Name="back_button" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="&lt;--" Click="createNewMacroButton_Click" Height="20" VerticalAlignment="Top" Margin="122,0,0,0">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>

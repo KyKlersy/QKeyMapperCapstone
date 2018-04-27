@@ -137,9 +137,11 @@ namespace QKeyMapper
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
-            {   //if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
-               // { DiodeLabel.Visibility = Visibility.Visible; }
-                keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+            {   
+            //    if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
+            //    { DiodeLabel.Visibility = Visibility.Visible; }
+            //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
                 keeb.keys = KeyItems;

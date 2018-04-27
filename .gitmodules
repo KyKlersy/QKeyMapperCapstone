@@ -1,0 +1,3 @@
+[submodule "QMKCGen/qmk_firmware"]
+	path = QMKCGen/qmk_firmware
+	url = https://github.com/qmk/qmk_firmware.git

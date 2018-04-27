@@ -11,6 +11,7 @@ namespace QKeyCommon.Keyboard_items
 {
     public class Keyboard
     {
+        public UIDesc ui_desc { get; set; }
         public Desc desc { get; set; }
         public Spec spec { get; set; }
         public List<Key> keys { get; set; }
@@ -18,6 +19,7 @@ namespace QKeyCommon.Keyboard_items
         {
             this.desc = new Desc();
             this.spec = new Spec();
+            ui_desc = new UIDesc();
         }
     }
 }
