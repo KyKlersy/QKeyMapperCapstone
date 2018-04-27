@@ -34,7 +34,7 @@ namespace QKeyMapper
             //2 set to 2 to load binding editor panel
             //3 set to 3 to load macro editor panel
             //4 set to 4 to load flashing page panel
-            int panelDebug = 0;
+            int panelDebug = 1;
 
             keyboardinfomodel = new keyboardInfoModel();
             layouteditormodel = new layoutEditorModel();

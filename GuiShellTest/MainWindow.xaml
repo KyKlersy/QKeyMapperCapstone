@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GuiShellTest"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="QKeyMapper.MainWindow"
         mc:Ignorable="d"
-        Title="Q - Key Mapper" Height="800" Width="1200">
+        Title="Q - Key Mapper" SizeToContent="WidthAndHeight" MinWidth="800" MinHeight="600">
 
     
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>

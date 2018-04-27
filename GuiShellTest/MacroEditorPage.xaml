@@ -9,7 +9,59 @@
       d:DesignHeight="350" d:DesignWidth="525"
       Title="MacroEditorPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/comboBoxStyleResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="#34353B">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".05*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width=".05*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="1" x:Name="recordMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Record Macro" FontSize="16" Padding="10" Margin="5" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button Grid.Row="0" Grid.Column="2" x:Name="stopRecording" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Stop Recording" FontSize="16" Padding="10" Margin="5"  >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button Grid.Row="0" Grid.Column="3" x:Name="saveMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Save Macro" FontSize="16" Padding="10" Margin="5"  >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Label Grid.Row="1" Grid.Column="1" Foreground="#F1F1F1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">Macro Name:</Label>
+        <TextBox x:Name="customMacroName" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Padding="10" Margin="5" />
+
     </Grid>
 </Page>

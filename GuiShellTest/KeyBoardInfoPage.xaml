@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GuiShellTest"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="525"
+      d:DesignHeight="800" d:DesignWidth="600"
       Title="Page1">
 
     <Page.Resources>
@@ -19,25 +19,24 @@
     
         <Grid Background="#34353B">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height=".05*" />
                 <RowDefinition Height="8*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height=".05*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width=".05*" />
                 <ColumnDefinition Width="8*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width=".05*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="1" Grid.Column="1" Background="#43464E">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="4*" />
-                    <RowDefinition Height="2*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height=".35*" />
+                    <RowDefinition Height=".25*" />
+                    <RowDefinition Height=".55*" />
+                    <RowDefinition Height=".25*" />
+                    <RowDefinition Height=".55*" />
+                    <RowDefinition Height=".25*" />
+                    <RowDefinition Height=".5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
@@ -65,7 +64,7 @@
                 IsReadOnly="True" 
                 IsEditable="False" 
                 MinWidth="120" 
-                Margin="25,10,0,10" 
+                Margin="25,40,0,40"
                 MaxDropDownHeight="80" 
                 ItemsSource="{Binding SupportedProcs}"
                 SelectedItem="{Binding SelectedMicroProc}"
@@ -89,7 +88,7 @@
                 IsReadOnly="True" 
                 IsEditable="False" 
                 MinWidth="120" 
-                Margin="25,10,0,10"
+                Margin="25,40,0,40"
                 ItemsSource="{Binding JsonLayouts}"
                 SelectedItem="{Binding SelectedJsonLayout}"
                 DisplayMemberPath="layoutName"
@@ -97,7 +96,8 @@
                 Text="{Binding SelectedJsonLayout.layoutName}"
             />
 
-
+            <!-- Margin="25,10,0,10" -->
+                
             <Label Grid.Row="4" Grid.Column="1" x:Name="keyboardLayoutLabel" HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="Keyboard Layout" Foreground="#FFF1F1F1" FontSize="20"></Label>
                 <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Name="beginMappingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="25,0" Padding="6" Content="Begin Mapping" Click="beginMappingButton_Click" FontSize="24">
                     <Button.Background>
