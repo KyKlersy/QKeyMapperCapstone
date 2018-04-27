@@ -61,7 +61,7 @@ namespace QKeyMapper
             }
             else
             {
-                BindingEditorPage bindingEditorPage = new BindingEditorPage();
+                BindingEditorPage bindingEditorPage = new BindingEditorPage(mainWindow);
                 NavigationService.Navigate(bindingEditorPage);
 
             }
