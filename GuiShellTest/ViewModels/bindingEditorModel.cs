@@ -73,6 +73,10 @@ namespace GuiShellTest.ViewModels
                     DefaultSingleKeyBinds.Add(km);
                 }
             }
+        }
+
+        private void loadUserDefinedCollection()
+        {
 
 
         }
