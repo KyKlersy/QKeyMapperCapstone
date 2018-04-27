@@ -129,28 +129,33 @@ namespace QKeyMapper
 
 
         private void createJson_Click(object sender, RoutedEventArgs e)
-        {
+        {            
 
-            string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-           
-            qk.Keyboard keeb = new qk.Keyboard();
+                string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
+            
+                qk.Keyboard keeb = new qk.Keyboard();
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
-            try
-            {   if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
-                { DiodeLabel.Visibility = Visibility.Visible; }
-                keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
-                keeb.keys = KeyItems;
-                JsonInfo.Add(keeb);
-                string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
-                System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-                Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                MessageBox.Show("Keyboard Layout created in a Json file");
+
+                try
+            {
+                if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
+                {
+                    //keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+                    keeb.keys = KeyItems;
+                    string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+                    Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path                
+                    MessageBox.Show("Keyboard Layout created in a Json file");
+                    mainWindow.Content = new BindingEditorPage();
+
+                }
+                else { throw new Exception("Layout name is not valid"); }
+
             }
-            catch { MessageBox.Show("An error occured while serializing the object"); }
-           
+            catch { MessageBox.Show("An error occured while serializing the object: "); }
 
 
 
@@ -222,6 +227,7 @@ namespace QKeyMapper
         {
             try
             {
+                
                 int RowIterations = int.Parse(Row.Text);
                 int ColomnIterations = int.Parse(Column.Text);
                 if ((visualEditorGrid.Children.Count != 0)|| RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
