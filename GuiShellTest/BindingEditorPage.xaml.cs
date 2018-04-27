@@ -1,6 +1,9 @@
-﻿using GuiShellTest.ViewModels;
+﻿using GuiShellTest.Controls;
+using GuiShellTest.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QK = QKeyCommon.Keyboard_items;
 
 namespace QKeyMapper
 {
@@ -22,12 +26,31 @@ namespace QKeyMapper
     public partial class BindingEditorPage : Page
     {
         private bindingEditorModel model;
+        private MainWindow mainWindow;
+        private QK.Keyboard current_layout;
 
         public BindingEditorPage()
         {
             InitializeComponent();
             model = new bindingEditorModel();
             DataContext = model;
+        }
+
+        public BindingEditorPage(MainWindow mainWindow)
+        {
+            InitializeComponent();
+            model = new bindingEditorModel();
+            this.mainWindow = mainWindow;
+            DataContext = model;
+            var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
+            current_layout = get_keyboard_json_from_path(json_path);
+            GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
+        }
+
+        private QK.Keyboard get_keyboard_json_from_path(string path)
+        {
+            string json_raw = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<QK.Keyboard>(json_raw);
         }
 
         private void beginFlashingButton_Click(object sender, RoutedEventArgs e)
@@ -40,6 +63,73 @@ namespace QKeyMapper
         {
             KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
             NavigationService.Navigate(keyboardInfoPage);
+        }
+
+        private void GridCreate(int row, int coloumn)
+        {
+            BrushConverter bc = new BrushConverter();
+
+
+            for (int defaultGridSize = 0; defaultGridSize < row; defaultGridSize++)
+            {
+                RowDefinition rd = new RowDefinition();
+                rd.Height = new GridLength(0, GridUnitType.Star);
+                keyBoardGridPicker.RowDefinitions.Add(rd);
+
+            }
+
+            for (int defaultGridSize = 0; defaultGridSize < coloumn; defaultGridSize++)
+            {
+                ColumnDefinition cd = new ColumnDefinition();
+                cd.Width = new GridLength(0, GridUnitType.Star);
+                keyBoardGridPicker.ColumnDefinitions.Add(cd);
+            }
+
+            for (int i = 0; i < row; i++)
+            {
+
+                for (int j = 0; j < coloumn; j++)
+                {
+
+                    UIElement dropzone = dropableBorder(row, coloumn, bc);
+                    Grid.SetRow(dropzone, i);
+                    Grid.SetColumn(dropzone, j);
+                    keyBoardGridPicker.Children.Add(dropzone);
+                    dropzone = null;
+
+                }
+            }
+        }
+
+        public UIElement dropableBorder(int rowNum, int colNum, BrushConverter bc)
+        {
+
+            Border cbd = new Border();
+            cbd.Background = Brushes.Transparent;
+            cbd.BorderBrush = (Brush)bc.ConvertFromString("#8D8D8D");
+            cbd.BorderThickness = new Thickness(1.0);
+            cbd.Name = "cell" + rowNum + "_" + colNum;
+            cbd.MinWidth = 75;
+            cbd.MinHeight = 75;
+            cbd.HorizontalAlignment = HorizontalAlignment.Stretch;
+            cbd.VerticalAlignment = VerticalAlignment.Stretch;
+            cbd.AddHandler(Border.DropEvent, new DragEventHandler(Border_Drop));
+
+            return cbd;
+        }
+
+        private void Border_Drop(object sender, DragEventArgs e)
+        {
+            //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
+            if (e.OriginalSource is Border)
+            {
+                Border targetBorder = (Border)e.OriginalSource;
+                KeyCapButton kcb = new KeyCapButton();
+
+                //kcb.keyButton.Click += PopOpenSelector;
+
+                targetBorder.Child = kcb;
+            }
         }
     }
 }

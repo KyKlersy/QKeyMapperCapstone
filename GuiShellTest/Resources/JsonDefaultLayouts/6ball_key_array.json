@@ -1,4 +1,8 @@
 {
+  "ui_desc": {
+    "rows": 2,
+    "cols": 3
+  },
   "desc": {
     "manufacturer": "Linguini Enterprises",
     "description": "i made dis",
@@ -39,7 +43,7 @@
         "text": "w"
       },
       "binding": {
-        "on_tap": ["w"]
+        "on_tap": [ "w" ]
       },
       "matrix": {
         "row": "D0",
@@ -53,7 +57,7 @@
         "text": "find"
       },
       "binding": {
-        "on_tap": ["ctrl", "10ms", "f"]
+        "on_tap": [ "ctrl", "10ms", "f" ]
       },
       "matrix": {
         "row": "D0",
@@ -67,7 +71,7 @@
         "text": "a"
       },
       "binding": {
-        "on_tap": ["a"]
+        "on_tap": [ "a" ]
       },
       "matrix": {
         "row": "D5",
@@ -81,7 +85,7 @@
         "text": "s"
       },
       "binding": {
-        "on_tap": ["s"]
+        "on_tap": [ "s" ]
       },
       "matrix": {
         "row": "D5",
@@ -95,7 +99,7 @@
         "text": "d"
       },
       "binding": {
-        "on_tap": ["d"]
+        "on_tap": [ "d" ]
       },
       "matrix": {
         "row": "D5",
