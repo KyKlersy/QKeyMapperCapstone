@@ -15,6 +15,7 @@ namespace QMKCGen.QMKStructures
     {
         public List<List<string>> directories { get; set; }
         public List<FileTemplate> files { get; set; }
+        string qmk_keyboard_dir;
         public QMKStructure()
         {
             directories = new List<List<string>>{};
@@ -22,7 +23,9 @@ namespace QMKCGen.QMKStructures
         }
         public void generateDirectories(Assembly asm, Keyboard keeb)
         {
-            string rootDirectory = System.IO.Path.GetDirectoryName(asm.Location);
+            qmk_keyboard_dir = new DirectoryInfo(System.IO.Path.GetDirectoryName(asm.Location)).Parent.Parent.FullName +
+                                   System.IO.Path.DirectorySeparatorChar + "qmk_firmware" +
+                                   System.IO.Path.DirectorySeparatorChar + "keyboards";
             foreach (var pathArray in directories)
             {
                 string newDirectory = "";
@@ -31,9 +34,8 @@ namespace QMKCGen.QMKStructures
                     newDirectory += str + System.IO.Path.DirectorySeparatorChar;
                 }
                 var f = new FileInfo(System.IO.Path.Combine(
-                    rootDirectory,
-                    keeb.desc.product_name +
-                    System.IO.Path.DirectorySeparatorChar +
+                    qmk_keyboard_dir,
+                    keeb.desc.product_name,
                     newDirectory
                 ));
                 if (!f.Directory.Exists)
@@ -48,9 +50,10 @@ namespace QMKCGen.QMKStructures
             {
                 template_file.resolve_hbs(keeb);
                 using (System.IO.StreamWriter file =
-                     new System.IO.StreamWriter(keeb.desc.product_name +
-                        System.IO.Path.DirectorySeparatorChar +
-                        template_file.relative_path))
+                     new System.IO.StreamWriter(System.IO.Path.Combine(
+                        qmk_keyboard_dir,
+                        keeb.desc.product_name,
+                        template_file.relative_path)))
                 {
                     string hbs_raw = Self.getFileContents(asm, template_file.template_path);
                     var hbs_template = Handlebars.Compile(hbs_raw);
