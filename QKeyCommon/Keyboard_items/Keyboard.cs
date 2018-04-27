@@ -19,7 +19,7 @@ namespace QKeyCommon.Keyboard_items
         {
             this.desc = new Desc();
             this.spec = new Spec();
-            ui_desc = new UIDesc();
+            this.ui_desc = new UIDesc();
         }
     }
 }
