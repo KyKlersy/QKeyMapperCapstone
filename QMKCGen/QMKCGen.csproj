@@ -54,30 +54,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="helpers\matrix_helpers.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\CPUMonitor.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\CPUMonitor.Designer.cs">
-      <DependentUpon>CPUMonitor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\Program.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\Properties\AssemblyInfo.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\Properties\Resources.Designer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\CPUUsageApp\Properties\Settings.Designer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\LEDMixer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\LEDMixer.Designer.cs">
-      <DependentUpon>LEDMixer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\Program.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\Properties\AssemblyInfo.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\Properties\Resources.Designer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\LEDNotifier\LEDMixerApp\Properties\Settings.Designer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\DataLoggerSettings.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\DataLoggerSettings.Designer.cs">
-      <DependentUpon>DataLoggerSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\Program.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\Properties\AssemblyInfo.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\Properties\Resources.Designer.cs" />
-    <Compile Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\Properties\Settings.Designer.cs" />
     <Compile Include="Utils\Cout.cs" />
   </ItemGroup>
   <ItemGroup>
