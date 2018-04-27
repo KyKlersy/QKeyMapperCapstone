@@ -21,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height=".2*"/>
             <RowDefinition Height="6*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -33,7 +34,7 @@
 
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="1" x:Name="recordMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Record Macro" FontSize="16" Padding="10" Margin="5" >
+        <Button Grid.Row="0" Grid.Column="1" x:Name="recordMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Record Macro" FontSize="16" Padding="10" Margin="5" Click="startRecordingKeyMacro" >
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -42,7 +43,7 @@
             </Button.Background>
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="2" x:Name="stopRecording" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Stop Recording" FontSize="16" Padding="10" Margin="5"  >
+        <Button Grid.Row="0" Grid.Column="2" x:Name="stopRecording" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Stop Recording" FontSize="16" Padding="10" Margin="5" Click="stopRecordingKeyMacro"  >
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -63,5 +64,15 @@
         <Label Grid.Row="1" Grid.Column="1" Foreground="#F1F1F1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">Macro Name:</Label>
         <TextBox x:Name="customMacroName" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Padding="10" Margin="5" />
 
+        <ScrollViewer x:Name="macroScrollViewer" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+            <TextBlock TextWrapping="Wrap" Padding="25"
+                       MaxWidth="{Binding ElementName=macroScrollViewer,Path=ActualWidth}"
+                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       ScrollViewer.CanContentScroll="True"
+                       
+            />
+
+        </ScrollViewer>
     </Grid>
 </Page>

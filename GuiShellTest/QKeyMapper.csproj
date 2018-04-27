@@ -175,6 +175,7 @@
     <Content Include="Resources\JsonDefaultLayouts\lets_split_lhs.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\JsonDefaultLayouts\emptyKeyTest.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
