@@ -134,28 +134,34 @@ namespace QKeyMapper
             string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
            
             qk.Keyboard keeb = new qk.Keyboard();
-            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
+            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>();  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
             {
-                if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
-                    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
+                {
+                    if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
+                        keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
                     //Debug.WriteLine(mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue);
                     //    { DiodeLabel.Visibility = Visibility.Visible; }
                     //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
-
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
-                keeb.keys = KeyItems;
-                JsonInfo.Add(keeb);
-                string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
-                System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-                Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
-                NavigationService.Navigate(new BindingEditorPage(mainWindow));
-                //MessageBox.Show("Keyboard Layout created in a Json file");
+                    keeb.ui_desc.rows = int.Parse(gridRow.Text);
+                    keeb.ui_desc.cols = int.Parse(gridColumn.Text);
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+                    keeb.keys = KeyItems;
+                    //JsonInfo.Add(keeb);
+                    string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+                    Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+                    mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
+                    NavigationService.Navigate(new BindingEditorPage(mainWindow));
+                    //MessageBox.Show("Keyboard Layout created in a Json file");
+                }
             }
             catch { MessageBox.Show("An error occured while serializing the object"); }
+        
+
 
 
 
@@ -228,14 +234,14 @@ namespace QKeyMapper
         {
             try
             {
-                int RowIterations = int.Parse(Row.Text);
-                int ColomnIterations = int.Parse(Column.Text);
+                int RowIterations = int.Parse(gridRow.Text);
+                int ColomnIterations = int.Parse(gridColumn.Text);
                 if ((visualEditorGrid.Children.Count != 0)|| RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
                 {
                     MessageBox.Show("Row and Column values should be 0-100");
                     visualEditorGrid.Children.Clear();
-                    Row.Clear();
-                    Column.Clear();
+                    gridRow.Clear();
+                    gridColumn.Clear();
                 }
 
                 else
@@ -246,8 +252,8 @@ namespace QKeyMapper
             catch {
                 Console.WriteLine("Not a valid input");
                 visualEditorGrid.Children.Clear();
-                Row.Clear();
-                Column.Clear();
+                gridRow.Clear();
+                gridColumn.Clear();
             }
         }
     
@@ -285,11 +291,11 @@ namespace QKeyMapper
                     keyData.Add( key );
            
                 }
-                else
-                {
-                    qk.Key_items.Key key = new qk.Key_items.Key();
-                    keyData.Add(key);
-                }
+                //else
+                //{
+                //    qk.Key_items.Key key = new qk.Key_items.Key();
+                //    keyData.Add(key);
+                //}
             }
 
 

@@ -52,9 +52,9 @@ namespace QKeyMapper
                 //generate the json specified keycaps
                 generateKeyCaps(current_layout);
             }
-            catch
+            catch(Exception e)
             {
-                Debug.WriteLine("Error Deserializing: ");
+                Debug.WriteLine("Error Deserializing: " + e);
             }
                 
             

@@ -111,9 +111,9 @@
                 <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18" Padding="5"/>
             </Border>
 
-            <TextBox x:Name="Row" Grid.Row="3" Grid.Column="0" Padding="10" FontSize="24" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
+            <TextBox x:Name="gridRow" Grid.Row="3" Grid.Column="0" Padding="10" FontSize="24" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
             <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="85,1" Foreground="#FFF1F1F1"></Label>
-            <TextBox x:Name="Column" Grid.Row="3" Grid.Column="1" Padding="10" FontSize="24" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
+            <TextBox x:Name="gridColumn" Grid.Row="3" Grid.Column="1" Padding="10" FontSize="24" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
 
             <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,10" Content="Create Grid" FontSize="16" Click="CreateGrid" >
                 <Button.Background>
