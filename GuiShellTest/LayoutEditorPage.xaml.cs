@@ -137,10 +137,12 @@ namespace QKeyMapper
             List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
             List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
-            {   
-            //    if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
-            //    { DiodeLabel.Visibility = Visibility.Visible; }
-            //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+            {
+                if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
+                    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                    //Debug.WriteLine(mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue);
+                    //    { DiodeLabel.Visibility = Visibility.Visible; }
+                    //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
 
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
                 keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
@@ -149,12 +151,14 @@ namespace QKeyMapper
                 string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
                 System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
                 Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+
                 MessageBox.Show("Keyboard Layout created in a Json file");
             }
             catch { MessageBox.Show("An error occured while serializing the object"); }
-           
 
 
+            mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
+            NavigationService.Navigate(new LayoutEditorPage(mainWindow));
 
             /* Commented out your prior code, to hook some things while testing::
                 You can retrieve the information selected from the first two combo boxe's like below by calling into the keyboardinfomodel
