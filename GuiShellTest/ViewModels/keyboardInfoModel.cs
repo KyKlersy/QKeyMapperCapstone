@@ -98,8 +98,10 @@ namespace GuiShellTest.ViewModels
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
             string jsonResourceURI = "Resources" + System.IO.Path.DirectorySeparatorChar + "JsonDefaultLayouts" + System.IO.Path.DirectorySeparatorChar;
             string jsonFilePath = System.IO.Path.Combine(rootDirectory, jsonResourceURI);
+            string userCreatedFilePath = rootDirectory;
 
             string[] supportedJsonLayouts = Directory.GetFiles(jsonFilePath, "*.json");
+            string[] userCreatedLayouts = Directory.GetFiles(userCreatedFilePath, "*.json");
 
 
             foreach (string jsonConfigPath in supportedJsonLayouts)
@@ -108,6 +110,14 @@ namespace GuiShellTest.ViewModels
                 fileName = fileName.Substring(0, (fileName.Length - 5));
 
                 JsonLayouts.Add( new JsonTemplateLayout(fileName, jsonConfigPath));
+            }
+
+            foreach (string jsonConfigPath in userCreatedLayouts)
+            {
+                string fileName = System.IO.Path.GetFileName(jsonConfigPath);
+                fileName = fileName.Substring(0, (fileName.Length - 5));
+
+                JsonLayouts.Add(new JsonTemplateLayout(fileName, jsonConfigPath));
             }
 
             JsonLayouts.Add(new JsonTemplateLayout("Custom", "Custom"));

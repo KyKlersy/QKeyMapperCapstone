@@ -30,7 +30,7 @@
         "text": "q"
       },
       "binding": {
-        "on_tap": [ "q" ]
+        "on_tap": [ "u" ]
       },
       "matrix": {
         "row": "D7",
