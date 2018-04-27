@@ -3,6 +3,7 @@ using GuiShellTest.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -43,7 +44,19 @@ namespace QKeyMapper
             //store the path to the json file
             var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
             //create keyboard oject and initialize with the contents within the json file
-            QK.Keyboard current_layout = get_keyboard_json_from_path(json_path);
+            try
+            {
+                QK.Keyboard current_layout = get_keyboard_json_from_path(json_path);
+                //create the grid for the binding editor
+                GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
+                //generate the json specified keycaps
+                generateKeyCaps(current_layout);
+            }
+            catch
+            {
+                Debug.WriteLine("Error Deserializing: ");
+            }
+                
             
             ////For print the object's key properties to a file (testing purposes)
             //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\COSC4354_Senior_Capstone_Project\TestOutput\tOutput.txt")) {
@@ -59,10 +72,7 @@ namespace QKeyMapper
             //    }
             //}  
 
-            //create the grid for the binding editor
-            GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
-            //generate the json specified keycaps
-            generateKeyCaps(current_layout);
+
         }
 
         private QK.Keyboard get_keyboard_json_from_path(string path)

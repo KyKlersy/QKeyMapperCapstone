@@ -151,14 +151,14 @@ namespace QKeyMapper
                 string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
                 System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
                 Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-
-                MessageBox.Show("Keyboard Layout created in a Json file");
+                mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
+                NavigationService.Navigate(new BindingEditorPage(mainWindow));
+                //MessageBox.Show("Keyboard Layout created in a Json file");
             }
             catch { MessageBox.Show("An error occured while serializing the object"); }
 
 
-            mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
-            NavigationService.Navigate(new LayoutEditorPage(mainWindow));
+
 
             /* Commented out your prior code, to hook some things while testing::
                 You can retrieve the information selected from the first two combo boxe's like below by calling into the keyboardinfomodel
