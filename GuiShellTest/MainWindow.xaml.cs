@@ -26,6 +26,9 @@ namespace QKeyMapper
 
         public keyboardInfoModel keyboardinfomodel;
         public layoutEditorModel layouteditormodel;
+        public KeyBoardInfoPage keyboardInfoPage;
+        public LayoutEditorPage layoutEditorPage;
+        public BindingEditorPage bindingEditorPage;
 
         public MainWindow()
         {
@@ -39,6 +42,9 @@ namespace QKeyMapper
             keyboardinfomodel = new keyboardInfoModel();
             layouteditormodel = new layoutEditorModel();
 
+            keyboardInfoPage = new KeyBoardInfoPage(this);
+            layoutEditorPage = new LayoutEditorPage(this);
+            bindingEditorPage = new BindingEditorPage(this);
 
             InitializeComponent();
 
@@ -57,9 +63,6 @@ namespace QKeyMapper
                     break;
                 case 3:
                     mainFrame.Content = new MacroEditorPage();
-                    break;
-                case 4:
-                    mainFrame.Content = new FlashingPage();
                     break;
             }
 

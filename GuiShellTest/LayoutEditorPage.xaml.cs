@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using GuiShellTest.Controls;
 using GuiShellTest.ViewModels;
 using System.ComponentModel;
+using GuiShellTest.Models;
+
 namespace QKeyMapper
 {
 
@@ -142,20 +144,21 @@ namespace QKeyMapper
                 {
                     if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
                         keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
-                    //Debug.WriteLine(mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue);
-                    //    { DiodeLabel.Visibility = Visibility.Visible; }
-                    //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+
                     keeb.ui_desc.rows = int.Parse(gridRow.Text);
                     keeb.ui_desc.cols = int.Parse(gridColumn.Text);
+                    keeb.desc.product_name = model.layoutname;
                     keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
-                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+                    keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
                     keeb.keys = KeyItems;
-                    //JsonInfo.Add(keeb);
+
                     string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
                     System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-                    Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                    mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
-                    NavigationService.Navigate(new BindingEditorPage(mainWindow));
+                    //Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+                    string jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
+                    mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = jsonPath;
+                    mainWindow.keyboardinfomodel.JsonLayouts.Add(new JsonTemplateLayout(keeb.desc.product_name, jsonPath));
+                    NavigationService.Navigate(mainWindow.bindingEditorPage);
                     //MessageBox.Show("Keyboard Layout created in a Json file");
                 }
             }

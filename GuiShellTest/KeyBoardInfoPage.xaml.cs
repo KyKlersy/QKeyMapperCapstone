@@ -56,13 +56,14 @@ namespace QKeyMapper
             if (keyboardLayoutComboBox.SelectedValue.Equals("Custom"))
             {
 
-                LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
-                NavigationService.Navigate(layoutEditorPage);
+                //LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
+                NavigationService.Navigate(mainWindow.layoutEditorPage);
             }
             else
             {
-                BindingEditorPage bindingEditorPage = new BindingEditorPage(mainWindow);
-                NavigationService.Navigate(bindingEditorPage);
+
+                //BindingEditorPage bindingEditorPage = new BindingEditorPage(mainWindow);
+                NavigationService.Navigate(mainWindow.bindingEditorPage);
 
             }
 
