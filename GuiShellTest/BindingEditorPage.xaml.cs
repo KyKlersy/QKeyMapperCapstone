@@ -41,37 +41,8 @@ namespace QKeyMapper
             model = new bindingEditorModel();
             this.mainWindow = mainWindow;
             DataContext = model;
-            //store the path to the json file
-            var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
-            //create keyboard oject and initialize with the contents within the json file
-            try
-            {
-                QK.Keyboard current_layout = get_keyboard_json_from_path(json_path);
-                //create the grid for the binding editor
-                GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
-                //generate the json specified keycaps
-                generateKeyCaps(current_layout);
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine("Error Deserializing: " + e);
-            }
-                
-            
-            ////For print the object's key properties to a file (testing purposes)
-            //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\COSC4354_Senior_Capstone_Project\TestOutput\tOutput.txt")) {
-            //    foreach (var element in current_layout.keys) {
-            //        if (element.matrix.row == null)
-            //        {
-            //            file.WriteLine("Its a null");
-            //            if (element.matrix.row == "")
-            //            { file.WriteLine("Treated as empty string"); }
-            //        }
-            //        file.WriteLine("Row: "+ element.matrix.row + "\n");
-            //        file.WriteLine("Column: " + element.matrix.col + "\n");
-            //    }
-            //}  
 
+            Loaded += loadJson;
 
         }
 
@@ -83,14 +54,14 @@ namespace QKeyMapper
 
         private void beginFlashingButton_Click(object sender, RoutedEventArgs e)
         {
-            FlashingPage flashingPage = new FlashingPage();
-            NavigationService.Navigate(flashingPage);
+
         }
 
         private void createNewMacroButton_Click(object sender, RoutedEventArgs e)
         {
-            KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
-            NavigationService.Navigate(keyboardInfoPage);
+            //KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
+            Loaded -= loadJson;
+            NavigationService.Navigate(mainWindow.keyboardInfoPage);
         }
 
         private void GridCreate(int row, int coloumn)
@@ -168,5 +139,25 @@ namespace QKeyMapper
                 Grid.SetColumn(kcb, col);
             }
         }
+
+        private void loadJson(object sender, RoutedEventArgs e)
+        {
+            //store the path to the json file
+            var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
+            //create keyboard oject and initialize with the contents within the json file
+            try
+            {
+                QK.Keyboard current_layout = get_keyboard_json_from_path(json_path);
+                //create the grid for the binding editor
+                GridCreate(current_layout.ui_desc.rows, current_layout.ui_desc.cols);
+                //generate the json specified keycaps
+                generateKeyCaps(current_layout);
+            }
+            catch (Exception dse)
+            {
+                Debug.WriteLine("Error Deserializing: " + dse);
+            }
+        }
+
     }
 }
