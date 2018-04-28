@@ -106,10 +106,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FlashingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LayoutEditorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,9 +117,6 @@
     </Compile>
     <Compile Include="BindingEditorPage.xaml.cs">
       <DependentUpon>BindingEditorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FlashingPage.xaml.cs">
-      <DependentUpon>FlashingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="LayoutEditorPage.xaml.cs">
       <DependentUpon>LayoutEditorPage.xaml</DependentUpon>
