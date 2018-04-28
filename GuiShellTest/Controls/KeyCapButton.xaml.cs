@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuiShellTest.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -24,6 +25,9 @@ namespace GuiShellTest.Controls
     public partial class KeyCapButton : UserControl, INotifyPropertyChanged
     {
         private qk.Key_items.Key keyItem;
+        private MatrixPin _selectedRowMatrixPin;
+        private MatrixPin _selectedColMatrixPin;
+
         public KeyCapButton()
         {
             InitializeComponent();
@@ -52,32 +56,47 @@ namespace GuiShellTest.Controls
             }
         }
 
-        public string matrixrow
+        public MatrixPin matrixrow
         {
             get
             {
-                return keyItem.matrix.row;
+                return _selectedRowMatrixPin;
             }
 
             set
             {
-                keyItem.matrix.row = value;
-                onPropertyRaised("matrixrow");
+                if (value != _selectedRowMatrixPin)
+                {
+                    _selectedRowMatrixPin = value;
+                    onPropertyRaised(nameof(matrixrow));
+                    keyItem.matrix.row = _selectedRowMatrixPin.pinName;
+                }
+
+                //    _selectedRowMatrixPin = value;
+                //onPropertyRaised("matrixrow");
             }
         }
 
-        public string matrixcol
+        public MatrixPin matrixcol
         {
             get
             {
-                return keyItem.matrix.col;
+                return _selectedColMatrixPin;
             }
 
             set
             {
-                keyItem.matrix.col = value;
-                Debug.WriteLine("Prop update: " + keyItem.matrix.col);
-                onPropertyRaised("matrixcol");
+
+                if (value != _selectedColMatrixPin)
+                {
+                    _selectedColMatrixPin = value;
+                    onPropertyRaised(nameof(matrixcol));
+                    keyItem.matrix.col = _selectedColMatrixPin.pinName;
+                }
+
+                //keyItem.matrix.col = value;
+                //Debug.WriteLine("Prop update: " + keyItem.matrix.col);
+                //onPropertyRaised("matrixcol");
             }
         }
 

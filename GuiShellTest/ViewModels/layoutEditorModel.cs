@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using qk = QKeyCommon.Keyboard_items;
 using GuiShellTest.Models;
+using System.Reflection;
+using System.IO;
 
 namespace GuiShellTest.ViewModels
 {
@@ -15,18 +17,22 @@ namespace GuiShellTest.ViewModels
         public List<DiodeDirection> SupportedDiodeDirections { get; set; }
         private DiodeDirection _selectedDiodeDirection;
 
-
+        public List<MatrixPin> SupportedPins { get; set; }
 
         private string _productName;
 
         public layoutEditorModel()
         {
+            SupportedPins = new List<MatrixPin>();
+
             SupportedDiodeDirections = new List<DiodeDirection>()
             {
                 new DiodeDirection("Column to Row", "COL2ROW"),
                 new DiodeDirection("Row to Column", "ROW2COL"),
                 new DiodeDirection("None", "")
-            };                         
+            };
+
+            loadSupportedPins();                    
 
         }
 
@@ -71,6 +77,24 @@ namespace GuiShellTest.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+        private void loadSupportedPins()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "GuiShellTest.Resources.supportedPins.csv";
+            MatrixPin mp;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var readLine = reader.ReadLine();
+                    var tokens = readLine.Split(',');
+                    mp = new MatrixPin(tokens[0]);
+                    SupportedPins.Add(mp);
+                }
+            }
+        }
 
     }
 }

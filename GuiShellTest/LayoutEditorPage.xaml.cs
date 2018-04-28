@@ -285,8 +285,8 @@ namespace QKeyMapper
                     key.graphics.col = Grid.GetColumn(control);
                     key.graphics.text = kcb.text;
 
-                    key.matrix.row = kcb.matrixrow;
-                    key.matrix.col = kcb.matrixcol;
+                    key.matrix.row = kcb.matrixrow.pinName;
+                    key.matrix.col = kcb.matrixcol.pinName;
 
                     keyData.Add( key );
            

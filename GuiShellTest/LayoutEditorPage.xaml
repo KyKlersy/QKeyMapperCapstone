@@ -7,6 +7,7 @@
       xmlns:controls="clr-namespace:GuiShellTest.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
+      x:Name="layoutEditorWindow"
       Title="Page4">
 
     <Page.Resources>
@@ -60,12 +61,52 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Row="0" Grid.Column="1" Content="X" FontSize="25" Padding="15,0" MaxWidth="80" MaxHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" Click="closeKeyDataForm" />
 
-            <TextBox Grid.Row="1" Grid.Column="0" Name="matrixRowTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixrow, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <!--<TextBox Grid.Row="1" Grid.Column="0" Name="matrixRowTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixrow, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+            <ComboBox 
+                Grid.Row="1" 
+                Grid.Column="0" 
+                x:Name="matrixColComboBox" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="80" 
+                Margin="0,50"
+                ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
+                SelectedItem="{Binding matrixrow}"
+                DisplayMemberPath="pinName"
+                SelectedValuePath="pinName"
+                Text="{Binding matrixrow.pinName}"
+            />
+
+
             <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform" >
                 <Label VerticalAlignment="Center" Content="Matrix Row" FontSize="50" />
             </Viewbox>
-            <TextBox Grid.Row="2" Grid.Column="0" Name="matrixColumnTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixcol, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
+            <!--<TextBox Grid.Row="2" Grid.Column="0" Name="matrixColumnTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixcol, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+            <ComboBox 
+                Grid.Row="2" 
+                Grid.Column="0" 
+                x:Name="matrixRowComboBox" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="80" 
+                Margin="0,50"
+                ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
+                SelectedItem="{Binding matrixcol}"
+                DisplayMemberPath="pinName"
+                SelectedValuePath="pinName"
+                Text="{Binding matrixcol.pinName}"
+            />
+            
             <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Uniform" >
                 <Label Content="Matrix Column" />
             </Viewbox>

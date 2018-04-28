@@ -131,6 +131,7 @@
     <Compile Include="Models\DiodeDirection.cs" />
     <Compile Include="Models\JsonTemplateLayout.cs" />
     <Compile Include="Models\KeyMacro.cs" />
+    <Compile Include="Models\MatrixPin.cs" />
     <Compile Include="Models\Microprocessor.cs" />
     <Compile Include="ViewModels\bindingEditorModel.cs" />
     <Compile Include="ViewModels\keyboardInfoModel.cs" />
@@ -178,6 +179,9 @@
     <Content Include="Resources\JsonDefaultLayouts\emptyKeyTest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Resources\supportedPins.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
