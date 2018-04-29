@@ -53,25 +53,36 @@ namespace QKeyMapper
         // Add passing parameters of choice selections to binding editor page
         private void beginMappingButton_Click(object sender, RoutedEventArgs e)
         {
-            if(keyboardinfomodel.SelectedJsonLayout == null || keyboardinfomodel.SelectedMicroProc == null)
+            try
             {
-                // [Error message out to user must make selection ]
-                return;
+                if (keyboardinfomodel.SelectedJsonLayout == null || keyboardinfomodel.SelectedMicroProc == null)
+                {
+
+
+                    throw new Exception("Both Microprocessor and Json layout must be selected.");
+
+                }
+
+                if (keyboardLayoutComboBox.SelectedValue.Equals("Custom"))
+                {
+
+                    //LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
+                    NavigationService.Navigate(mainWindow.layoutEditorPage);
+                }
+                else
+                {
+
+                    //BindingEditorPage bindingEditorPage = new BindingEditorPage(mainWindow);
+                    NavigationService.Navigate(mainWindow.bindingEditorPage);
+
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
             }
 
-            if (keyboardLayoutComboBox.SelectedValue.Equals("Custom"))
-            {
 
-                //LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
-                NavigationService.Navigate(mainWindow.layoutEditorPage);
-            }
-            else
-            {
-
-                //BindingEditorPage bindingEditorPage = new BindingEditorPage(mainWindow);
-                NavigationService.Navigate(mainWindow.bindingEditorPage);
-
-            }
 
 
         }

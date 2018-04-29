@@ -175,6 +175,9 @@
     <EmbeddedResource Include="Resources\supportedPins.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\defaultKeyMacros.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Resources\key_name_to_kc_mapping.csv" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +195,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\keyCap.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Macros\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

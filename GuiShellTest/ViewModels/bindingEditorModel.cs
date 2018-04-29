@@ -7,23 +7,36 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GuiShellTest.ViewModels
 {
    public class bindingEditorModel
     {
-        public List<KeyMacro> DefaultSingleKeyBinds { get; set; }
+        private Assembly assembly = Assembly.GetExecutingAssembly();
+        private string approot = AppDomain.CurrentDomain.BaseDirectory;
+        private string macroFolderPath;
+        public ObservableCollection<KeyMacro> DefaultSingleKeyBinds { get; set; }
+        public ObservableCollection<KeyMacro> MacroKeyBinds { get; set; }
+        public HashSet<string> keyNames;
+        public HashSet<string> customMacroNames;
+
         private KeyMacro _selectedKeySingleMacro;
         private KeyMacro _selectedKeyMacroEditor;
 
         public bindingEditorModel()
         {
-            DefaultSingleKeyBinds = new List<KeyMacro>();
+            DefaultSingleKeyBinds = new ObservableCollection<KeyMacro>();
+            MacroKeyBinds = new ObservableCollection<KeyMacro>();
+
+            keyNames = new HashSet<string>();
+            customMacroNames = new HashSet<string>();
+
+            macroFolderPath = approot + Path.DirectorySeparatorChar + "Macros" + Path.DirectorySeparatorChar + "Macros.csv";
 
             loadCollection();
-
+            loadPredefinedMacroCollection();
+            loadUserDefinedCollection();
             //foreach(var item in DefaultSingleKeyBinds)
             //{
             //    Debug.WriteLine("String: " + item.macroString);
@@ -80,8 +93,30 @@ namespace GuiShellTest.ViewModels
 
         private void loadCollection()
         {
-            var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "GuiShellTest.Resources.singleKeyMacros.csv";
+            KeyMacro km;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var readLine = reader.ReadLine();
+                    var tokens = readLine.Split(',');
+                     
+                    var macroString = tokens[1].Split('\\');
+
+                    keyNames.Add(tokens[0]);
+
+                    km = new KeyMacro { macroName = tokens[0], macroString = macroString.ToList() };
+                    DefaultSingleKeyBinds.Add(km);
+                }
+            }
+        }
+
+        private void loadPredefinedMacroCollection()
+        {
+
+            var resourceName = "GuiShellTest.Resources.defaultKeyMacros.csv";
             KeyMacro km;
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
@@ -93,16 +128,41 @@ namespace GuiShellTest.ViewModels
 
                     var macroString = tokens[1].Split('\\');
 
+                    keyNames.Add(tokens[0]);
+
                     km = new KeyMacro { macroName = tokens[0], macroString = macroString.ToList() };
-                    DefaultSingleKeyBinds.Add(km);
+                    MacroKeyBinds.Add(km);
                 }
             }
         }
 
+
         private void loadUserDefinedCollection()
         {
+            KeyMacro km;
+            if(File.Exists(macroFolderPath))
+            {
+                using (StreamReader reader = new StreamReader(macroFolderPath))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var readLine = reader.ReadLine();
+                        var tokens = readLine.Split(',');
 
+                        if(tokens.Length > 1)
+                        {
+                            var macroString = tokens[1].Split('\\');
 
+                            keyNames.Add(tokens[0]);
+
+                            km = new KeyMacro { macroName = tokens[0], macroString = macroString.ToList() };
+                            MacroKeyBinds.Add(km);
+                        }
+                    }
+                }
+            }
+
+            return;
         }
     }
 }

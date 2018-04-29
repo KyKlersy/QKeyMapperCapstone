@@ -72,10 +72,29 @@
 
 
             <Label Grid.Row="2" Content="Macro Key" Foreground="#FFF1F1F1" VerticalAlignment="Bottom" />
-            <ComboBox Grid.Row="3" Grid.Column="0" x:Name="macroKeyChoiceComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="0,0,0,10">
-                <ComboBoxItem>Copy</ComboBoxItem>
-                <ComboBoxItem>Delete</ComboBoxItem>
-            </ComboBox>
+            <ComboBox x:Name="macroKeyChoiceComboBox"
+                Grid.Row="3" 
+                Grid.Column="0"
+                VerticalAlignment="Top" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="120" 
+                Margin="0,0,0,10"
+                      
+                ItemsSource="{Binding MacroKeyBinds}"
+                SelectedItem="{Binding SelectedKeyMacroEditor}"
+                DisplayMemberPath="macroName"
+                SelectedValuePath="macroString"
+                Text="{Binding SelectedKeyMacroEditor.macroName}"    
+            />
+
+
+
 
             <Button Grid.Row="4" Grid.Column="0" x:Name="createNewMacroButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Create New Macro" Click="createNewMacroButton_Click" Height="40" VerticalAlignment="Top">
                 <Button.Background>
