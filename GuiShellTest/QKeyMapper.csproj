@@ -175,6 +175,7 @@
     <EmbeddedResource Include="Resources\supportedPins.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Resources\key_name_to_kc_mapping.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
