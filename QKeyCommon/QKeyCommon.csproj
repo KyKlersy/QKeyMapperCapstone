@@ -53,5 +53,6 @@
     <Compile Include="Keyboard_items\Spec_items\Spec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
