@@ -21,6 +21,16 @@ namespace QMKCGen.QMKStructures
             directories = new List<List<string>>{};
             files = new List<FileTemplate>{};
         }
+        public void testTemplates(Assembly asm, Keyboard keeb)
+        {
+            foreach (var template_file in files)
+            {
+                template_file.resolve_hbs(keeb);
+                string hbs_raw = Self.getFileContents(asm, template_file.template_path);
+                Handlebars.Compile(hbs_raw)(keeb);
+            }
+        }
+
         public void generateDirectories(Assembly asm, Keyboard keeb)
         {
             qmk_keyboard_dir = new DirectoryInfo(System.IO.Path.GetDirectoryName(asm.Location)).Parent.Parent.FullName +

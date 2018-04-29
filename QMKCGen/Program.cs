@@ -33,13 +33,13 @@ namespace QMKCGen
             catch
             {
                 Console.WriteLine("The format of the provided file is invalid");
-                return 1;
+                return 2;
             }
 
             if(!Validations.has_valid_key_codes(keyboard))
             {
                 Console.WriteLine("Configuration File contains invalid keycodes");
-                return 1;
+                return 3;
             }
 
             //register helpers
@@ -64,13 +64,15 @@ namespace QMKCGen
                 string directoryStructureJson = Self.getFileContents(assembly, System.IO.Path.Combine(
                     "QMKStructures", "templates", "default_qmk_structure.json"));
                 QMKStructure qs = JsonConvert.DeserializeObject<QMKStructure>(directoryStructureJson);
+                qs.testTemplates(assembly, keyboard);
                 qs.generateDirectories(assembly, keyboard);
                 qs.generateFiles(assembly, keyboard);
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 Console.WriteLine("The format of the provided file is invalid");
-                return 1;
+                return 4;
             }
 
             return 0;
