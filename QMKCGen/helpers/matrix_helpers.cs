@@ -1,9 +1,13 @@
 ﻿using QKeyCommon.Keyboard_items;
 using QKeyCommon.Keyboard_items.Key_items;
+using QMKCGen.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace QMKCGen.helpers
@@ -53,7 +57,7 @@ namespace QMKCGen.helpers
 
             for(int i = 0; i < key_matrix.GetLength(0); i++) //row
             {
-                result += "    "; //indentation to prettify
+                result += Syntax.indent(1); 
                 for (int j = 0; j < key_matrix.GetLength(1); j++) //col
                 {
                     if (key_matrix[i, j] != null)
@@ -76,7 +80,7 @@ namespace QMKCGen.helpers
 
             for (int i = 0; i < key_matrix.GetLength(0); i++) //row
             {
-                result += "    {";
+                result += Syntax.indent(1) + "{";
                 for (int j = 0; j < key_matrix.GetLength(1); j++) //col
                 {
                     if (key_matrix[i, j] != null)
@@ -97,15 +101,35 @@ namespace QMKCGen.helpers
 
         public static string keymap(Keyboard keeb)
         {
+            var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");
             string result = "";
             Key[,] key_matrix = fill_key_matrix(keeb);
+            int macro_index = 0;
             for (int i = 0; i < key_matrix.GetLength(0); i++) //row
             {
-                result += "    "; //indentation to prettify
+                result += Syntax.indent(1);
                 for (int j = 0; j < key_matrix.GetLength(1); j++) //col
                 {
                     if (key_matrix[i, j] != null)
-                        result += "KC_" + key_matrix[i, j].binding.on_tap[0].ToUpper(); //only handling single key binding atm
+                    {
+                        if (key_matrix[i, j].binding.is_macro())
+                        {
+                            result += "M(" + macro_index + ")";
+                            macro_index++;
+                        }
+                        else if (key_matrix[i, j].binding.is_multifunction())
+                        {
+                            //doit mod tap things
+                        }
+                        else if (key_matrix[i, j].binding.on_tap.Count() == 1)
+                        {
+                            result += keycode_dict[key_matrix[i, j].binding.on_tap[0]];
+                        }
+                        else
+                        {
+                            result += " "; //just add a space for neatness
+                        }
+                    }
                     if (!(i == key_matrix.GetLength(0) - 1 && j == key_matrix.GetLength(1) - 1))
                         result += ", ";
                 }
@@ -115,5 +139,6 @@ namespace QMKCGen.helpers
             }
             return result;
         }
+
     }
 }

@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="helpers\macro_helpers.cs" />
+    <Compile Include="helpers\Syntax.cs" />
     <Compile Include="QMKStructures\DirectoryStructure.cs" />
     <Compile Include="QMKStructures\FileTemplate.cs" />
     <Compile Include="helpers\Self.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="helpers\matrix_helpers.cs" />
     <Compile Include="Utils\Cout.cs" />
+    <Compile Include="Validations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -12364,6 +12367,12 @@
     <None Include="qmk_firmware\util\win_shared_install.sh" />
     <None Include="qmk_firmware\util\wsl_install.sh" />
     <None Include="qmk_firmware\Vagrantfile" />
+    <EmbeddedResource Include="Resources\key_name_to_kc_mapping.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\key_name_to_kc_mapping_modifiers_only.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Templates\C\keyboard\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -12389,5 +12398,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="qmk_firmware\lib\lufa\Projects\TempDataLogger\TempLogHostApp\Properties\Resources.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
