@@ -19,8 +19,10 @@ namespace QMKCGen.helpers
             foreach (var key in keys_with_macros)
             {
                 result += Syntax.indent(3) + "case(" + macro_index + "):\n";
-                result += Syntax.indent(4) + "return MACRO(" + parseMacro(key.binding) + ", END);\n";
+                result += Syntax.indent(4) + "return MACRO(" + parseMacro(key.binding) + ", END);";
                 macro_index++;
+                if (key != keys_with_macros.Last())
+                    result += "\n";
             }
             return result;
         }
