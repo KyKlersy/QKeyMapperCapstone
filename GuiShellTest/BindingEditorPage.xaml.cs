@@ -38,7 +38,7 @@ namespace QKeyMapper
 
         public BindingEditorPage(MainWindow mainWindow) {
             InitializeComponent();
-            model = new bindingEditorModel();
+            model = mainWindow.bindingeditormodel;
             this.mainWindow = mainWindow;
             DataContext = model;
 
@@ -52,16 +52,11 @@ namespace QKeyMapper
             return JsonConvert.DeserializeObject<QK.Keyboard>(json_raw);
         }
 
-        private void beginFlashingButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void createNewMacroButton_Click(object sender, RoutedEventArgs e)
         {
-            //KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
-            Loaded -= loadJson;
-            NavigationService.Navigate(mainWindow.keyboardInfoPage);
+
+            NavigationService.Navigate(mainWindow.macroEditorPage);
         }
 
         private void GridCreate(int row, int coloumn)
@@ -142,6 +137,11 @@ namespace QKeyMapper
 
         private void loadJson(object sender, RoutedEventArgs e)
         {
+            if(mainWindow.keyboardinfomodel.SelectedJsonLayout == null)
+            {
+                return;
+            }
+
             //store the path to the json file
             var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
             //create keyboard oject and initialize with the contents within the json file
@@ -159,5 +159,16 @@ namespace QKeyMapper
             }
         }
 
+        private void goBackToHome(object sender, RoutedEventArgs e)
+        {
+            //KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
+            Loaded -= loadJson;
+            NavigationService.Navigate(mainWindow.keyboardInfoPage);
+        }
+
+        private void beginFlashingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
