@@ -19,12 +19,15 @@
 
     <Grid Background="#34353B">
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height=".2*"/>
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height=".2*"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -36,7 +39,37 @@
 
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="4" Grid.Column="3" x:Name="recordMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Record Macro" FontSize="16" Padding="10" Margin="5" >
+        <Rectangle Fill="#4F535B" Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="3"></Rectangle>
+        <Rectangle Fill="#4F535B" Grid.Row="3" Grid.Column="1" Grid.RowSpan="5" Grid.ColumnSpan="3"></Rectangle>
+        
+        <Button Grid.Column="3" x:Name="back_button" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="←" Click="goBackToBinding" Height="20" VerticalAlignment="Top" Margin="122,0,0,0">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <Button Grid.Row="6" Grid.Column="3" x:Name="recordMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Key Up" FontSize="16" Padding="10" Margin="5" Click="addKeyUp" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <Button Grid.Row="7" Grid.Column="3" x:Name="clearMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear Macro" FontSize="16" Padding="10" Margin="5" Click="clearMacroString" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFFF8736" Offset="0"/>
+                    <GradientStop Color="#FFF25204" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        
+        <Button Grid.Row="5" Grid.Column="3" x:Name="stopRecording" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Key Down" FontSize="16" Padding="10" Margin="5" Click="addKeyDown"  >
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -45,7 +78,7 @@
             </Button.Background>
         </Button>
 
-        <Button Grid.Row="3" Grid.Column="3" x:Name="stopRecording" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Stop Recording" FontSize="16" Padding="10" Margin="5"  >
+        <Button Grid.Row="1" Grid.Column="3" x:Name="saveMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Save Macro" FontSize="16" Padding="10" Margin="5" Click="createAndSaveMacro"  >
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -54,27 +87,39 @@
             </Button.Background>
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="3" x:Name="saveMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Save Macro" FontSize="16" Padding="10" Margin="5"  >
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFFF8736" Offset="0"/>
-                    <GradientStop Color="#FFF25204" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+        <Label Grid.Row="1" Grid.Column="1" Foreground="#F1F1F1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">Macro Name:</Label>
+        <TextBox x:Name="customMacroName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="10" Margin="105,0,0,0" />
 
-        <Label Grid.Row="1" Grid.Column="1" Foreground="#F1F1F1" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center">Macro Name:</Label>
-        <TextBox x:Name="customMacroName" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Grid.ColumnSpan="2" Padding="10" Margin="5" />
-
-        <ScrollViewer x:Name="macroScrollViewer" Grid.Row="3" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-            <TextBox  TextWrapping="Wrap" Padding="25"
+        <ScrollViewer x:Name="macroScrollViewer" Grid.Row="4" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+            <TextBox x:Name="MacroStringTxt" TextWrapping="Wrap"
                        MaxWidth="{Binding ElementName=macroScrollViewer,Path=ActualWidth}"
                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                        ScrollViewer.CanContentScroll="True"
                        
             />
-
         </ScrollViewer>
+    
+        <ComboBox 
+                Grid.Row="4" 
+                Grid.Column="3" 
+                x:Name="keyPressName" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="80" 
+                Margin="5"
+                ItemsSource="{Binding DefaultSingleKeyBinds}"
+                SelectedItem="{Binding SelectedKeyMacroEditor }"
+                DisplayMemberPath="macroName"
+                SelectedValuePath="macroName"
+                Text="{Binding SelectedKeyMacroEditor.macroName}"
+            />
+
+
     </Grid>
 </Page>

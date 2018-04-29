@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuiShellTest.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,21 +22,59 @@ namespace QKeyMapper
     /// </summary>
     public partial class MacroEditorPage : Page
     {
-        private Stopwatch sTimer = new Stopwatch();
-        private List<Key> keyDownSet = new List<Key>();
-        private List<Key> keyUpSet = new List<Key>();
+        private MainWindow mainwindow;
+        private bindingEditorModel model;
 
-        private List<string> keypressOrder = new List<string>();
+        private List<string> macro = new List<string>();
 
-        private HashSet<Key> modifierKeys = new HashSet<Key>();
-        private string lastSeen = "";
         public MacroEditorPage()
         {
             InitializeComponent();
             //InitialiseModifierKeyList();
         }
 
+        public MacroEditorPage(MainWindow cmainwindow)
+        {
+            mainwindow = cmainwindow;
+            model = mainwindow.bindingeditormodel;
+            DataContext = model;
+            InitializeComponent();
+            //InitialiseModifierKeyList();
+        }
 
+        private void goBackToBinding(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(mainwindow.bindingEditorPage);
+        }
+
+        private void addKeyDown(object sender, RoutedEventArgs e)
+        {
+            MacroStringTxt.Text += " + "+ model.SelectedKeyMacroEditor.macroName + " 10ms ";
+        }
+
+        private void addKeyUp(object sender, RoutedEventArgs e)
+        {
+            MacroStringTxt.Text += " - " + model.SelectedKeyMacroEditor.macroName + " 10ms ";
+        }
+
+        private void clearMacroString(object sender, RoutedEventArgs e)
+        {
+            MacroStringTxt.Text = "";
+           
+
+
+        }
+
+        private void createAndSaveMacro(object sender, RoutedEventArgs e)
+        {
+
+
+
+
+
+
+
+        }
 
 
 
@@ -145,7 +184,7 @@ namespace QKeyMapper
         //    }
 
         //    return true;
-            
+
 
         //}
 

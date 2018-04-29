@@ -12,20 +12,22 @@ using System.Threading.Tasks;
 
 namespace GuiShellTest.ViewModels
 {
-    class bindingEditorModel
+   public class bindingEditorModel
     {
         public List<KeyMacro> DefaultSingleKeyBinds { get; set; }
         private KeyMacro _selectedKeySingleMacro;
+        private KeyMacro _selectedKeyMacroEditor;
+
         public bindingEditorModel()
         {
             DefaultSingleKeyBinds = new List<KeyMacro>();
 
             loadCollection();
 
-            foreach(var item in DefaultSingleKeyBinds)
-            {
-                Debug.WriteLine("String: " + item.macroString);
-            }
+            //foreach(var item in DefaultSingleKeyBinds)
+            //{
+            //    Debug.WriteLine("String: " + item.macroString);
+            //}
         }
 
 
@@ -42,12 +44,31 @@ namespace GuiShellTest.ViewModels
                 {
                     _selectedKeySingleMacro = value;
                     onPropertyRaised(nameof(SelectedKeySingleMacro));
-                    Debug.WriteLine("Single key Macro: " + _selectedKeySingleMacro.macroString.Single());
+                    Debug.WriteLine("Single key Macro: ");
+                    _selectedKeySingleMacro.macroString.ForEach(elm => { Debug.Write(elm, " "); });
                 }
 
             }
         }
 
+        public KeyMacro SelectedKeyMacroEditor
+        {
+            get
+            {
+                return _selectedKeyMacroEditor;
+            }
+
+            set
+            {
+                if (value != _selectedKeyMacroEditor)
+                {
+                    _selectedKeyMacroEditor = value;
+                    onPropertyRaised(nameof(SelectedKeyMacroEditor));
+                    
+                }
+
+            }
+        }
 
         //Event handler and function to raise event.
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,7 +90,10 @@ namespace GuiShellTest.ViewModels
                 {
                     var readLine = reader.ReadLine();
                     var tokens = readLine.Split(',');
-                    km = new KeyMacro { macroName = tokens[0], macroString = { tokens[1] } };
+
+                    var macroString = tokens[1].Split('\\');
+
+                    km = new KeyMacro { macroName = tokens[0], macroString = macroString.ToList() };
                     DefaultSingleKeyBinds.Add(km);
                 }
             }
