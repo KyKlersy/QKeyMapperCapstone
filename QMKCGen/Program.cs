@@ -15,16 +15,17 @@ using QMKCGen.QMKStructures;
 namespace QMKCGen
 {
     class Program
-    { 
+    {
         static int Main(string[] args)
         {
             if (args.Length != 1)
-            { 
+            {
                 Cout.printf("Usage: {0} file.json", AppDomain.CurrentDomain.FriendlyName);
                 return 1;
             }
             string json_raw = File.ReadAllText(args[0]);
             Keyboard keyboard = new Keyboard();
+            var assembly = Assembly.GetExecutingAssembly();
 
             try
             {
@@ -36,31 +37,33 @@ namespace QMKCGen
                 return 2;
             }
 
-            if(!Validations.has_valid_key_codes(keyboard))
+            if (!Validations.has_valid_key_codes(keyboard))
             {
                 Console.WriteLine("Configuration File contains invalid keycodes");
                 return 3;
             }
 
             //register helpers
-            Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) => {
+            Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) =>
+            {
                 writer.Write(matrix_helpers.user_friendly(keyboard));
             });
-            Handlebars.RegisterHelper("keymap_with_kc_no", (writer, context, parameters) => {
+            Handlebars.RegisterHelper("keymap_with_kc_no", (writer, context, parameters) =>
+            {
                 writer.Write(matrix_helpers.with_kc_no(keyboard));
             });
-            Handlebars.RegisterHelper("keymap", (writer, context, parameters) => {
+            Handlebars.RegisterHelper("keymap", (writer, context, parameters) =>
+            {
                 writer.Write(matrix_helpers.keymap(keyboard));
             });
-            Handlebars.RegisterHelper("macros", (writer, context, parameters) => {
+            Handlebars.RegisterHelper("macros", (writer, context, parameters) =>
+            {
                 writer.Write(macro_helpers.macros(keyboard));
             });
 
             try
             {
-                var assembly = Assembly.GetExecutingAssembly();
                 string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
-
                 string directoryStructureJson = Self.getFileContents(assembly, System.IO.Path.Combine(
                     "QMKStructures", "templates", "default_qmk_structure.json"));
                 QMKStructure qs = JsonConvert.DeserializeObject<QMKStructure>(directoryStructureJson);
@@ -68,13 +71,27 @@ namespace QMKCGen
                 qs.generateDirectories(assembly, keyboard);
                 qs.generateFiles(assembly, keyboard);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("The format of the provided file is invalid");
                 return 4;
             }
 
+            if(!Validations.is_valid_filename(keyboard.desc.product_name))
+            {
+                Console.WriteLine("The product name of your keyboard is not a valid filename");
+                return 5;
+            }
+
+            string qmk_firmware_path = System.IO.Path.Combine(
+                new DirectoryInfo(System.IO.Path.GetDirectoryName(assembly.Location)).Parent.Parent.FullName, 
+                "qmk_firmware"
+            );
+
+            string exec_args = "/bin/bash -lic 'cd $(cygpath \"" + qmk_firmware_path + "\"); make " + keyboard.desc.product_name + ":default:avrdude'";
+            //open up the flashing utility
+            Exec.launch(@"C:/msys64/usr/bin/mintty.exe", exec_args);
             return 0;
         }
     }

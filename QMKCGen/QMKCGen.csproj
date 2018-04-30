@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="helpers\Exec.cs" />
     <Compile Include="helpers\macro_helpers.cs" />
     <Compile Include="helpers\Syntax.cs" />
     <Compile Include="QMKStructures\DirectoryStructure.cs" />

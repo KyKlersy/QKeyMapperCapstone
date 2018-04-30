@@ -30,7 +30,19 @@
         "text": "q"
       },
       "binding": {
-        "on_tap": [ "+", "LEFT CONTROL", "+", "L", "-", "L", "+", "C", "-", "C", "+", "W", "-", "W", "+", "N", "-", "N", "1000ms", "+", "L", "-", "L", "+", "V", "-", "V", "-", "LEFT CONTROL", "+", "ENTER", "-", "ENTER" ]
+        "on_tap": [
+          "+",
+          "LEFT CONTROL",
+          "L",
+          "C",
+          "W",
+          "N",
+          "L",
+          "V",
+          "-",
+          "LEFT CONTROL",
+          "ENTER"
+        ]
       },
       "matrix": {
         "row": "D7",

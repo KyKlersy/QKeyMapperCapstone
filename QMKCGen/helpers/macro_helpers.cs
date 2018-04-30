@@ -62,14 +62,22 @@ namespace QMKCGen.helpers
         private static string parse_macro(Binding binding)
         {
             string result = "";
-            Dictionary<string, string> keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");
-            List<List<string>> kcdirection_or_time = tokenize_macro(binding);
+            var time_regex = new Regex(@"[1-9][0-9]*ms");
+            var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");
+            var kcdirection_or_time = tokenize_macro(binding);
             foreach (var elem in kcdirection_or_time)
             {
                 switch (elem.Count())
                 {
                     case 1:
-                        result += parse_time(elem[0]);
+                        if (time_regex.IsMatch(elem.First()))
+                        {
+                            result += parse_time(elem.First());
+                        }
+                        else
+                        {
+                            result += "T(" + keycode_dict[elem.First()].Substring(3) + ")";
+                        }
                         break;
                     case 2:
                         if (elem[0] == "+")
@@ -101,25 +109,36 @@ namespace QMKCGen.helpers
         //["+", " K", "10ms", "-", "K"] -> [["+", "K"], ["10ms"], ["-", "K"]]
         private static List<List<string>> tokenize_macro(Binding binding)
         {
-            Regex time_regex = new Regex(@"[1-9][0-9]*ms");
-            List<List<string>> kcdirection_or_time = new List<List<string>>();
+            var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");
+            var time_regex = new Regex(@"[1-9][0-9]*ms");
+            var kcdirection_or_time = new List<List<string>>();
             for (int i = 0; i < binding.on_tap.Count(); i++)
             {
                 try
                 {
                     if (time_regex.IsMatch(binding.on_tap[i]))//it's a time
                     {
-                        List<string> temp = new List<string>();
+                        var temp = new List<string>();
                         temp.Add(binding.on_tap[i]);
                         kcdirection_or_time.Add(temp);
                     }
-                    else
+                    else if(binding.on_tap[i] == "+" || binding.on_tap[i] == "-")
                     {
-                        List<string> temp = new List<string>();
+                        var temp = new List<string>();
                         temp.Add(binding.on_tap[i]);
+                        if(!keycode_dict.ContainsKey(binding.on_tap[i + 1]))
+                        {
+                            throw new ArgumentException("invalid keycode combinations, '+'/'-' must be followed by a valid key code");
+                        }
                         temp.Add(binding.on_tap[i + 1]);
                         kcdirection_or_time.Add(temp);
                         i++;
+                    }
+                    else
+                    {
+                        var temp = new List<string>();
+                        temp.Add(binding.on_tap[i]);
+                        kcdirection_or_time.Add(temp);
                     }
                 }
                 catch

@@ -35,5 +35,19 @@ namespace QMKCGen
             }
             return true;
         }
+
+        public static bool is_valid_filename(string subject)
+        {
+            if(string.IsNullOrEmpty(subject))
+            {
+                return false;
+            }
+            //if subject contains any invalid file name characters
+            if(subject.Any(x => System.IO.Path.GetInvalidFileNameChars().Any(y => y == x)))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
