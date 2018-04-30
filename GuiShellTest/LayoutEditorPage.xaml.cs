@@ -132,14 +132,13 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-
-            string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-           
-            qk.Keyboard keeb = new qk.Keyboard();
-            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>();  //List Contains Json Info
-            List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
             {
+                string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
+                qk.Keyboard keeb = new qk.Keyboard();
+                List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>();  //List Contains Json Info
+                List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
+
                 if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
                 {
                     if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
@@ -163,10 +162,6 @@ namespace QKeyMapper
                 }
             }
             catch { MessageBox.Show("An error occured while serializing the object"); }
-        
-
-
-
 
 
             /* Commented out your prior code, to hook some things while testing::
@@ -291,8 +286,7 @@ namespace QKeyMapper
                     key.matrix.row = kcb.matrixrow.pinName;
                     key.matrix.col = kcb.matrixcol.pinName;
 
-                    keyData.Add( key );
-           
+                    keyData.Add(key);
                 }
                 //else
                 //{

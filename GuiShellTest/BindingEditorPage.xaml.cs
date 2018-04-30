@@ -151,8 +151,8 @@ namespace QKeyMapper
             }
 
             //store the path to the json file
-            //var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
-            var json_path = @"C:\Users\Kyle\Documents\Visual Studio 2015\Projects\GuiShellTest\GuiShellTest\Resources\JsonDefaultLayouts\6ball_no_macro.json";
+            var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
+            //var json_path = @"C:\Users\Kyle\Documents\Visual Studio 2015\Projects\GuiShellTest\GuiShellTest\Resources\JsonDefaultLayouts\6ball_no_macro.json";
             //create keyboard oject and initialize with the contents within the json file
             try
             {
