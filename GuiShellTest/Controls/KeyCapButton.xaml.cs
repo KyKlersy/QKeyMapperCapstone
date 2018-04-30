@@ -27,6 +27,13 @@ namespace GuiShellTest.Controls
         private qk.Key_items.Key keyItem;
         private MatrixPin _selectedRowMatrixPin;
         private MatrixPin _selectedColMatrixPin;
+        private KeyMacro _onTapMacro;
+        private KeyMacro _onHoldMacro;
+        private string _onTapMacroName;
+        private string _onHoldMacroName;
+
+        public int onTapMacroListID { get; set; }
+        public int onHoldMacroListID { get; set; }
 
         public KeyCapButton()
         {
@@ -46,7 +53,7 @@ namespace GuiShellTest.Controls
         public string text {
             get
             {
-               return keyItem.graphics.text;
+                return keyItem.graphics.text;
             }
 
             set
@@ -93,11 +100,103 @@ namespace GuiShellTest.Controls
                     onPropertyRaised(nameof(matrixcol));
                     keyItem.matrix.col = _selectedColMatrixPin.pinName;
                 }
-
-                //keyItem.matrix.col = value;
-                //Debug.WriteLine("Prop update: " + keyItem.matrix.col);
-                //onPropertyRaised("matrixcol");
             }
+        }
+
+        public string OnTapMacroName
+        {
+            get
+            {
+                return _onTapMacroName;
+            }
+
+            set
+            {
+                if (value != _onTapMacroName)
+                {
+                    _onTapMacroName = value;
+                    onPropertyRaised(nameof(OnTapMacroName));
+                    Debug.WriteLine("Selected Macro: " + _onTapMacroName);
+                }
+            }
+        }
+
+
+        public KeyMacro OnTapMacro
+        {
+            get
+            {
+                return _onTapMacro;
+            }
+
+            set
+            {
+                if (value != _onTapMacro)
+                {
+                    _onTapMacro = value;
+                    OnTapMacroName = _onTapMacro.macroName;
+
+                    keyItem.binding.on_tap = _onTapMacro.macroString;
+
+                    onPropertyRaised(nameof(OnTapMacro));
+
+                }
+            }
+        }
+        
+        public string OnHoldMacroName
+        {
+            get
+            {
+                return _onHoldMacroName;
+            }
+
+            set
+            {
+                if (value != _onHoldMacroName)
+                {
+                    _onHoldMacroName = value;
+                    onPropertyRaised(nameof(OnHoldMacroName));
+                    Debug.WriteLine("Selected Macro: " + _onHoldMacroName);
+                }
+            }
+        }
+
+        public KeyMacro OnHoldMacro
+        {
+            get
+            {
+                return _onHoldMacro;
+            }
+
+            set
+            {
+                if (value != _onHoldMacro)
+                {
+                    _onHoldMacro = value;
+                    OnHoldMacroName = _onHoldMacro.macroName;
+
+                    keyItem.binding.on_hold = _onHoldMacro.macroString;
+
+                    onPropertyRaised(nameof(OnHoldMacro));
+
+                }
+            }
+        }
+
+        public void setKeyHoldMacro(List<string> macrostring)
+        {
+            keyItem.binding.on_hold = macrostring;
+        }
+
+        public void setKeyTapMacro(List<string> macrostring)
+        {
+            keyItem.binding.on_tap = macrostring;
+        }
+
+        public qk.Key_items.Key getKeyItem()
+        {
+            return keyItem;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
