@@ -179,6 +179,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Resources\key_name_to_kc_mapping.csv" />
+    <EmbeddedResource Include="Resources\supportedOnHoldMacroModifiers.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
