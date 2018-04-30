@@ -18,6 +18,7 @@ namespace GuiShellTest.ViewModels
         private string macroFolderPath;
         public ObservableCollection<KeyMacro> DefaultSingleKeyBinds { get; set; }
         public ObservableCollection<KeyMacro> MacroKeyBinds { get; set; }
+        public List<KeyMacro> validHoldMacro { get; set; }
         public HashSet<string> keyNames;
         public HashSet<string> customMacroNames;
 
@@ -29,6 +30,7 @@ namespace GuiShellTest.ViewModels
             DefaultSingleKeyBinds = new ObservableCollection<KeyMacro>();
             MacroKeyBinds = new ObservableCollection<KeyMacro>();
 
+            validHoldMacro = new List<KeyMacro>();
             keyNames = new HashSet<string>();
             customMacroNames = new HashSet<string>();
 
@@ -37,6 +39,7 @@ namespace GuiShellTest.ViewModels
             loadCollection();
             loadPredefinedMacroCollection();
             loadUserDefinedCollection();
+            loadValidOnHoldMacros();
             //foreach(var item in DefaultSingleKeyBinds)
             //{
             //    Debug.WriteLine("String: " + item.macroString);
@@ -58,7 +61,8 @@ namespace GuiShellTest.ViewModels
                     _selectedKeySingleMacro = value;
                     onPropertyRaised(nameof(SelectedKeySingleMacro));
                     Debug.WriteLine("Single key Macro: ");
-                    _selectedKeySingleMacro.macroString.ForEach(elm => { Debug.Write(elm, " "); });
+                    if(_selectedKeySingleMacro != null)
+                        _selectedKeySingleMacro.macroString.ForEach(elm => { Debug.Write(elm, " "); });
                 }
 
             }
@@ -163,6 +167,28 @@ namespace GuiShellTest.ViewModels
             }
 
             return;
+        }
+
+        private void loadValidOnHoldMacros()
+        {
+            var resourceName = "GuiShellTest.Resources.supportedOnHoldMacroModifiers.csv";
+            KeyMacro km;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var readLine = reader.ReadLine();
+                    var tokens = readLine.Split(',');
+
+                    var macroString = tokens[1].Split('\\');
+
+                    keyNames.Add(tokens[0]);
+
+                    km = new KeyMacro { macroName = tokens[0], macroString = macroString.ToList() };
+                    validHoldMacro.Add( km );
+                }
+            }
         }
     }
 }
