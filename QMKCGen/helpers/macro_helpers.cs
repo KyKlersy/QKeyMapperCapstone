@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace QMKCGen.helpers
 {
+    /*
+     * A helper class that wraps all functions that deal with unrolling key macros
+     * public methods here are mounted as handlebars helpers
+     * private methods are are used by the public methods to accomplish a task
+     */
     class macro_helpers
     {
+        /*
+         * Handlebars helper that generates the C code associated with key macros
+         */
         public static string macros(Keyboard keeb)
         {
             string result = "";
@@ -27,6 +35,11 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        /*
+         * Parses a wait time string returns a string
+         * of C code that corresponds to that wait time
+         * if the wait time is greater than 255, it is unrolled into several wait commands
+         */
         private static string parse_time(string time_string)
         {
             string result = "";
@@ -56,6 +69,10 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        /*
+         * Parses the macro contained in binding and returns a string
+         * of C code that corresponds to that macro
+         */ 
         private static string parse_macro(Binding binding)
         {
             string result = "";
@@ -100,9 +117,9 @@ namespace QMKCGen.helpers
             return result;
         }
 
-        //parses the macro string into atomic components
+        //tokenizes the macro string into atomic components
         //for example:
-        //["+", " K", "10ms", "-", "K"] -> [["+", "K"], ["10ms"], ["-", "K"]]
+        //["+", " K", "10ms", "-", "K", "Q"] -> [["+", "K"], ["10ms"], ["-", "K"], ["Q"]]
         private static List<List<string>> tokenize_macro(Binding binding)
         {
             var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");

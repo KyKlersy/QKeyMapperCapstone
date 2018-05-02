@@ -11,6 +11,10 @@ namespace QMKCGen
 {
     class Validations
     {
+        /*
+         * Checks to make sure that all keys a Keyboard have valid keycodes
+         * returns true if all keycodes are valid and false otherwise
+         */
         public static bool has_valid_key_codes(Keyboard keeb)
         {
             Regex time_regex = new Regex(@"[1-9][0-9]*ms");
@@ -35,7 +39,10 @@ namespace QMKCGen
             }
             return true;
         }
-
+        /*
+         * Makes sure that a given string is a valid windows filename
+         * returns true if the string is valid and false otherwise
+         */
         public static bool is_valid_filename(string subject)
         {
             if(string.IsNullOrEmpty(subject))
@@ -50,6 +57,11 @@ namespace QMKCGen
             return true;
         }
 
+        /*
+         * Ensures that all absolutely necessary values are present in the Keyboard
+         * returns true if all of product_name, col_pins, row_pins, partno and partno_verbose are present
+         * returns false otherwise
+         */
         public static bool ensure_critical_values(Keyboard keeb)
         {
             try

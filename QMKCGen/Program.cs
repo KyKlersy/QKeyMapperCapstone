@@ -14,6 +14,9 @@ using QMKCGen.QMKStructures;
 
 namespace QMKCGen
 {
+    /*
+     * The main class 
+     */
     class Program
     {
         static int Main(string[] args)

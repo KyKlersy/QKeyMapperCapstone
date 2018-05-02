@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace QMKCGen.QMKStructures
 {
+    /*
+     * Class that holds information about a file template and where 
+     * it should go once resolved
+     */
     class FileTemplate
     {
-        //I think I can get these to auto render their hbs
         public string relative_path { get; set; }
         public string template_path { get; set; }
         public void resolve_hbs(Keyboard context)

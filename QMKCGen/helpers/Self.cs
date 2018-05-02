@@ -10,7 +10,9 @@ namespace QMKCGen.helpers
 {
     class Self
     {
-        //may throw
+        /*
+         * returns a string containing the contents of a file in the project
+         */
         public static string getFileContents(Assembly asm, string path)
         {
             string result = "";
@@ -23,6 +25,11 @@ namespace QMKCGen.helpers
             return result;
         }
         
+        /*
+         * Returns a Dictionary that represents a csv file
+         * will throw if a non-csv file is provided as an argument
+         * the file does not need to have csv as the extensions for it to work
+         */
         public static Dictionary<string, string> get_dict_from_csv(string namespace_path)
         {
             var lines = new List<string>();
