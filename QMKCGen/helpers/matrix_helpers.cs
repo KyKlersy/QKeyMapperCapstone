@@ -65,7 +65,7 @@ namespace QMKCGen.helpers
                     if (!(i == key_matrix.GetLength(0) - 1  && j == key_matrix.GetLength(1) - 1))
                         result += ", ";
                 }
-                result += " \\";
+                result += @" \";
                 if (i != key_matrix.GetLength(0) - 1)
                     result += "\n";
             }
@@ -114,12 +114,16 @@ namespace QMKCGen.helpers
                     {
                         if (key_matrix[i, j].binding.is_macro())
                         {
-                            result += "M(" + macro_index + ")";
+                            result += Syntax.key_macro(macro_index);
                             macro_index++;
                         }
                         else if (key_matrix[i, j].binding.is_multifunction())
                         {
-                            //doit mod tap things
+                            //key is not a macro
+                            result += Syntax.key_mod_tap(
+                                unroll_on_hold(key_matrix[i, j].binding) + ", " +
+                                keycode_dict[key_matrix[i, j].binding.on_tap[0]]
+                            );
                         }
                         else if (key_matrix[i, j].binding.on_tap.Count() == 1)
                         {
@@ -127,7 +131,7 @@ namespace QMKCGen.helpers
                         }
                         else
                         {
-                            result += " "; //just add a space for neatness
+                            throw new ArgumentException("Invalid Keycodes");
                         }
                     }
                     if (!(i == key_matrix.GetLength(0) - 1 && j == key_matrix.GetLength(1) - 1))
@@ -140,5 +144,19 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        public static string unroll_on_hold(Binding binding)
+        {
+            var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.supportedOnHoldMacroModifiers.csv");
+            string result = "";
+            foreach(var keycode in binding.on_hold)
+            {
+                if (!keycode_dict.ContainsKey(keycode))
+                    throw new ArgumentException("Invalid keycodes in on_hold binding");
+                result += keycode_dict[keycode];
+                if (keycode != binding.on_hold.Last())
+                    result += " | ";
+            }
+            return result;
+        }
     }
 }

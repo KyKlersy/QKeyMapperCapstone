@@ -56,7 +56,8 @@
         "text": "w"
       },
       "binding": {
-        "on_tap": [ "W" ]
+        "on_tap": [ "W" ],
+        "on_hold": [ "LEFT CONTROL" ]
       },
       "matrix": {
         "row": "D7",

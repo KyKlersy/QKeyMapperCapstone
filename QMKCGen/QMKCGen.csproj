@@ -12374,6 +12374,9 @@
     <EmbeddedResource Include="Resources\key_name_to_kc_mapping_modifiers_only.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\supportedOnHoldMacroModifiers.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Templates\C\keyboard\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
