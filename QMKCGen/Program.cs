@@ -85,7 +85,7 @@ namespace QMKCGen
             }
 
             string qmk_firmware_path = System.IO.Path.Combine(
-                new DirectoryInfo(System.IO.Path.GetDirectoryName(assembly.Location)).Parent.Parent.FullName, 
+                new DirectoryInfo(System.IO.Path.GetDirectoryName(assembly.Location)).FullName, 
                 "qmk_firmware"
             );
 
