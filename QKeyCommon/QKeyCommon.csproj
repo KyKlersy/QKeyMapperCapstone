@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exec.cs" />
     <Compile Include="Keyboard_items\Desc_items\Desc.cs" />
     <Compile Include="Keyboard_items\Desc_items\UIDesc.cs" />
     <Compile Include="Keyboard_items\Keyboard.cs" />

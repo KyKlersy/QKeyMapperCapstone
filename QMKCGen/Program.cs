@@ -43,6 +43,12 @@ namespace QMKCGen
                 return 3;
             }
 
+            if(!Validations.ensure_critical_values(keyboard))
+            {
+                Console.WriteLine("Configuration file is missing critical elements");
+                return 4;
+            }
+
             //register helpers
             Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) =>
             {
@@ -75,13 +81,13 @@ namespace QMKCGen
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("The format of the provided file is invalid");
-                return 4;
+                return 5;
             }
 
             if(!Validations.is_valid_filename(keyboard.desc.product_name))
             {
                 Console.WriteLine("The product name of your keyboard is not a valid filename");
-                return 5;
+                return 6;
             }
 
             string qmk_firmware_path = System.IO.Path.Combine(
@@ -89,11 +95,26 @@ namespace QMKCGen
                 "qmk_firmware"
             );
 
-            string exec_args = "/bin/bash -lic 'cd \"$(cygpath \"" + qmk_firmware_path + "\")\"; make " + keyboard.desc.product_name + ":default:avrdude'";
+            string exec_args = "/bin/bash -lic 'cd \"$(cygpath \"" + 
+                               qmk_firmware_path + 
+                               "\")\"; make " + 
+                               keyboard.desc.product_name + 
+                               ":default:avrdude'";
+
             //string mintty_path = @"C:/msys64/usr/bin/mintty.exe";
             string mingw64_path = @"C:/msys64/mingw64.exe";
             //open up the flashing utility
-            Exec.launch(mingw64_path, exec_args);
+            try
+            {
+                Exec.launch(mingw64_path, exec_args);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error launching " + mingw64_path);
+                Console.WriteLine("Error Message:" + e.Message);
+                return 7;
+            }
+
             return 0;
         }
     }

@@ -131,7 +131,7 @@ namespace QMKCGen.helpers
                         }
                         else
                         {
-                            throw new ArgumentException("Invalid Keycodes");
+                            result += "KC_NO";
                         }
                     }
                     if (!(i == key_matrix.GetLength(0) - 1 && j == key_matrix.GetLength(1) - 1))

@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using QK = QKeyCommon.Keyboard_items;
+using QKeyCommon;
 
 namespace QKeyMapper
 {
@@ -178,7 +179,7 @@ namespace QKeyMapper
         private void beginFlashingButton_Click(object sender, RoutedEventArgs e)
         {
 
-           
+            string jsonPath = "";
             try
             {
                 keeb.keys.Clear();
@@ -186,11 +187,33 @@ namespace QKeyMapper
                 string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
                 System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json", output); //Save file
                 Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                string jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
+                jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
  
             }
-            catch { MessageBox.Show("An error occured while serializing the object"); }
+            catch
+            {
+                MessageBox.Show("An error occured while serializing the object");
+                return;
+            }
 
+            try
+            {
+                var solution_dir = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+                var qmk_cgen = System.IO.Path.Combine(solution_dir, "QMKCGen", "bin", "debug", "QMKCGen.exe");
+                string process_output = Exec.launch(qmk_cgen, jsonPath);
+                if (process_output != string.Empty) 
+                {
+                    MessageBox.Show(process_output);
+                }
+                Debug.WriteLine("[me]QMKCGen.exe exited with code: " + process_output);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error launching flashing utility\n" + 
+                                "Error Message:" + err.Message
+                );
+                return;
+            }
         }
 
         private void SetOnTapMacroModel(object sender, RoutedEventArgs e)

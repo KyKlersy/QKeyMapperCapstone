@@ -49,5 +49,25 @@ namespace QMKCGen
             }
             return true;
         }
+
+        public static bool ensure_critical_values(Keyboard keeb)
+        {
+            try
+            {
+                if(keeb.desc.product_name == null)
+                    return false;
+                if(keeb.spec.matrix_spec.col_pins == null ||
+                   keeb.spec.matrix_spec.row_pins == null)
+                    return false;
+                if(keeb.spec.avrdude.partno == null ||
+                   keeb.spec.avrdude.partno_verbose == null)
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
