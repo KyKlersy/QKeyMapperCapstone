@@ -16,7 +16,7 @@ using QKeyCommon;
 namespace QKeyMapper
 {
     /// <summary>
-    /// Interaction logic for Page2.xaml
+    /// Interaction logic for Binding Editor Page
     /// </summary>
     public partial class BindingEditorPage : Page
     {
@@ -55,6 +55,7 @@ namespace QKeyMapper
             NavigationService.Navigate(mainWindow.macroEditorPage);
         }
 
+        /* Creates the visual grid on the binding editor based on values in the json file. */
         private void GridCreate(int row, int coloumn)
         {
             BrushConverter bc = new BrushConverter();
@@ -87,6 +88,7 @@ namespace QKeyMapper
             }
         }
 
+        /* Creates a dropable UI border */
         public UIElement dropableBorder(int rowNum, int colNum, BrushConverter bc)
         {
             Border cbd = new Border();
@@ -110,8 +112,6 @@ namespace QKeyMapper
             {
                 Border targetBorder = (Border)e.OriginalSource;
                 KeyCapButton kcb = new KeyCapButton();
-
-                //kcb.keyButton.Click += PopOpenSelector;
 
                 targetBorder.Child = kcb;
             }

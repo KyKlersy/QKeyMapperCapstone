@@ -21,6 +21,7 @@ namespace GuiShellTest.Controls
 {
     /// <summary>
     /// Interaction logic for KeyCapButton.xaml
+    /// This is a custom control for modeling the behavior of a key object with its data members tied to it.
     /// </summary>
     public partial class KeyCapButton : UserControl, INotifyPropertyChanged
     {

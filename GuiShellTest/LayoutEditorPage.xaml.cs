@@ -86,7 +86,7 @@ namespace QKeyMapper
 
         }
 
-
+        /* Border drop handler for draggin a key onto the grid */
         private void Border_Drop(object sender, DragEventArgs e)
         {
             if (e.OriginalSource is Border)
@@ -100,7 +100,7 @@ namespace QKeyMapper
             }
         }
 
-
+        /* Keycap drag event */
         private void keyRect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Image img = (Image)sender;
@@ -108,7 +108,7 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
-
+        /* keycap event oppener */
         private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
             keyDataForm.Visibility = Visibility.Visible;
@@ -122,7 +122,7 @@ namespace QKeyMapper
 
         }
 
-
+        /* User button event for creating the json layout */
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -189,6 +189,7 @@ namespace QKeyMapper
 
         }
 
+
         private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
         {
             return KeyItems;
@@ -211,6 +212,7 @@ namespace QKeyMapper
             }
         }
 
+        /* Creates and returns a dropable border ui element */
         public UIElement dropableBorder(int rowNum, int colNum, BrushConverter bc)
         {
 
@@ -228,6 +230,7 @@ namespace QKeyMapper
             return cbd;
         }
 
+        /* Creates the visual grid layout based on the size specified */
         private void CreateGrid(object sender, RoutedEventArgs e)
         {
             try
@@ -269,6 +272,7 @@ namespace QKeyMapper
 
         }
 
+        /* Retrive key data list from each of the keycap objects */
         private List<qk.Key_items.Key> getKeyData()
         {
 
@@ -306,6 +310,7 @@ namespace QKeyMapper
             return keyData;
         }
 
+        /* Popopen event for keyboard matrix panel */
         private void PopOpenKeyboardMatrixPanel(object sender, RoutedEventArgs e)
         {
             keyboardMatrixPanel.Visibility = Visibility.Visible;
@@ -314,6 +319,7 @@ namespace QKeyMapper
 
         }
 
+        /* Click event for adding keyboard matrix row pin */
         private void addKeyboardRowMatrixPin(object sender, RoutedEventArgs e)
         {
             try
@@ -336,6 +342,7 @@ namespace QKeyMapper
             
         }
 
+        /* Click event for adding column matrix pin to collection */
         private void addKeyboardColMatrixPin(object sender, RoutedEventArgs e)
         {
             try
