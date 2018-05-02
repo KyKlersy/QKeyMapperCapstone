@@ -89,9 +89,9 @@ namespace QMKCGen
                 "qmk_firmware"
             );
 
-            string exec_args = "/bin/bash -lic 'cd $(cygpath \"" + qmk_firmware_path + "\"); make " + keyboard.desc.product_name + ":default:avrdude'";
-            string mintty_path = @"C:/msys64/usr/bin/mintty.exe";
-            string mingw64_path = @"C:\msys64\mingw64.exe";
+            string exec_args = "/bin/bash -lic 'cd \"$(cygpath \"" + qmk_firmware_path + "\")\"; make " + keyboard.desc.product_name + ":default:avrdude'";
+            //string mintty_path = @"C:/msys64/usr/bin/mintty.exe";
+            string mingw64_path = @"C:/msys64/mingw64.exe";
             //open up the flashing utility
             Exec.launch(mingw64_path, exec_args);
             return 0;

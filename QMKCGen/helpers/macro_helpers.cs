@@ -18,8 +18,8 @@ namespace QMKCGen.helpers
             int macro_index = 0;
             foreach (var key in keys_with_macros)
             {
-                result += Syntax.indent(3) + "case(" + macro_index + "):\n";
-                result += Syntax.indent(4) + "return MACRO(" + parse_macro(key.binding) + ", END);";
+                result += Syntax.indent(3) + Syntax.switch_case(macro_index) + "\n";
+                result += Syntax.indent(4) + Syntax.macro(parse_macro(key.binding));
                 macro_index++;
                 if (key != keys_with_macros.Last())
                     result += "\n";
@@ -37,23 +37,20 @@ namespace QMKCGen.helpers
                 Console.WriteLine(msg);
                 throw new ArgumentException(msg);
             }
-            int time = int.Parse(time_string.Substring(0, time_string.Count() - 2));
-            if (time < 0) { throw new ArgumentException("No negative numbers in time markers"); }
-            if(time > 255)
+            int time = int.Parse(time_string.Substring(0, time_string.Count() - 2)); //strip "ms"
+            if (time < 0)
             {
-                while(time > 255)
-                {
-                    result += "W(255), ";
-                    time -= 255;
-                }
-                if(time > 0)
-                {
-                    result += "W(" + time + ")";
-                }
+                throw new ArgumentException("No negative numbers in time markers");
             }
-            else
+
+            while(time > 255)
             {
-                result += "W(" + time + ")";
+                result += Syntax.key_wait(255) + ", ";
+                time -= 255;
+            }
+            if(time > 0)
+            {
+                result += Syntax.key_wait(time);
             }
 
             return result;
@@ -76,17 +73,17 @@ namespace QMKCGen.helpers
                         }
                         else
                         {
-                            result += "T(" + keycode_dict[elem.First()].Substring(3) + ")";
+                            result += Syntax.key_tap(keycode_dict[elem.First()].Substring(3));
                         }
                         break;
                     case 2:
                         if (elem[0] == "+")
                         {
-                            result += "D(";
+                            result += Syntax.key_down(keycode_dict[elem[1]].Substring(3));
                         }
                         else if (elem[0] == "-")
                         {
-                            result += "U(";
+                            result += Syntax.key_up(keycode_dict[elem[1]].Substring(3));
                         }
                         else
                         {
@@ -94,7 +91,6 @@ namespace QMKCGen.helpers
                             Console.WriteLine(msg);
                             throw new ArgumentException(msg);
                         }
-                        result += keycode_dict[elem[1]].Substring(3) + ")";
                         break;
                     default:
                         throw new ArgumentException("invalid keycode combinations");
