@@ -20,6 +20,11 @@ namespace QMKCGen.helpers
             var pin_map = pins_to_index(keeb);
             foreach (var key in keeb.keys)
             {
+                if (!pin_map.ContainsKey(key.matrix.col) ||
+                   !pin_map.ContainsKey(key.matrix.row))
+                {
+                    throw new ArgumentException("That pin isn't in row_pins or col_pins");
+                }
                 key_matrix[pin_map[key.matrix.row], pin_map[key.matrix.col]] = key;
             }
             return key_matrix;
