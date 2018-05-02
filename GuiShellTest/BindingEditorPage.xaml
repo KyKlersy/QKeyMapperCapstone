@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GuiShellTest"
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="525"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="Page2">
 
     <Page.Resources>
@@ -20,11 +20,11 @@
 
     <Grid Background="#34353B">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width=".70*" />
+            <ColumnDefinition Width=".30*" />
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Name="bindingEditorScrollBar" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
@@ -35,22 +35,104 @@
 
         <Grid x:Name="keyMapperControlGrid" Grid.Row="0" Grid.Column="1" Background="#43464E" Margin="5,5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="20" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height=".25*" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height=".35*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height=".35*" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height=".5*" />
+                <RowDefinition Height=".1*" />
+                <RowDefinition Height=".35*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Content="Single Key" VerticalAlignment="Bottom" Foreground="#FFF1F1F1" />
+            <Button Grid.Column="0" Grid.ColumnSpan="2" x:Name="back_button" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="←" Click="goBackToHome" Height="20" VerticalAlignment="Top" Margin="122,0,0,0">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <!-- Begin on key selection model binding -->
+            <Label x:Name="selectedKeyValuesLabel" 
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Foreground="#FFF1F1F1"
+                   Background="#FF34353B"
+                   Content="Selected Key Info"    
+            />
+
+            <Label x:Name="selectedKeyOnTapLabel" 
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Foreground="#FFF1F1F1" 
+                   Content="On Tap Macro: "    
+            />
+
+            <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" MinWidth="100">
+                <TextBlock x:Name="OnTapMacroTextBlock" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnTapMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+            </ScrollViewer>
+
+            <Label x:Name="selectedKeyOnHoldLabel" 
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Foreground="#FFF1F1F1" 
+                   Content="On Hold Macro: "    
+            />
+
+            <ScrollViewer Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" MinWidth="100">
+                <TextBlock x:Name="OnHoldMacroTextBlock" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnHoldMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+            </ScrollViewer>
+
+            <Rectangle
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="2" Fill="#FF7A7A7A"
+                Margin="0,10,0,2"
+            />
+
+            <Label x:Name="macroSectionLabel" 
+                   Grid.Row="7"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Foreground="#FFF1F1F1" 
+                   Content="Macros Available"    
+            />
+            <Rectangle
+                Grid.Row="8"
+                Grid.Column="0"
+                Grid.ColumnSpan="2" Fill="#FF7A7A7A"
+            />
+            
+            <Label Grid.Row="9" 
+                   Content="Single Key" 
+                   VerticalAlignment="Bottom" 
+                   Foreground="#FFF1F1F1"            
+            />
             <ComboBox 
-                Grid.Row="1" 
+                Grid.Row="10" 
                 Grid.Column="0" 
+                Grid.ColumnSpan="2"
                 x:Name="singleKeyChoiceComboBox" 
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Top" 
@@ -71,13 +153,40 @@
             />
 
 
-            <Label Grid.Row="2" Content="Macro Key" Foreground="#FFF1F1F1" VerticalAlignment="Bottom" />
-            <ComboBox Grid.Row="3" Grid.Column="0" x:Name="macroKeyChoiceComboBox" HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Background="#FF34353B" BorderBrush="#FF8D8D8D" Style="{DynamicResource ComboBoxStyle_Capstone}" Template="{DynamicResource ComboBoxEditableTemplate}" IsReadOnly="True" IsEditable="False" MinWidth="120" Margin="0,0,0,10">
-                <ComboBoxItem>Copy</ComboBoxItem>
-                <ComboBoxItem>Delete</ComboBoxItem>
-            </ComboBox>
+            <Label Grid.Row="11" 
+                   Content="Macro Key" 
+                   Foreground="#FFF1F1F1" 
+                   VerticalAlignment="Bottom"             
+            />
+            
+            <ComboBox x:Name="macroKeyChoiceComboBox"
+                Grid.Row="12" 
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Top" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="120" 
+                Margin="0,0,0,10"
+                ItemsSource="{Binding MacroKeyBinds}"
+                SelectedItem="{Binding SelectedKeyMacroEditor}"
+                DisplayMemberPath="macroName"
+                SelectedValuePath="macroString"
+                Text="{Binding SelectedKeyMacroEditor.macroName}"    
+            />
 
-            <Button Grid.Row="4" Grid.Column="0" x:Name="createNewMacroButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Record Macro" Click="createNewMacroButton_Click" Height="40" VerticalAlignment="Top">
+            <Rectangle
+                Grid.Row="13"
+                Grid.Column="0"
+                Grid.ColumnSpan="2" Fill="#FF7A7A7A"
+            />
+
+            <Button Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2" x:Name="setOnTapMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Set On Tap Macro" Height="40" VerticalAlignment="Top" Click="SetOnTapMacroModel">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -85,7 +194,8 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button Grid.Row="6" Grid.Column="0" x:Name="beginFlashingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Begin Flashing" Click="beginFlashingButton_Click">
+            
+            <Button Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" x:Name="setOnHoldMacro" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Set On Hold Macro" Click="SetOnHoldMacro" Height="40" VerticalAlignment="Top">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -93,7 +203,26 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button Grid.Column="0" x:Name="back_button" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="&lt;--" Click="createNewMacroButton_Click" Height="20" VerticalAlignment="Top" Margin="122,0,0,0">
+            
+            <Button Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" x:Name="clearSelections" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Clear Selections" Click="clearSelectedComboBoxes" Height="40" VerticalAlignment="Top">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createNewMacroButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Create New Macro" Click="createNewMacroButton_Click" Height="40" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            
+            <Button Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="2" x:Name="beginFlashingButton" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="0,0" Content="Begin Flashing" Click="beginFlashingButton_Click">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>

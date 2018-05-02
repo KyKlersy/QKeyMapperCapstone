@@ -30,7 +30,19 @@
         "text": "q"
       },
       "binding": {
-        "on_tap": [ "q" ]
+        "on_tap": [
+          "+",
+          "LEFT CONTROL",
+          "L",
+          "C",
+          "W",
+          "N",
+          "L",
+          "V",
+          "-",
+          "LEFT CONTROL",
+          "ENTER"
+        ]
       },
       "matrix": {
         "row": "D7",
@@ -44,7 +56,8 @@
         "text": "w"
       },
       "binding": {
-        "on_tap": [ "w" ]
+        "on_tap": [ "W" ],
+        "on_hold": [ "LEFT CONTROL" ]
       },
       "matrix": {
         "row": "D7",
@@ -58,7 +71,7 @@
         "text": "e"
       },
       "binding": {
-        "on_tap": [ "e" ]
+        "on_tap": [ "E" ]
       },
       "matrix": {
         "row": "D7",
@@ -72,7 +85,7 @@
         "text": "r"
       },
       "binding": {
-        "on_tap": [ "r" ]
+        "on_tap": [ "R" ]
       },
       "matrix": {
         "row": "D7",
@@ -86,7 +99,7 @@
         "text": "t"
       },
       "binding": {
-        "on_tap": [ "t" ]
+        "on_tap": [ "T" ]
       },
       "matrix": {
         "row": "D7",
@@ -100,7 +113,7 @@
         "text": "y"
       },
       "binding": {
-        "on_tap": [ "y" ]
+        "on_tap": [ "Y" ]
       },
       "matrix": {
         "row": "D7",
@@ -114,7 +127,7 @@
         "text": "a"
       },
       "binding": {
-        "on_tap": [ "a" ]
+        "on_tap": [ "A" ]
       },
       "matrix": {
         "row": "E6",
@@ -128,7 +141,7 @@
         "text": "s"
       },
       "binding": {
-        "on_tap": [ "s" ]
+        "on_tap": [ "S" ]
       },
       "matrix": {
         "row": "E6",
@@ -142,7 +155,7 @@
         "text": "d"
       },
       "binding": {
-        "on_tap": [ "d" ]
+        "on_tap": [ "D" ]
       },
       "matrix": {
         "row": "E6",
@@ -156,7 +169,7 @@
         "text": "f"
       },
       "binding": {
-        "on_tap": [ "f" ]
+        "on_tap": [ "F" ]
       },
       "matrix": {
         "row": "E6",
@@ -170,7 +183,7 @@
         "text": "g"
       },
       "binding": {
-        "on_tap": [ "g" ]
+        "on_tap": [ "G" ]
       },
       "matrix": {
         "row": "E6",
@@ -184,7 +197,7 @@
         "text": "h"
       },
       "binding": {
-        "on_tap": [ "h" ]
+        "on_tap": [ "H" ]
       },
       "matrix": {
         "row": "E6",
@@ -198,7 +211,7 @@
         "text": "z"
       },
       "binding": {
-        "on_tap": [ "z" ]
+        "on_tap": [ "Z" ]
       },
       "matrix": {
         "row": "B4",
@@ -212,7 +225,7 @@
         "text": "x"
       },
       "binding": {
-        "on_tap": [ "x" ]
+        "on_tap": [ "X" ]
       },
       "matrix": {
         "row": "B4",
@@ -226,7 +239,7 @@
         "text": "c"
       },
       "binding": {
-        "on_tap": [ "c" ]
+        "on_tap": [ "C" ]
       },
       "matrix": {
         "row": "B4",
@@ -240,7 +253,7 @@
         "text": "v"
       },
       "binding": {
-        "on_tap": [ "v" ]
+        "on_tap": [ "V" ]
       },
       "matrix": {
         "row": "B4",
@@ -254,7 +267,7 @@
         "text": "b"
       },
       "binding": {
-        "on_tap": [ "b" ]
+        "on_tap": [ "B" ]
       },
       "matrix": {
         "row": "B4",
@@ -268,7 +281,7 @@
         "text": "n"
       },
       "binding": {
-        "on_tap": [ "n" ]
+        "on_tap": [ "N" ]
       },
       "matrix": {
         "row": "B4",
@@ -310,7 +323,7 @@
         "text": "3"
       },
       "binding": {
-        "on_tap": [ "3" ]
+        "on_tap": [ "+", "LEFT CONTROL", "+", "C", "-", "C", "-", "LEFT CONTROL" ]
       },
       "matrix": {
         "row": "B5",
@@ -324,7 +337,7 @@
         "text": "4"
       },
       "binding": {
-        "on_tap": [ "4" ]
+        "on_tap": [ "+", "IGNORE", "+", "A", "-", "A", "-", "IGNORE" ]
       },
       "matrix": {
         "row": "B5",
@@ -338,7 +351,7 @@
         "text": "5"
       },
       "binding": {
-        "on_tap": [ "5" ]
+        "on_tap": [ "+", "LEFT CONTROL", "+", "T", "-", "T", "-", "LEFT CONTROL" ]
       },
       "matrix": {
         "row": "B5",
@@ -352,7 +365,7 @@
         "text": "6"
       },
       "binding": {
-        "on_tap": [ "6" ]
+        "on_tap": [ "+", "LEFT CONTROL", "+", "W", "-", "W", "-", "LEFT CONTROL" ]
       },
       "matrix": {
         "row": "B5",

@@ -106,10 +106,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FlashingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LayoutEditorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,15 +118,13 @@
     <Compile Include="BindingEditorPage.xaml.cs">
       <DependentUpon>BindingEditorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FlashingPage.xaml.cs">
-      <DependentUpon>FlashingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LayoutEditorPage.xaml.cs">
       <DependentUpon>LayoutEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\DiodeDirection.cs" />
     <Compile Include="Models\JsonTemplateLayout.cs" />
     <Compile Include="Models\KeyMacro.cs" />
+    <Compile Include="Models\MatrixPin.cs" />
     <Compile Include="Models\Microprocessor.cs" />
     <Compile Include="ViewModels\bindingEditorModel.cs" />
     <Compile Include="ViewModels\keyboardInfoModel.cs" />
@@ -175,6 +169,19 @@
     <Content Include="Resources\JsonDefaultLayouts\lets_split_lhs.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\JsonDefaultLayouts\emptyKeyTest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\supportedPins.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\defaultKeyMacros.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="Resources\key_name_to_kc_mapping.csv" />
+    <EmbeddedResource Include="Resources\supportedOnHoldMacroModifiers.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -191,9 +198,11 @@
   <ItemGroup>
     <Resource Include="Resources\Images\keyCap.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Macros\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

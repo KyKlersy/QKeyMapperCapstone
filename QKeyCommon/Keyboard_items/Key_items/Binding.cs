@@ -10,12 +10,20 @@ namespace QKeyCommon.Keyboard_items.Key_items
     {
         public List<string> on_tap;
         public List<string> on_hold;
-        public List<string> on_up;
         public Binding()
         {
             this.on_hold = new List<string>();
             this.on_tap = new List<string>();
-            this.on_up = new List<string>();
+        }
+
+        public bool is_macro()
+        {
+            return (on_tap.Count() > 1 || on_hold.Count() > 1);
+        }
+
+        public bool is_multifunction()
+        {
+            return (on_hold.Count() + on_tap.Count() > 1);
         }
     }
 }

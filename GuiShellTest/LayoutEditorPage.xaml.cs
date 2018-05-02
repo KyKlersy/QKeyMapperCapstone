@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using GuiShellTest.Controls;
 using GuiShellTest.ViewModels;
 using System.ComponentModel;
+using GuiShellTest.Models;
+
 namespace QKeyMapper
 {
 
@@ -25,22 +27,15 @@ namespace QKeyMapper
         private layoutEditorModel model;
 
     
-        public void ChangeButtonColor() {
-
-
-          
-        }
+        public void ChangeButtonColor() { }
 
         public LayoutEditorPage()
         {
-        
 
             InitializeComponent();
             model = new layoutEditorModel();
             DataContext = model;
             keyDataForm.DataContext = null;
-
-          
         }
 
         public LayoutEditorPage(MainWindow mainwindow)
@@ -94,7 +89,6 @@ namespace QKeyMapper
 
         private void Border_Drop(object sender, DragEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
             if (e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
@@ -118,6 +112,7 @@ namespace QKeyMapper
         private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
             keyDataForm.Visibility = Visibility.Visible;
+            keyboardMatrixPanel.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Hidden;
 
             Button btn = (Button)sender;
@@ -130,55 +125,68 @@ namespace QKeyMapper
 
         private void createJson_Click(object sender, RoutedEventArgs e)
         {
-
-            string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
-           
-            qk.Keyboard keeb = new qk.Keyboard();
-            List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>(1);  //List Contains Json Info
-            List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
             try
-            {   
-            //    if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue == null)
-            //    { DiodeLabel.Visibility = Visibility.Visible; }
-            //    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
-
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
-                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
-                keeb.keys = KeyItems;
-                JsonInfo.Add(keeb);
-                string output = JsonConvert.SerializeObject(JsonInfo, Formatting.Indented); //Serialize the List and add to output string
-                System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-                Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                MessageBox.Show("Keyboard Layout created in a Json file");
-            }
-            catch { MessageBox.Show("An error occured while serializing the object"); }
-           
-
-
-
-            /* Commented out your prior code, to hook some things while testing::
-                You can retrieve the information selected from the first two combo boxe's like below by calling into the keyboardinfomodel
-                see keyboardinfomodel class under viewmodels 
-                SelectedMicroProc , SelectedJsonLayout are both class properties, see their data model classes in the folder models.
-
-                with the way this is setup you should be able to just call into the two class properties above into their class object members to get the data
-                you need to add serialize out a complete Keyboard.cs
-
-                use the function getKeyData, returns a list of qk.Key_Items.Key. The line below is debugging it just prints out the list contents for key info.
-                You can test it by creating a grid, adding a key, clicking the key, adding information. It will print the console the matrix row/col entered for the key.
-                it will return empty nulls for parts of the grid that no key exists, this should serialize out nicely.
-
-          
-
-            Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
-
-
-            List<qk.Key_items.Key> keyD = getKeyData();
-            keyD.ForEach(qd =>
             {
-                Debug.WriteLine("mrow: " + qd.matrix.row + " mcol: " + qd.matrix.col);
-            });
-               */
+                string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
+                qk.Keyboard keeb = new qk.Keyboard();
+                List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>();  //List Contains Json Info
+                List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
+
+                if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
+                {
+                    if (mainWindow.layouteditormodel.SelectedDiodeDirection != null)
+                    {
+                        keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                    }
+                    else
+                    {
+                        throw new Exception("No diode direction selected. [Define Keyboard Matrix]");
+                    }
+                        
+
+                    keeb.ui_desc.rows = int.Parse(gridRow.Text);
+                    keeb.ui_desc.cols = int.Parse(gridColumn.Text);
+                    keeb.desc.product_name = model.layoutname;
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                    keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+
+                    if(KeyItems.Count <= 0)
+                    {
+                        throw new Exception("Keyboard should have keys added.");
+                    }
+
+                    keeb.keys = KeyItems;
+
+                    if(model.SelectedKeyboardRowPins.Count() <= 0 || model.SelectedKeyboardColPins.Count() <= 0)
+                    {
+                        throw new Exception("Keyboard must have valid keyboard matrix size defined. Atleast 1 pin row/col [Define Keyboard Matrix]");
+                    }
+
+                    keeb.spec.matrix_spec.rows = model.SelectedKeyboardRowPins.Count();
+                    keeb.spec.matrix_spec.row_pins = model.KeyboardMatrixRow.TrimEnd(',').Split(',').ToList();
+
+                    keeb.spec.matrix_spec.cols = model.SelectedKeyboardColPins.Count();
+                    keeb.spec.matrix_spec.col_pins = model.KeyboardMatrixCol.TrimEnd(',').Split(',').ToList();
+
+                    string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
+                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
+
+                    string jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
+                    mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = jsonPath;
+                    mainWindow.keyboardinfomodel.JsonLayouts.Add(new JsonTemplateLayout(keeb.desc.product_name, jsonPath));
+                    NavigationService.Navigate(mainWindow.bindingEditorPage);
+
+                }
+                else
+                {
+                    throw new Exception("Invalid Name layout name.");
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("An error occured while serializing the object: " + err.Message);
+            }
+
         }
 
         private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
@@ -224,33 +232,38 @@ namespace QKeyMapper
         {
             try
             {
-                int RowIterations = int.Parse(Row.Text);
-                int ColomnIterations = int.Parse(Column.Text);
-                if ((visualEditorGrid.Children.Count != 0)|| RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
+                int RowIterations = int.Parse(gridRow.Text);
+                int ColomnIterations = int.Parse(gridColumn.Text);
+
+                if (visualEditorGrid.Children.Count != 0)
                 {
-                    MessageBox.Show("Row and Column values should be 0-100");
                     visualEditorGrid.Children.Clear();
-                    Row.Clear();
-                    Column.Clear();
+                    gridRow.Clear();
+                    gridColumn.Clear();
                 }
 
+                if ( RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
+                {
+                    MessageBox.Show("Row and Column values should be 0-100");
+                }
                 else
                 {
                     GridCreate(RowIterations, ColomnIterations); // Make grid great again
                 }
+
             }
             catch {
-                Console.WriteLine("Not a valid input");
+                MessageBox.Show("Not a valid integer input");
                 visualEditorGrid.Children.Clear();
-                Row.Clear();
-                Column.Clear();
+                gridRow.Clear();
+                gridColumn.Clear();
             }
         }
     
 
         private void closeKeyDataForm(object sender, RoutedEventArgs e)
         {
-
+            keyboardMatrixPanel.Visibility = Visibility.Hidden;
             keyDataForm.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Visible;
 
@@ -275,21 +288,90 @@ namespace QKeyMapper
                     key.graphics.col = Grid.GetColumn(control);
                     key.graphics.text = kcb.text;
 
-                    key.matrix.row = kcb.matrixrow;
-                    key.matrix.col = kcb.matrixcol;
+                    if(kcb.matrixrow != null && kcb.matrixcol != null)
+                    {
+                        key.matrix.row = kcb.matrixrow.pinName;
+                        key.matrix.col = kcb.matrixcol.pinName;
 
-                    keyData.Add( key );
-           
-                }
-                else
-                {
-                    qk.Key_items.Key key = new qk.Key_items.Key();
-                    keyData.Add(key);
+                        keyData.Add(key);
+                    }
+                    else
+                    {
+                        throw new Exception("Key's should have their pin values set. [Click on the key to access pin data]");
+                    }
                 }
             }
 
 
             return keyData;
+        }
+
+        private void PopOpenKeyboardMatrixPanel(object sender, RoutedEventArgs e)
+        {
+            keyboardMatrixPanel.Visibility = Visibility.Visible;
+            keyDataForm.Visibility = Visibility.Hidden;
+            visualControlPanel.Visibility = Visibility.Hidden;
+
+        }
+
+        private void addKeyboardRowMatrixPin(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SelectedMatrixPin != null)
+                {
+                    model.SelectedKeyboardRowPins.Add(model.SelectedMatrixPin);
+                    model.KeyboardMatrixRow = "";
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+            
+        }
+
+        private void addKeyboardColMatrixPin(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SelectedMatrixPin != null)
+                {
+                    model.SelectedKeyboardColPins.Add(model.SelectedMatrixPin);
+                    model.KeyboardMatrixCol = "";
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearMatrixColPins(object sender, RoutedEventArgs e)
+        {
+
+            colPinKeyboardMatrix.Text = "";
+            model.SelectedKeyboardColPins.Clear();
+            model.KeyboardMatrixCol = "";
+
+        }
+
+        private void clearMatrixRowPins(object sender, RoutedEventArgs e)
+        {
+            rowPinKeyboardMatrix.Text = "";
+            model.SelectedKeyboardRowPins.Clear();
+            model.KeyboardMatrixRow = "";
         }
     }
 }

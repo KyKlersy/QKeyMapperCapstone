@@ -1,18 +1,5 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using GuiShellTest.ViewModels;
 
 
@@ -26,6 +13,12 @@ namespace QKeyMapper
 
         public keyboardInfoModel keyboardinfomodel;
         public layoutEditorModel layouteditormodel;
+        public bindingEditorModel bindingeditormodel;
+
+        public KeyBoardInfoPage keyboardInfoPage;
+        public LayoutEditorPage layoutEditorPage;
+        public BindingEditorPage bindingEditorPage;
+        public MacroEditorPage macroEditorPage;
 
         public MainWindow()
         {
@@ -33,38 +26,44 @@ namespace QKeyMapper
             //1 set to 1 to load layout editor panel
             //2 set to 2 to load binding editor panel
             //3 set to 3 to load macro editor panel
-            //4 set to 4 to load flashing page panel
-            int panelDebug = 1;
+            int panelDebug = 0;
 
             keyboardinfomodel = new keyboardInfoModel();
             layouteditormodel = new layoutEditorModel();
+            bindingeditormodel = new bindingEditorModel();
 
+            keyboardInfoPage = new KeyBoardInfoPage(this);
+            layoutEditorPage = new LayoutEditorPage(this);
+            bindingEditorPage = new BindingEditorPage(this);
+            macroEditorPage = new MacroEditorPage(this);
 
             InitializeComponent();
 
 
-            
             switch (panelDebug)
             {
                 case 0:
                     mainFrame.Content = new KeyBoardInfoPage(this);
                     break;
                 case 1:
-                    mainFrame.Content = new LayoutEditorPage();
+                    mainFrame.Content = new LayoutEditorPage(this);
                     break;
                 case 2:
-                    mainFrame.Content = new BindingEditorPage();
+                    mainFrame.Content = new BindingEditorPage(this);
                     break;
                 case 3:
                     mainFrame.Content = new MacroEditorPage();
                     break;
-                case 4:
-                    mainFrame.Content = new FlashingPage();
-                    break;
             }
 
+        }
 
-            //mainFrame.Content = new KeyBoardInfoPage();
+        private void resizeWindowHook(object sender, System.EventArgs e)
+        {
+            this.Width = 800;
+            this.Height = 600;
+
+
         }
     }
 }
