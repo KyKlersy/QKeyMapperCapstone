@@ -50,6 +50,7 @@ namespace GuiShellTest.Controls
             DataContext = this;
         }
 
+        /* Public binding property for keycap text */
         public string text {
             get
             {
@@ -63,6 +64,7 @@ namespace GuiShellTest.Controls
             }
         }
 
+        /* Public binding property for keycap selected matrix row from combobox */
         public MatrixPin matrixrow
         {
             get
@@ -78,9 +80,6 @@ namespace GuiShellTest.Controls
                     onPropertyRaised(nameof(matrixrow));
                     keyItem.matrix.row = _selectedRowMatrixPin.pinName;
                 }
-
-                //    _selectedRowMatrixPin = value;
-                //onPropertyRaised("matrixrow");
             }
         }
 
@@ -103,6 +102,7 @@ namespace GuiShellTest.Controls
             }
         }
 
+        /* Public binding property for showing the string representation of the macro selected. */
         public string OnTapMacroName
         {
             get
@@ -116,12 +116,11 @@ namespace GuiShellTest.Controls
                 {
                     _onTapMacroName = value;
                     onPropertyRaised(nameof(OnTapMacroName));
-                    Debug.WriteLine("Selected Macro: " + _onTapMacroName);
                 }
             }
         }
 
-
+        /* Public binding property for selected on tap macro object from selected combobox */
         public KeyMacro OnTapMacro
         {
             get
@@ -144,6 +143,7 @@ namespace GuiShellTest.Controls
             }
         }
         
+        /* Public binding property for displaying the selected on hold macro string */
         public string OnHoldMacroName
         {
             get
@@ -157,11 +157,12 @@ namespace GuiShellTest.Controls
                 {
                     _onHoldMacroName = value;
                     onPropertyRaised(nameof(OnHoldMacroName));
-                    Debug.WriteLine("Selected Macro: " + _onHoldMacroName);
+
                 }
             }
         }
 
+        /* Public binding property to hold the selected on hold macro object from combobox choice */
         public KeyMacro OnHoldMacro
         {
             get
@@ -184,11 +185,13 @@ namespace GuiShellTest.Controls
             }
         }
 
+        /* Setter call for setting hold macro string from data object to keyboard json object */
         public void setKeyHoldMacro(List<string> macrostring)
         {
             keyItem.binding.on_hold = macrostring;
         }
 
+        /* Setter call for setting tap macro strng from data object to json object */
         public void setKeyTapMacro(List<string> macrostring)
         {
             keyItem.binding.on_tap = macrostring;
@@ -199,12 +202,13 @@ namespace GuiShellTest.Controls
             return keyItem;
         }
 
+
+        /* Property changed event handler called using data binding */
         public event PropertyChangedEventHandler PropertyChanged;
         private void onPropertyRaised(String propertyName)
         {
             //If the property on the view has changed, raise new event and construct new event args with the name of the property.
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
 
         }
 
