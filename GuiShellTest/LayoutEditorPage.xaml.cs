@@ -112,6 +112,7 @@ namespace QKeyMapper
         private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
             keyDataForm.Visibility = Visibility.Visible;
+            keyboardMatrixPanel.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Hidden;
 
             Button btn = (Button)sender;
@@ -143,42 +144,24 @@ namespace QKeyMapper
                     keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
                     keeb.keys = KeyItems;
 
+                    keeb.spec.matrix_spec.rows = model.SelectedKeyboardRowPins.Count();
+                    keeb.spec.matrix_spec.row_pins = model.KeyboardMatrixRow.TrimEnd(',').Split(',').ToList();
+
+                    keeb.spec.matrix_spec.cols = model.SelectedKeyboardColPins.Count();
+                    keeb.spec.matrix_spec.col_pins = model.KeyboardMatrixCol.TrimEnd(',').Split(',').ToList();
+
                     string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
                     System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-                    //Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
+
                     string jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
                     mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = jsonPath;
                     mainWindow.keyboardinfomodel.JsonLayouts.Add(new JsonTemplateLayout(keeb.desc.product_name, jsonPath));
                     NavigationService.Navigate(mainWindow.bindingEditorPage);
-                    //MessageBox.Show("Keyboard Layout created in a Json file");
+
                 }
             }
             catch { MessageBox.Show("An error occured while serializing the object"); }
 
-
-            /* Commented out your prior code, to hook some things while testing::
-                You can retrieve the information selected from the first two combo boxe's like below by calling into the keyboardinfomodel
-                see keyboardinfomodel class under viewmodels 
-                SelectedMicroProc , SelectedJsonLayout are both class properties, see their data model classes in the folder models.
-
-                with the way this is setup you should be able to just call into the two class properties above into their class object members to get the data
-                you need to add serialize out a complete Keyboard.cs
-
-                use the function getKeyData, returns a list of qk.Key_Items.Key. The line below is debugging it just prints out the list contents for key info.
-                You can test it by creating a grid, adding a key, clicking the key, adding information. It will print the console the matrix row/col entered for the key.
-                it will return empty nulls for parts of the grid that no key exists, this should serialize out nicely.
-
-          
-
-            Debug.WriteLine("Selected microproc: " + mainWindow.keyboardinfomodel.SelectedMicroProc.mpName);
-
-
-            List<qk.Key_items.Key> keyD = getKeyData();
-            keyD.ForEach(qd =>
-            {
-                Debug.WriteLine("mrow: " + qd.matrix.row + " mcol: " + qd.matrix.col);
-            });
-               */
         }
 
         private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
@@ -255,7 +238,7 @@ namespace QKeyMapper
 
         private void closeKeyDataForm(object sender, RoutedEventArgs e)
         {
-
+            keyboardMatrixPanel.Visibility = Visibility.Hidden;
             keyDataForm.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Visible;
 
@@ -297,6 +280,66 @@ namespace QKeyMapper
             keyDataForm.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Hidden;
 
+        }
+
+        private void addKeyboardRowMatrixPin(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SelectedMatrixPin != null)
+                {
+                    model.SelectedKeyboardRowPins.Add(model.SelectedMatrixPin);
+                    model.KeyboardMatrixRow = "";
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+            
+        }
+
+        private void addKeyboardColMatrixPin(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SelectedMatrixPin != null)
+                {
+                    model.SelectedKeyboardColPins.Add(model.SelectedMatrixPin);
+                    model.KeyboardMatrixCol = "";
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearMatrixColPins(object sender, RoutedEventArgs e)
+        {
+
+            colPinKeyboardMatrix.Text = "";
+            model.SelectedKeyboardColPins.Clear();
+            model.KeyboardMatrixCol = "";
+
+        }
+
+        private void clearMatrixRowPins(object sender, RoutedEventArgs e)
+        {
+            rowPinKeyboardMatrix.Text = "";
+            model.SelectedKeyboardRowPins.Clear();
+            model.KeyboardMatrixRow = "";
         }
     }
 }

@@ -18,12 +18,21 @@ namespace GuiShellTest.ViewModels
         private DiodeDirection _selectedDiodeDirection;
 
         public List<MatrixPin> SupportedPins { get; set; }
+        private MatrixPin _selectedMatrixPin;
+
+        private string rowMatrixPins = "";
+        private string colMatrixPins = "";
+
+        public List<MatrixPin> SelectedKeyboardRowPins { get; set; }
+        public List<MatrixPin> SelectedKeyboardColPins { get; set; }
 
         private string _productName;
 
         public layoutEditorModel()
         {
             SupportedPins = new List<MatrixPin>();
+            SelectedKeyboardRowPins = new List<MatrixPin>();
+            SelectedKeyboardColPins = new List<MatrixPin>();
 
             SupportedDiodeDirections = new List<DiodeDirection>()
             {
@@ -69,6 +78,66 @@ namespace GuiShellTest.ViewModels
                
             }
         }
+
+        public string KeyboardMatrixRow {
+            get
+            {
+                return rowMatrixPins;
+
+            }
+            set
+            {
+                string pins = "";
+                SelectedKeyboardRowPins.ForEach(p => {
+                    pins += p.pinName + ",";
+                });
+
+                pins.TrimEnd(',');
+
+                rowMatrixPins = pins;
+                onPropertyRaised(nameof(KeyboardMatrixRow));
+            }
+        }
+
+        public MatrixPin SelectedMatrixPin
+        {
+            get
+            {
+                return _selectedMatrixPin;
+            }
+            set
+            {
+                if(value != _selectedMatrixPin)
+                {
+                    _selectedMatrixPin = value;
+
+                    onPropertyRaised(nameof(SelectedMatrixPin));
+                    Debug.WriteLine("Selected Matrix row pin: " + _selectedMatrixPin.pinName);
+                }
+            }
+        }
+
+        public string KeyboardMatrixCol
+        {
+            get
+            {
+                return colMatrixPins;
+
+            }
+            set
+            {
+                string pins = "";
+                SelectedKeyboardColPins.ForEach(p => {
+                    pins += p.pinName + ",";
+                });
+
+                pins.TrimEnd(',');
+
+                colMatrixPins = pins;
+                onPropertyRaised(nameof(KeyboardMatrixCol));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void onPropertyRaised(String propertyName)

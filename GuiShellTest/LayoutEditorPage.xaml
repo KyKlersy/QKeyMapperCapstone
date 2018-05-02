@@ -122,7 +122,7 @@
         <!--End hidden key form field-->
         
         <!--Hidden keyboard matrix form field-->
-        <Grid x:Name="keyboardMatrixPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Visible">
+        <Grid x:Name="keyboardMatrixPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" /> <!--close field button-->
                 <RowDefinition Height="auto" /> <!--keyboard matrix layout label-->
@@ -167,11 +167,11 @@
                 IsEditable="False" 
                 MinWidth="80" 
                 Margin="40,0,40,0"  
-                ItemsSource="{Binding SupportedDiodeDirections}"
-                SelectedItem="{Binding SelectedDiodeDirection}"
-                DisplayMemberPath="diodeName"
-                SelectedValuePath="diodeValue"
-                Text="{Binding SelectedDiodeDirection.diodeName}"
+                ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
+                SelectedItem="{Binding SelectedMatrixPin}"
+                DisplayMemberPath="pinName"
+                SelectedValuePath="pinName"
+                Text="{Binding SelectedMatrixPin.pinName}"
             />
             
             <Label 
@@ -187,10 +187,10 @@
             />
 
             <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2" MinWidth="100" MinHeight="30">
-                <TextBlock x:Name="rowPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnHoldMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+                <TextBlock x:Name="rowPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=KeyboardMatrixRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
             </ScrollViewer>
 
-            <Button Grid.Row="6" Grid.Column="0" x:Name="addSelectedPinToRow" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Row" FontSize="12">
+            <Button Grid.Row="6" Grid.Column="0" x:Name="addSelectedPinToRow" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Row" FontSize="12" Click="addKeyboardRowMatrixPin">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -199,7 +199,7 @@
                 </Button.Background>
             </Button>
 
-            <Button Grid.Row="6" Grid.Column="1" x:Name="clearRowPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" >
+            <Button Grid.Row="6" Grid.Column="1" x:Name="clearRowPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" Click="clearMatrixRowPins" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -221,10 +221,10 @@
             />
 
             <ScrollViewer Grid.Row="9" Grid.ColumnSpan="2" MinWidth="100" MinHeight="30">
-                <TextBlock x:Name="colPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnHoldMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+                <TextBlock x:Name="colPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=KeyboardMatrixCol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
             </ScrollViewer>
 
-            <Button Grid.Row="10" Grid.Column="0" x:Name="addSelectedPinToCol" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Col" FontSize="12" >
+            <Button Grid.Row="10" Grid.Column="0" x:Name="addSelectedPinToCol" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Col" FontSize="12" Click="addKeyboardColMatrixPin" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -233,7 +233,7 @@
                 </Button.Background>
             </Button>
 
-            <Button Grid.Row="10" Grid.Column="1" x:Name="clearColPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" >
+            <Button Grid.Row="10" Grid.Column="1" x:Name="clearColPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" Click="clearMatrixColPins" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -271,7 +271,7 @@
         </Grid>
 
         <!--main control panel-->
-        <Grid x:Name="visualControlPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Hidden">
+        <Grid x:Name="visualControlPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" /> <!--layout name-->
                 <RowDefinition Height=".20*" /> <!--layout name input-->
