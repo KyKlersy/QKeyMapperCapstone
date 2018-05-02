@@ -33,7 +33,7 @@ namespace QMKCGen.QMKStructures
 
         public void generateDirectories(Assembly asm, Keyboard keeb)
         {
-            qmk_keyboard_dir = new DirectoryInfo(System.IO.Path.GetDirectoryName(asm.Location)).Parent.Parent.FullName +
+            qmk_keyboard_dir = new DirectoryInfo(System.IO.Path.GetDirectoryName(asm.Location)).FullName +
                                    System.IO.Path.DirectorySeparatorChar + "qmk_firmware" +
                                    System.IO.Path.DirectorySeparatorChar + "keyboards";
             foreach (var pathArray in directories)

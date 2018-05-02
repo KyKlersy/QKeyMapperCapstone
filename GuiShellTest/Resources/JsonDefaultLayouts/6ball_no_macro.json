@@ -6,7 +6,7 @@
   "desc": {
     "manufacturer": "Linguini Enterprises",
     "description": "i made dis",
-    "product_name": "6_ball_test"
+    "product_name": "6_ball_no_macro"
   },
   "spec": {
     "avrdude": {
@@ -30,7 +30,6 @@
         "text": "q"
       },
       "binding": {
-        "on_tap": [ "q" ]
       },
       "matrix": {
         "row": "D0",
@@ -44,7 +43,6 @@
         "text": "w"
       },
       "binding": {
-        "on_tap": [ "w" ]
       },
       "matrix": {
         "row": "D0",
@@ -58,7 +56,6 @@
         "text": "e"
       },
       "binding": {
-        "on_tap": [ "e" ]
       },
       "matrix": {
         "row": "D0",
@@ -72,7 +69,6 @@
         "text": "a"
       },
       "binding": {
-        "on_tap": [ "a" ]
       },
       "matrix": {
         "row": "D5",
@@ -86,7 +82,6 @@
         "text": "s"
       },
       "binding": {
-        "on_tap": [ "s" ]
       },
       "matrix": {
         "row": "D5",
@@ -100,7 +95,6 @@
         "text": "d"
       },
       "binding": {
-        "on_tap": [ "d" ]
       },
       "matrix": {
         "row": "D5",
