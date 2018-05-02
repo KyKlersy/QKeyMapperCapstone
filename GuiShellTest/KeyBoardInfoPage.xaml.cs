@@ -81,12 +81,6 @@ namespace QKeyMapper
             {
                 MessageBox.Show("Error: " + err.Message);
             }
-
-
-
-
-        }
-
-
+        }        
     }
 }

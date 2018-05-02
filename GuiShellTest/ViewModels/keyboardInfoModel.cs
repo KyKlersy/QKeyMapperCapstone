@@ -16,6 +16,7 @@ namespace GuiShellTest.ViewModels
     {
         public ObservableCollection<Microprocessor> SupportedProcs { get; set; }
         public ObservableCollection<JsonTemplateLayout> JsonLayouts { get; set; }
+
         private Microprocessor _selectedMicroProc;
         private JsonTemplateLayout _selectedJsonLayout;
 
@@ -75,7 +76,7 @@ namespace GuiShellTest.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
  
-        /* This function is used in loading the obersable collections reading data from embedded resources and program data folder */
+        /* This function is used in loading the observable collections reading data from embedded resources and program data folder */
 
             /** ??? Todo: check for possible error case, user deletes the program data folder that it tries to read from see lines 98 - 113 **/
         private void loadCollection()
