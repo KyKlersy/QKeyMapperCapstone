@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GuiShellTest"
       xmlns:controls="clr-namespace:GuiShellTest.Controls"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1200"
+      d:DesignHeight="600" d:DesignWidth="800"
       x:Name="layoutEditorWindow"
       Title="Page4">
 
@@ -26,9 +26,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width=".75*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width=".35*" />
         </Grid.ColumnDefinitions>
         <Rectangle Grid.Row="1" Grid.ColumnSpan="3" >
             <Rectangle.Fill>
@@ -47,23 +47,26 @@
             </Viewbox>
         </ScrollViewer>
 
+        <!-- Hidden data fields used when a key is clicked -->
         <Grid x:Name="keyDataForm" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Hidden">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" /> <!--close field command button-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height=".35*" /> <!--matrix row input-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height=".35*" /> <!--matrix column input-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height="auto" /> <!-- key text input-->
+                <RowDefinition Height="*" /> <!--fill remaining space-->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Row="0" Grid.Column="1" Content="X" FontSize="25" Padding="15,0" MaxWidth="80" MaxHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" Click="closeKeyDataForm" />
 
-            <!--<TextBox Grid.Row="1" Grid.Column="0" Name="matrixRowTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixrow, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
             <ComboBox 
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Grid.Column="0" 
                 x:Name="matrixColComboBox" 
                 Width="Auto" 
@@ -74,7 +77,7 @@
                 IsReadOnly="True" 
                 IsEditable="False" 
                 MinWidth="80" 
-                Margin="0,50"
+                Margin="0,15"
                 ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
                 SelectedItem="{Binding matrixrow}"
                 DisplayMemberPath="pinName"
@@ -83,12 +86,12 @@
             />
 
 
-            <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform" >
-                <Label VerticalAlignment="Center" Content="Matrix Row" FontSize="50" />
+            <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Uniform" >
+                <Label VerticalAlignment="Center" Content="Matrix Row" FontSize="24" />
             </Viewbox>
-            <!--<TextBox Grid.Row="2" Grid.Column="0" Name="matrixColumnTextBox" MinHeight="40" VerticalAlignment="Center" Text="{Binding matrixcol, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+
             <ComboBox 
-                Grid.Row="2" 
+                Grid.Row="4" 
                 Grid.Column="0" 
                 x:Name="matrixRowComboBox" 
                 Width="Auto" 
@@ -99,7 +102,7 @@
                 IsReadOnly="True" 
                 IsEditable="False" 
                 MinWidth="80" 
-                Margin="0,50"
+                Margin="0,15"
                 ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
                 SelectedItem="{Binding matrixcol}"
                 DisplayMemberPath="pinName"
@@ -107,56 +110,87 @@
                 Text="{Binding matrixcol.pinName}"
             />
             
-            <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Uniform" >
+            <Viewbox Grid.Row="4" Grid.Column="1" Stretch="Uniform" >
                 <Label Content="Matrix Column" />
             </Viewbox>
 
-            <TextBox Grid.Row="3" Grid.Column="0" Name="keyTextInput" MinHeight="40" VerticalAlignment="Center" Text="{Binding text, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Viewbox Grid.Row="3" Grid.Column="1" Stretch="Uniform" >
-                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="Key Text" FontSize="50" />
+            <TextBox Grid.Row="6" Grid.Column="0" Name="keyTextInput" MinHeight="40" VerticalAlignment="Center" Text="{Binding text, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Viewbox Grid.Row="6" Grid.Column="1" Stretch="Uniform" >
+                <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="Key Text" FontSize="24" />
             </Viewbox>
-
-
         </Grid>
-
-        <Grid x:Name="visualControlPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Visible">
+        <!--End hidden key form field-->
+        
+        <!--Hidden keyboard matrix form field-->
+        <Grid x:Name="keyboardMatrixPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Visible">
             <Grid.RowDefinitions>
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="28*" />
-                <RowDefinition Height="18*" />
-                <RowDefinition Height="67*"/>
-                <RowDefinition Height="29*" />
+                <RowDefinition Height="auto" /> <!--close field button-->
+                <RowDefinition Height="auto" /> <!--keyboard matrix layout label-->
+                <RowDefinition Height=".35*" /> <!--keyboard matrix pin input combobox-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height="auto" /> <!--Matrix row label-->
+                <RowDefinition Height=".35*" /> <!-- Selected matrix row / pin display-->
+                <RowDefinition Height="auto" /> <!--Add / Remove matrix row pin selection command buttons-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height="auto" /> <!--Matrix col label-->
+                <RowDefinition Height=".35*" /> <!-- Selected matrix col / pin display-->
+                <RowDefinition Height="auto" /> <!--Add / Remove matrix col pin selection command buttons-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height="auto" /> <!--Diode direction label-->
+                <RowDefinition Height=".35*" /> <!--Diode direction input combobox-->
+                <RowDefinition Height="*" /> <!--fill remaining space-->
+                
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <!--
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Name="layoutNameLabel" Content="Layout Name" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" Margin="5,0" VerticalAlignment="Bottom" />
-            <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="layoutNameTextbox" Margin="5,5" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" />
--->
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Name="layoutNameLabel" Content="Layout Name" Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="24" Padding="5,0" VerticalAlignment="Bottom" />
+
+            <Button Grid.Row="0" Grid.Column="1" Content="X" FontSize="25" Padding="15,0" MaxWidth="80" MaxHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" Click="closeKeyDataForm" />
 
 
-            <TextBox Grid.Row="1" Grid.ColumnSpan="2"  Name="layoutNameTextbox" Style="{StaticResource textfields}" Text="{Binding layoutname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="24" TextAlignment="Left" Padding="10"></TextBox>
-
-
-            
-            
-            <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#FF8D8D8D" Background="#43464E" Margin="0,15">
-                <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18" Padding="5"/>
+            <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#43464E" BorderThickness="1" Margin="0,15" BorderBrush="#FF8D8D8D">
+                <TextBlock Text="Keyboard Matrix Layout" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18"/>
             </Border>
 
-            <TextBox x:Name="gridRow" Grid.Row="3" Grid.Column="0" Padding="10" FontSize="24" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
-            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="85,1" Foreground="#FFF1F1F1"></Label>
-            <TextBox x:Name="gridColumn" Grid.Row="3" Grid.Column="1" Padding="10" FontSize="24" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
+            <ComboBox 
+                Grid.Row="2" 
+                Grid.Column="0" 
+                Grid.ColumnSpan="2" 
+                x:Name="pinSelectionComboBox" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="80" 
+                Margin="40,0,40,0"  
+                ItemsSource="{Binding SupportedDiodeDirections}"
+                SelectedItem="{Binding SelectedDiodeDirection}"
+                DisplayMemberPath="diodeName"
+                SelectedValuePath="diodeValue"
+                Text="{Binding SelectedDiodeDirection.diodeName}"
+            />
+            
+            <Label 
+                Grid.Row="4" 
+                Grid.ColumnSpan="2" 
+                Name="keyboardPinsMatrixRow" 
+                Content="Keyboard Matrix Row" 
+                Foreground="#FFF1F1F1" 
+                FontFamily="Poor Richard" 
+                FontSize="16" 
+                Padding="5,0" 
+                VerticalAlignment="Bottom" 
+            />
 
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,10" Content="Create Grid" FontSize="16" Click="CreateGrid" >
+            <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2" MinWidth="100" MinHeight="30">
+                <TextBlock x:Name="rowPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnHoldMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+            </ScrollViewer>
+
+            <Button Grid.Row="6" Grid.Column="0" x:Name="addSelectedPinToRow" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Row" FontSize="12">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFFF8736" Offset="0"/>
@@ -165,13 +199,56 @@
                 </Button.Background>
             </Button>
 
-            <Border Grid.Row="5" Grid.ColumnSpan="2" Background="#43464E" BorderThickness="1" Margin="0,15" BorderBrush="#FF8D8D8D">
+            <Button Grid.Row="6" Grid.Column="1" x:Name="clearRowPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Label 
+                Grid.Row="8" 
+                Grid.ColumnSpan="2" 
+                Name="keyboardPinsMatrixCol" 
+                Content="Keyboard Matrix Col" 
+                Foreground="#FFF1F1F1" 
+                FontFamily="Poor Richard" 
+                FontSize="16" 
+                Padding="5,0" 
+                VerticalAlignment="Bottom" 
+            />
+
+            <ScrollViewer Grid.Row="9" Grid.ColumnSpan="2" MinWidth="100" MinHeight="30">
+                <TextBlock x:Name="colPinKeyboardMatrix" Background="#FF34353B" Foreground="#FFF1F1F1" TextWrapping="Wrap" Text="{Binding Path=OnHoldMacroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }"/>
+            </ScrollViewer>
+
+            <Button Grid.Row="10" Grid.Column="0" x:Name="addSelectedPinToCol" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Col" FontSize="12" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button Grid.Row="10" Grid.Column="1" x:Name="clearColPinsSelected" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear" FontSize="16" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Border Grid.Row="12" Grid.ColumnSpan="2" Background="#43464E" BorderThickness="1" Margin="0,15" BorderBrush="#FF8D8D8D">
                 <TextBlock Text="Diode Direction" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18"/>
             </Border>
 
 
             <ComboBox 
-                Grid.Row="6" 
+                Grid.Row="13" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="2" 
                 x:Name="diodeDirectionComboBox" 
@@ -190,18 +267,90 @@
                 SelectedValuePath="diodeValue"
                 Text="{Binding SelectedDiodeDirection.diodeName}"
             />
+            
+        </Grid>
 
+        <!--main control panel-->
+        <Grid x:Name="visualControlPanel" Grid.Row="2" Grid.Column="2" Background="#4F535B" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" /> <!--layout name-->
+                <RowDefinition Height=".20*" /> <!--layout name input-->
+                <RowDefinition Height=".02*" />
+                <RowDefinition Height=".15*" /> <!--keyboard matrix popopen command-->
+                <RowDefinition Height="auto" /> <!--division grid size-->
+                <RowDefinition Height="auto" /> <!--grid size input-->
+                <RowDefinition Height=".15*" /> <!--command create grid button-->
+                <RowDefinition Height=".05*" /> <!--spacer-->
+                <RowDefinition Height=".40*"/> <!--dragable control-->
+                <RowDefinition Height=".25*" /> <!--create layout button-->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
 
+            <Label 
+                Grid.Row="0" 
+                Grid.ColumnSpan="2" 
+                Name="layoutNameLabel" 
+                Content="Layout Name" 
+                Foreground="#FFF1F1F1" 
+                FontFamily="Poor Richard" 
+                FontSize="24" 
+                Padding="5,0" 
+                VerticalAlignment="Bottom" 
+            />
 
+            <TextBox 
+                Grid.Row="1" 
+                Grid.ColumnSpan="2"  
+                Name="layoutNameTextbox" 
+                Style="{StaticResource textfields}" 
+                Text="{Binding layoutname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                FontSize="24" 
+                TextAlignment="Left"            
+            />
+
+            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="popOpenKeyboardMatrix" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Define Keyboard Matrix" Click="PopOpenKeyboardMatrixPanel" FontSize="16" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Border Grid.Row="4" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="#FF8D8D8D" Background="#43464E" Margin="0,15">
+                <TextBlock Text="Grid Size" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#F1F1F1" FontSize="18" Padding="5"/>
+            </Border>
+
+            <TextBox x:Name="gridRow" Grid.Row="5" Grid.Column="0" FontSize="24" Margin="40,0,10,0" Style="{StaticResource textfields}"/>
+            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="X" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="85,1" Foreground="#FFF1F1F1"></Label>
+            <TextBox x:Name="gridColumn" Grid.Row="5" Grid.Column="1" FontSize="24" Margin="10,0,40,0" Style="{StaticResource textfields}"/>
+
+            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createGridSize" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="40,0" Content="Create Grid" FontSize="16" Click="CreateGrid" >
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
 
             <Border Grid.Row="8" Grid.Column="0" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" Grid.RowSpan="1" >
-                <!--<controls:KeyCapButton></controls:KeyCapButton>-->
                 <Image Source="Resources/Images/keyCap.png" MouseLeftButtonDown="keyRect_MouseLeftButtonDown" />
             </Border>
 
-            <Border Grid.Row="8" Grid.Column="1" Background="#FF43464E" BorderBrush="#FF8D8D8D" BorderThickness="1" Margin="5,5" CornerRadius="5" Grid.RowSpan="1" >
-
-            </Border>
+            <Border 
+                Grid.Row="8" 
+                Grid.Column="1" 
+                Background="#FF43464E" 
+                BorderBrush="#FF8D8D8D" 
+                BorderThickness="1" 
+                Margin="5,5" 
+                CornerRadius="5" 
+                Grid.RowSpan="1"             
+            />
 
             <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" x:Name="createJson" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,0" Content="Create Json Layout" Click="createJson_Click" FontSize="16" >
                 <Button.Background>
@@ -211,46 +360,6 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <!--
-            <Label Content="Label" HorizontalAlignment="Left" Margin="84,21,0,0" VerticalAlignment="Top"/>
-            <Canvas Grid.ColumnSpan="2" Margin="5,0,5,28" Grid.Row="3" Grid.RowSpan="2">
-                <Label x:Name="Columns" Content="Rows    X  Columns " Foreground="#FFF1F1F1" FontFamily="Poor Richard" FontSize="20" VerticalAlignment="Bottom" Width="177" Canvas.Top="-31" />
-            </Canvas>
-            <Canvas Grid.ColumnSpan="2" Margin="10,0,23,10" Grid.Row="4">
-                <Canvas Height="21" Width="154">
-                    <TextBox x:Name="Row" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" RenderTransformOrigin="0.5,0.5" Canvas.Left="-1" Canvas.Top="-30" MinWidth="80" MinHeight="25" Margin="5" >
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
-                    </TextBox>
-                    <TextBox x:Name="Column" Background="#FF34353B" BorderThickness="1" BorderBrush="#FF8D8D8D" Foreground="#FFF1F1F1" Canvas.Left="92" RenderTransformOrigin="0.5,0.5" Canvas.Top="-30" MinWidth="80" MinHeight="25" Margin="5" >
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
-                    </TextBox>
-                </Canvas>
-            </Canvas>
-            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Create_Grid" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Margin="5,11,5,21" Content="Create Grid" Click="CreateGrid" Grid.RowSpan="2" >
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFFF8736" Offset="0"/>
-                        <GradientStop Color="#FFF25204" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-
-                <ContentControl Content="ContentControl" Grid.Column="1" HorizontalAlignment="Left" Margin="202.6,10,0,0" Grid.Row="1" VerticalAlignment="Top"/> -->
-
 
         </Grid>
     </Grid>

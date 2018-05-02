@@ -27,22 +27,15 @@ namespace QKeyMapper
         private layoutEditorModel model;
 
     
-        public void ChangeButtonColor() {
-
-
-          
-        }
+        public void ChangeButtonColor() { }
 
         public LayoutEditorPage()
         {
-        
 
             InitializeComponent();
             model = new layoutEditorModel();
             DataContext = model;
             keyDataForm.DataContext = null;
-
-          
         }
 
         public LayoutEditorPage(MainWindow mainwindow)
@@ -96,7 +89,6 @@ namespace QKeyMapper
 
         private void Border_Drop(object sender, DragEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine(e.OriginalSource.ToString());
             if (e.OriginalSource is Border)
             {
                 Border targetBorder = (Border)e.OriginalSource;
@@ -234,21 +226,26 @@ namespace QKeyMapper
             {
                 int RowIterations = int.Parse(gridRow.Text);
                 int ColomnIterations = int.Parse(gridColumn.Text);
-                if ((visualEditorGrid.Children.Count != 0)|| RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
+
+                if (visualEditorGrid.Children.Count != 0)
                 {
-                    MessageBox.Show("Row and Column values should be 0-100");
                     visualEditorGrid.Children.Clear();
                     gridRow.Clear();
                     gridColumn.Clear();
                 }
 
+                if ( RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
+                {
+                    MessageBox.Show("Row and Column values should be 0-100");
+                }
                 else
                 {
                     GridCreate(RowIterations, ColomnIterations); // Make grid great again
                 }
+
             }
             catch {
-                Console.WriteLine("Not a valid input");
+                MessageBox.Show("Not a valid integer input");
                 visualEditorGrid.Children.Clear();
                 gridRow.Clear();
                 gridColumn.Clear();
@@ -288,15 +285,18 @@ namespace QKeyMapper
 
                     keyData.Add(key);
                 }
-                //else
-                //{
-                //    qk.Key_items.Key key = new qk.Key_items.Key();
-                //    keyData.Add(key);
-                //}
             }
 
 
             return keyData;
+        }
+
+        private void PopOpenKeyboardMatrixPanel(object sender, RoutedEventArgs e)
+        {
+            keyboardMatrixPanel.Visibility = Visibility.Visible;
+            keyDataForm.Visibility = Visibility.Hidden;
+            visualControlPanel.Visibility = Visibility.Hidden;
+
         }
     }
 }
