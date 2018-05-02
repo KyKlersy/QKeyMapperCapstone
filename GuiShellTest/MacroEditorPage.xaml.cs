@@ -71,9 +71,15 @@ namespace QKeyMapper
 
             try
             {
-                if (customMacroName.Text != null || customMacroName.Text != "")
+                if (customMacroName.Text != null && customMacroName.Text != "")
                 {
+                    
                     customName = customMacroName.Text;
+
+                    if(customName.Length <= 0 || customName.Length > 100)
+                    {
+                        throw new Exception("Invalid Name length must be between 1 and 100");
+                    }
                 }
                 else
                 {
@@ -84,7 +90,7 @@ namespace QKeyMapper
 
                 tryLexMacroString(macrostring);
 
-                if (!model.customMacroNames.Contains(customName))
+                if (!model.keyNames.Contains(customName))
                 {
                     KeyMacro km = new KeyMacro { macroName = customName, macroString = macro };
                     model.MacroKeyBinds.Add(km);
@@ -112,6 +118,10 @@ namespace QKeyMapper
                     }
                     
                     NavigationService.Navigate(mainwindow.bindingEditorPage);
+                }
+                else
+                {
+                    throw new Exception("Macro name must be unique.");
                 }
 
             }

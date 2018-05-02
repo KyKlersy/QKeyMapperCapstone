@@ -134,15 +134,33 @@ namespace QKeyMapper
 
                 if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
                 {
-                    if (mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != null & mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue != "")
+                    if (mainWindow.layouteditormodel.SelectedDiodeDirection != null)
+                    {
                         keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
+                    }
+                    else
+                    {
+                        throw new Exception("No diode direction selected. [Define Keyboard Matrix]");
+                    }
+                        
 
                     keeb.ui_desc.rows = int.Parse(gridRow.Text);
                     keeb.ui_desc.cols = int.Parse(gridColumn.Text);
                     keeb.desc.product_name = model.layoutname;
                     keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
                     keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+
+                    if(KeyItems.Count <= 0)
+                    {
+                        throw new Exception("Keyboard should have keys added.");
+                    }
+
                     keeb.keys = KeyItems;
+
+                    if(model.SelectedKeyboardRowPins.Count() <= 0 || model.SelectedKeyboardColPins.Count() <= 0)
+                    {
+                        throw new Exception("Keyboard must have valid keyboard matrix size defined. Atleast 1 pin row/col [Define Keyboard Matrix]");
+                    }
 
                     keeb.spec.matrix_spec.rows = model.SelectedKeyboardRowPins.Count();
                     keeb.spec.matrix_spec.row_pins = model.KeyboardMatrixRow.TrimEnd(',').Split(',').ToList();
@@ -159,8 +177,15 @@ namespace QKeyMapper
                     NavigationService.Navigate(mainWindow.bindingEditorPage);
 
                 }
+                else
+                {
+                    throw new Exception("Invalid Name layout name.");
+                }
             }
-            catch { MessageBox.Show("An error occured while serializing the object"); }
+            catch(Exception err)
+            {
+                MessageBox.Show("An error occured while serializing the object: " + err.Message);
+            }
 
         }
 
@@ -263,10 +288,17 @@ namespace QKeyMapper
                     key.graphics.col = Grid.GetColumn(control);
                     key.graphics.text = kcb.text;
 
-                    key.matrix.row = kcb.matrixrow.pinName;
-                    key.matrix.col = kcb.matrixcol.pinName;
+                    if(kcb.matrixrow != null && kcb.matrixcol != null)
+                    {
+                        key.matrix.row = kcb.matrixrow.pinName;
+                        key.matrix.col = kcb.matrixcol.pinName;
 
-                    keyData.Add(key);
+                        keyData.Add(key);
+                    }
+                    else
+                    {
+                        throw new Exception("Key's should have their pin values set. [Click on the key to access pin data]");
+                    }
                 }
             }
 

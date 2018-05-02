@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GuiShellTest"
       xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="600"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="Page2">
 
     <Page.Resources>
@@ -38,9 +38,9 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height=".15*" />
+                <RowDefinition Height=".25*" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height=".15*" />
+                <RowDefinition Height=".25*" />
                 <RowDefinition Height="15" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="2" />
@@ -97,7 +97,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Foreground="#FFF1F1F1" 
-                   Content="On Tap Macro: "    
+                   Content="On Hold Macro: "    
             />
 
             <ScrollViewer Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" MinWidth="100">

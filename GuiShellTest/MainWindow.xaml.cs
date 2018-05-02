@@ -40,7 +40,6 @@ namespace QKeyMapper
             InitializeComponent();
 
 
-            
             switch (panelDebug)
             {
                 case 0:
@@ -57,8 +56,14 @@ namespace QKeyMapper
                     break;
             }
 
+        }
 
-            //mainFrame.Content = new KeyBoardInfoPage();
+        private void resizeWindowHook(object sender, System.EventArgs e)
+        {
+            this.Width = 800;
+            this.Height = 600;
+
+
         }
     }
 }
