@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace QMKCGen.helpers
 {
+    /*
+     * Helper class to declutter code and put meaningful replacements
+     * in the stead of plain text
+     */
     class Syntax
     {
         public static string indent(int amount)

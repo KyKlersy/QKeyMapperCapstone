@@ -7,14 +7,16 @@ namespace QKeyMapper
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
+    /// Main window of application used to bootstrap all pages and view models.
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        /* View models */
         public keyboardInfoModel keyboardinfomodel;
         public layoutEditorModel layouteditormodel;
         public bindingEditorModel bindingeditormodel;
 
+        /* Pages */
         public KeyBoardInfoPage keyboardInfoPage;
         public LayoutEditorPage layoutEditorPage;
         public BindingEditorPage bindingEditorPage;
@@ -32,6 +34,7 @@ namespace QKeyMapper
             layouteditormodel = new layoutEditorModel();
             bindingeditormodel = new bindingEditorModel();
 
+            /* Pass the main window for reference to other models in the page constructors. */
             keyboardInfoPage = new KeyBoardInfoPage(this);
             layoutEditorPage = new LayoutEditorPage(this);
             bindingEditorPage = new BindingEditorPage(this);

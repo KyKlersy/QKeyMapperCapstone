@@ -13,16 +13,21 @@ namespace GuiShellTest.ViewModels
 {
    public class bindingEditorModel
     {
-        private Assembly assembly = Assembly.GetExecutingAssembly();
-        private string approot = AppDomain.CurrentDomain.BaseDirectory;
-        private string macroFolderPath;
-        public ObservableCollection<KeyMacro> DefaultSingleKeyBinds { get; set; }
-        public ObservableCollection<KeyMacro> MacroKeyBinds { get; set; }
-        public List<KeyMacro> validHoldMacro { get; set; }
-        public HashSet<string> keyNames;
-        public HashSet<string> customMacroNames;
+        private Assembly assembly = Assembly.GetExecutingAssembly(); //Reflect and get the current executing assembly
 
-        private KeyMacro _selectedKeySingleMacro;
+        private string approot = AppDomain.CurrentDomain.BaseDirectory; //Get the current root directory of the application
+        private string macroFolderPath; //Hold the folder path to user defined macros.
+
+        public ObservableCollection<KeyMacro> DefaultSingleKeyBinds { get; set; } //List collection of single key binds.
+        public ObservableCollection<KeyMacro> MacroKeyBinds { get; set; } //List collection of macro key binds.
+
+        public List<KeyMacro> validHoldMacro { get; set; } //Valid macro list.
+
+        public HashSet<string> keyNames; 
+        public HashSet<string> customMacroNames; //check to make sure no duplicates exist
+
+        //Private data variables for binding.
+        private KeyMacro _selectedKeySingleMacro; 
         private KeyMacro _selectedKeyMacroEditor;
 
         public bindingEditorModel()
@@ -40,13 +45,10 @@ namespace GuiShellTest.ViewModels
             loadPredefinedMacroCollection();
             loadUserDefinedCollection();
             loadValidOnHoldMacros();
-            //foreach(var item in DefaultSingleKeyBinds)
-            //{
-            //    Debug.WriteLine("String: " + item.macroString);
-            //}
+
         }
 
-
+        /* Public binding property for selected single key macro */
         public KeyMacro SelectedKeySingleMacro
         {
             get
@@ -60,14 +62,15 @@ namespace GuiShellTest.ViewModels
                 {
                     _selectedKeySingleMacro = value;
                     onPropertyRaised(nameof(SelectedKeySingleMacro));
-                    Debug.WriteLine("Single key Macro: ");
-                    if(_selectedKeySingleMacro != null)
-                        _selectedKeySingleMacro.macroString.ForEach(elm => { Debug.Write(elm, " "); });
+
+                    //if(_selectedKeySingleMacro != null)
+                    //    _selectedKeySingleMacro.macroString.ForEach(elm => { Debug.Write(elm, " "); });
                 }
 
             }
         }
 
+        /* Public binding property for selected macro key */
         public KeyMacro SelectedKeyMacroEditor
         {
             get
@@ -95,6 +98,7 @@ namespace GuiShellTest.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /* Loads this models data lists for combo box binding */
         private void loadCollection()
         {
             var resourceName = "GuiShellTest.Resources.singleKeyMacros.csv";
@@ -117,6 +121,7 @@ namespace GuiShellTest.ViewModels
             }
         }
 
+        /* Loads predefined macro list collection */
         private void loadPredefinedMacroCollection()
         {
 
@@ -140,7 +145,7 @@ namespace GuiShellTest.ViewModels
             }
         }
 
-
+        /* Loads user defined macros to the collection */
         private void loadUserDefinedCollection()
         {
             KeyMacro km;
@@ -169,6 +174,7 @@ namespace GuiShellTest.ViewModels
             return;
         }
 
+        /* Loads the valid on hold macro list to be checked when a user tries to set an on hold macro. */
         private void loadValidOnHoldMacros()
         {
             var resourceName = "GuiShellTest.Resources.supportedOnHoldMacroModifiers.csv";

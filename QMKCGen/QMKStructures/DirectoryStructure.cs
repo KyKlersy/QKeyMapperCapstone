@@ -11,16 +11,28 @@ using System.Threading.Tasks;
 
 namespace QMKCGen.QMKStructures
 {
+    /*
+     * Class that describes the directory structure of a QMK keyboard project
+     */ 
     class QMKStructure
     {
         public List<List<string>> directories { get; set; }
         public List<FileTemplate> files { get; set; }
-        string qmk_keyboard_dir;
+        private string qmk_keyboard_dir;
+
         public QMKStructure()
         {
             directories = new List<List<string>>{};
             files = new List<FileTemplate>{};
         }
+
+        /*
+         * Runs through all the templates to attempt to generate an exception
+         * if it does not, then the templates are OK
+         * 
+         * This is designed to prevent a structure with a faulty template from
+         * generating actual files
+         */
         public void testTemplates(Assembly asm, Keyboard keeb)
         {
             foreach (var template_file in files)
@@ -54,6 +66,7 @@ namespace QMKCGen.QMKStructures
                 }
             }
         }
+
         public void generateFiles(Assembly asm, Keyboard keeb)
         {
             foreach (var template_file in files)

@@ -14,6 +14,8 @@ namespace QKeyMapper
 {
     /// <summary>
     /// Interaction logic for MacroEditorPage.xaml
+    /// Macro editor page,
+    /// 
     /// </summary>
     public partial class MacroEditorPage : Page
     {
@@ -42,28 +44,33 @@ namespace QKeyMapper
 
         }
 
+        /* Navigation event on click of back button */
         private void goBackToBinding(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(mainwindow.bindingEditorPage);
         }
 
+        /* Adds a key down selection to the macro page */
         private void addKeyDown(object sender, RoutedEventArgs e)
         {
             if(model.SelectedKeyMacroEditor != null)
                 MacroStringTxt.Text += "+,"+ model.SelectedKeyMacroEditor.macroName + ",10ms,";
         }
 
+        /* Adds a key up selection to the macro page */
         private void addKeyUp(object sender, RoutedEventArgs e)
         {
             if (model.SelectedKeyMacroEditor != null)
                 MacroStringTxt.Text += "-," + model.SelectedKeyMacroEditor.macroName + ",10ms,";
         }
 
+        /* Clears the macro string currently constructed */
         private void clearMacroString(object sender, RoutedEventArgs e)
         {
             MacroStringTxt.Text = "";
         }
 
+        /* Creates the custom macro saving it out to the custom macro file list and updating the custom macro loaded data list */
         private void createAndSaveMacro(object sender, RoutedEventArgs e)
         {
             string macrostring = "";
@@ -132,6 +139,7 @@ namespace QKeyMapper
             }
         }
 
+        /* Tries to reparse a string that could be modified by the user back into a valid macro string */
         private void tryLexMacroString(String ms)
         {
             string pattern = @"[1-9][0-9]*ms";

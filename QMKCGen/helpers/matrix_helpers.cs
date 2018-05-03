@@ -12,9 +12,19 @@ using System.Threading.Tasks;
 
 namespace QMKCGen.helpers
 {
+    /*
+     * A helper class that wraps all functions that deal with unrolling the keyboard matrix
+     * public methods here are mounted as handlebars helpers
+     * private methods are are used by the public methods to accomplish a task
+     */
     class matrix_helpers
     {
-        public static Key[,] fill_key_matrix(Keyboard keeb)
+        /*
+         * Generates a 2D matrix of keys that corresponds directly to the keyboard matrix
+         * Throws ArgumentException if a pin in Keyboard.keys is not contained in either
+         * Keyboard.spec.matrix_spec.row_pins and Keyboard.spec.matrix_spec.col_pins
+         */
+        private static Key[,] fill_key_matrix(Keyboard keeb)
         {
             Key[,] key_matrix = new Key[keeb.spec.matrix_spec.rows, keeb.spec.matrix_spec.cols];
             var pin_map = pins_to_index(keeb);
@@ -30,7 +40,10 @@ namespace QMKCGen.helpers
             return key_matrix;
         }
 
-        public static Dictionary<string, int> pins_to_index(Keyboard keeb)
+        /*
+         * Generates a map that converts pin names into their respective indices
+         */
+        private static Dictionary<string, int> pins_to_index(Keyboard keeb)
         {
             var row_pins = keeb.spec.matrix_spec.row_pins;
             var col_pins = keeb.spec.matrix_spec.col_pins;
@@ -55,6 +68,10 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        /*
+         * Handlebars helper that generates the C code associated with
+         * the keyboard matrix displayed in a user_friendly manner
+         */
         public static string user_friendly(Keyboard keeb)
         {
             string result = "";
@@ -78,6 +95,10 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        /*
+         * Handlebars helper that generates the C code associated with
+         * the keyboard matrix displayed in the manner required with QMK
+         */
         public static string with_kc_no(Keyboard keeb)
         {
             string result = "";
@@ -104,6 +125,10 @@ namespace QMKCGen.helpers
             return result;
         }
 
+        /*
+         * Handlebars helper that generates the C code associated with
+         * the keyboard matrix's corresponding keycodes and macros
+         */
         public static string keymap(Keyboard keeb)
         {
             var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.key_name_to_kc_mapping.csv");
@@ -149,7 +174,13 @@ namespace QMKCGen.helpers
             return result;
         }
 
-        public static string unroll_on_hold(Binding binding)
+        /*
+         * Unrols a series of on_hold commands contained in Binding
+         * and returns an '|' separated string of the commands
+         * as required by QMK 
+         * Throws ArgumentException if Binding.on_hold contains an invalid value
+         */ 
+        private static string unroll_on_hold(Binding binding)
         {
             var keycode_dict = Self.get_dict_from_csv("QMKCGen.Resources.supportedOnHoldMacroModifiers.csv");
             string result = "";

@@ -45,6 +45,7 @@ namespace GuiShellTest.ViewModels
 
         }
 
+        /* Public binding property for layout name in layouteditor page */
         public string layoutname
         {
             get
@@ -55,11 +56,12 @@ namespace GuiShellTest.ViewModels
             set
             {
                 _productName = value;
-                Debug.WriteLine("Layoutname: " + _productName);
+
                 onPropertyRaised(nameof(layoutname));
             }
         }
 
+        /* Public binding property for layout editor page selected diode direction combobox item */
         public DiodeDirection SelectedDiodeDirection
         {
             get
@@ -73,12 +75,13 @@ namespace GuiShellTest.ViewModels
                 {
                     _selectedDiodeDirection = value;
                     onPropertyRaised(nameof(SelectedDiodeDirection));
-                    Debug.WriteLine("Diode Direction: " + _selectedDiodeDirection);
+
                 }
                
             }
         }
 
+        /* Public binding property for showing the selected keyboard matrix row */
         public string KeyboardMatrixRow {
             get
             {
@@ -99,6 +102,7 @@ namespace GuiShellTest.ViewModels
             }
         }
 
+        /* Public binding property for selected matrix pin object from combobox selection */
         public MatrixPin SelectedMatrixPin
         {
             get
@@ -112,11 +116,12 @@ namespace GuiShellTest.ViewModels
                     _selectedMatrixPin = value;
 
                     onPropertyRaised(nameof(SelectedMatrixPin));
-                    Debug.WriteLine("Selected Matrix row pin: " + _selectedMatrixPin.pinName);
+
                 }
             }
         }
 
+        /* Public binding property for showing the string representation of the keyboard matrix col */
         public string KeyboardMatrixCol
         {
             get
@@ -138,7 +143,7 @@ namespace GuiShellTest.ViewModels
             }
         }
 
-
+        /* Event changed handler for updating property binding on change. */
         public event PropertyChangedEventHandler PropertyChanged;
         private void onPropertyRaised(String propertyName)
         {
@@ -146,7 +151,7 @@ namespace GuiShellTest.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
+        /* Loads the supported pins into the combo box data list used in the binding view. */
         private void loadSupportedPins()
         {
             var assembly = Assembly.GetExecutingAssembly();
