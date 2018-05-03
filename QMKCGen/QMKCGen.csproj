@@ -12140,6 +12140,7 @@
     <EmbeddedResource Include="Resources\supportedOnHoldMacroModifiers.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\supportedProcs.csv" />
     <None Include="Templates\C\keyboard\config_template.h.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -15,7 +15,9 @@ using QMKCGen.QMKStructures;
 namespace QMKCGen
 {
     /*
-     * The main class 
+     * The main class for the QMKCGen sub project
+     * Responsible for taking the Keyboard.json files and
+     * generating the necessary C code 
      */
     class Program
     {
@@ -52,6 +54,12 @@ namespace QMKCGen
                 return 4;
             }
 
+            if(!Validations.confirm_microprocessor(keyboard))
+            {
+                Console.WriteLine("Specified partno(_verbose) is not valid");
+                return 5;
+            }
+
             //register helpers
             Handlebars.RegisterHelper("keymap_user_friendly", (writer, context, parameters) =>
             {
@@ -84,13 +92,13 @@ namespace QMKCGen
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("The format of the provided file is invalid");
-                return 5;
+                return 6;
             }
 
             if(!Validations.is_valid_filename(keyboard.desc.product_name))
             {
                 Console.WriteLine("The product name of your keyboard is not a valid filename");
-                return 6;
+                return 7;
             }
 
             string qmk_firmware_path = System.IO.Path.Combine(
@@ -115,7 +123,7 @@ namespace QMKCGen
             {
                 Console.WriteLine("Error launching " + mingw64_path);
                 Console.WriteLine("Error Message:" + e.Message);
-                return 7;
+                return 8;
             }
 
             return 0;

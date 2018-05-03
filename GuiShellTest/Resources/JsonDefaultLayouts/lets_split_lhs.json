@@ -11,7 +11,7 @@
   "spec": {
     "avrdude": {
       "partno": "m32u4",
-      "partno_verbose": "atmega32u4",
+      "partno_verbose": "ATmega32U4",
       "programmer": ""
     },
     "matrix_spec": {

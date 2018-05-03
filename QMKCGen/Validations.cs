@@ -81,5 +81,22 @@ namespace QMKCGen
             }
             return true;
         }
+
+        public static bool confirm_microprocessor(Keyboard keeb)
+        {
+            var mp_dict = Self.get_dict_from_csv("QMKCGen.Resources.supportedProcs.csv");
+            try
+            {
+                if (!mp_dict.ContainsKey(keeb.spec.avrdude.partno_verbose))
+                    return false;
+                if (!mp_dict.ContainsValue(keeb.spec.avrdude.partno))
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
