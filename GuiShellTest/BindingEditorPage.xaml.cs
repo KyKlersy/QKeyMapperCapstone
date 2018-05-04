@@ -138,13 +138,24 @@ namespace QKeyMapper
             Button btn = (Button)sender;
             KeyCapButton data = (KeyCapButton)btn.DataContext;
 
+            model.SelectedKeySingleMacro = null;
+            model.SelectedKeyMacroEditor = null;
+
+            singleKeyChoiceComboBox.SelectedIndex = -1;
+            singleKeyChoiceComboBox.Text = "";
+
+            macroKeyChoiceComboBox.SelectedIndex = -1;
+            macroKeyChoiceComboBox.Text = "";
+
             OnTapMacroTextBlock.DataContext = data.DataContext;
             OnHoldMacroTextBlock.DataContext = data.DataContext;
+
 
         }
 
         private void loadJson(object sender, RoutedEventArgs e)
         {
+
             if(mainWindow.keyboardinfomodel.SelectedJsonLayout == null)
             {
 
