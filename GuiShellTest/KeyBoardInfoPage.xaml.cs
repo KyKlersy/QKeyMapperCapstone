@@ -63,10 +63,11 @@ namespace QKeyMapper
 
                 }
 
-                if (keyboardLayoutComboBox.SelectedValue.Equals("Custom"))
+                if (keyboardinfomodel.SelectedJsonLayout.layoutName.Equals("Custom"))
                 {
 
                     //LayoutEditorPage layoutEditorPage = new LayoutEditorPage(mainWindow);
+                    mainWindow.layoutEditorPage.reset();
                     NavigationService.Navigate(mainWindow.layoutEditorPage);
                 }
                 else
