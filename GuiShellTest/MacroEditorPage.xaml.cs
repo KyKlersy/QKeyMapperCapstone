@@ -20,8 +20,6 @@ namespace QKeyMapper
     public partial class MacroEditorPage : Page
     {
         
-        private string approot = AppDomain.CurrentDomain.BaseDirectory;
-        private string macroFolderPath;
         private static string MacrosTextFile = "Macros.csv";
         private MainWindow mainwindow;
         private bindingEditorModel model;
@@ -37,11 +35,7 @@ namespace QKeyMapper
             mainwindow = cmainwindow;
             model = mainwindow.bindingeditormodel;
             DataContext = model;
-            InitializeComponent();
-
-            macroFolderPath = approot + Path.DirectorySeparatorChar + "Macros";
-            Directory.CreateDirectory(macroFolderPath);
-
+            InitializeComponent(); 
         }
 
         /* Navigation event on click of back button */
@@ -102,7 +96,7 @@ namespace QKeyMapper
                     KeyMacro km = new KeyMacro { macroName = customName, macroString = macro };
                     model.MacroKeyBinds.Add(km);
 
-                    using (StreamWriter writer = File.AppendText(macroFolderPath + Path.DirectorySeparatorChar + MacrosTextFile))
+                    using (StreamWriter writer = File.AppendText(mainwindow.macroFolderPath + Path.DirectorySeparatorChar + MacrosTextFile))
                     {
                         string ms ="";
 
