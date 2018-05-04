@@ -1,7 +1,8 @@
 ﻿
 using System.Windows;
 using GuiShellTest.ViewModels;
-
+using System.Windows.Navigation;
+using System.Windows.Input;
 
 namespace QKeyMapper
 {
@@ -21,6 +22,8 @@ namespace QKeyMapper
         public LayoutEditorPage layoutEditorPage;
         public BindingEditorPage bindingEditorPage;
         public MacroEditorPage macroEditorPage;
+
+        public NavigationService nav;
 
         public MainWindow()
         {
@@ -42,23 +45,42 @@ namespace QKeyMapper
 
             InitializeComponent();
 
+            nav = NavigationService.GetNavigationService(mainFrame);
+
+            //Loaded += MainWindow_Loaded;
 
             switch (panelDebug)
             {
                 case 0:
-                    mainFrame.Content = new KeyBoardInfoPage(this);
+                    //mainFrame.Content = new KeyBoardInfoPage(this);
+                    mainFrame.Navigate(keyboardInfoPage);
                     break;
                 case 1:
-                    mainFrame.Content = new LayoutEditorPage(this);
+                    //mainFrame.Content = new LayoutEditorPage(this);
+                    mainFrame.Navigate(layoutEditorPage);
                     break;
                 case 2:
-                    mainFrame.Content = new BindingEditorPage(this);
+                    //mainFrame.Content = new BindingEditorPage(this);
+                    mainFrame.Navigate(bindingEditorPage);
                     break;
                 case 3:
-                    mainFrame.Content = new MacroEditorPage();
+                    //mainFrame.Content = new MacroEditorPage();
+                    mainFrame.Navigate(macroEditorPage);
                     break;
             }
 
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavigationService nav = NavigationService.GetNavigationService(mainFrame);
+            nav.Navigated += Nav_Navigated;
+        }
+
+        private void Nav_Navigated(object sender, NavigationEventArgs e)
+        {
+            NavigationCommands.BrowseBack.InputGestures.Clear();
+            NavigationCommands.BrowseForward.InputGestures.Clear();
         }
 
         private void resizeWindowHook(object sender, System.EventArgs e)
