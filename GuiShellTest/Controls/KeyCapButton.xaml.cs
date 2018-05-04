@@ -79,7 +79,9 @@ namespace GuiShellTest.Controls
                 {
                     _selectedRowMatrixPin = value;
                     onPropertyRaised(nameof(matrixrow));
-                    keyItem.matrix.row = _selectedRowMatrixPin.pinName;
+
+                    if (value != null)
+                        keyItem.matrix.row = _selectedRowMatrixPin.pinName;
                 }
             }
         }
@@ -98,7 +100,9 @@ namespace GuiShellTest.Controls
                 {
                     _selectedColMatrixPin = value;
                     onPropertyRaised(nameof(matrixcol));
-                    keyItem.matrix.col = _selectedColMatrixPin.pinName;
+
+                    if(value != null)
+                        keyItem.matrix.col = _selectedColMatrixPin.pinName;
                 }
             }
         }
@@ -178,7 +182,7 @@ namespace GuiShellTest.Controls
                     _onHoldMacro = value;
                     OnHoldMacroName = _onHoldMacro.macroName;
 
-                    keyItem.binding.on_hold = _onHoldMacro.macroString;
+                    keyItem.binding.on_hold = new List<string>(_onHoldMacro.macroName.Split('\n'));
 
                     onPropertyRaised(nameof(OnHoldMacro));
 
