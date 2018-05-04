@@ -99,7 +99,7 @@ namespace GuiShellTest.ViewModels
             string rootDirectory = System.IO.Path.GetDirectoryName(assembly.Location);
             string jsonResourceURI = "Resources" + System.IO.Path.DirectorySeparatorChar + "JsonDefaultLayouts" + System.IO.Path.DirectorySeparatorChar;
             string jsonFilePath = System.IO.Path.Combine(rootDirectory, jsonResourceURI);
-            string userCreatedFilePath = rootDirectory;
+            string userCreatedFilePath = System.IO.Path.Combine(rootDirectory, "UserTemplates");
 
             string[] supportedJsonLayouts = Directory.GetFiles(jsonFilePath, "*.json");
             string[] userCreatedLayouts = Directory.GetFiles(userCreatedFilePath, "*.json");
