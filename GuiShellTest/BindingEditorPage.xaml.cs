@@ -170,20 +170,33 @@ namespace QKeyMapper
             {
                 keeb = get_keyboard_json_from_path(json_path);
                 //create the grid for the binding editor
+
+                //Debug.WriteLine("Grid child count: " + keyBoardGridPicker.Children.Count);
+                keyBoardGridPicker.Children.Clear();
                 GridCreate(keeb.ui_desc.rows, keeb.ui_desc.cols);
                 //generate the json specified keycaps
                 generateKeyCaps(keeb);
             }
             catch (Exception dse)
             {
-                Debug.WriteLine("Error Deserializing: " + dse);
+                MessageBox.Show("Error Deserializing: " + dse);
             }
         }
 
         private void goBackToHome(object sender, RoutedEventArgs e)
         {
             //KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
-            Loaded -= loadJson;
+            //Loaded -= loadJson;
+            mainWindow.keyboardInfoPage.keyboardLayoutComboBox.SelectedIndex = -1;
+            mainWindow.keyboardInfoPage.keyboardLayoutComboBox.Text = "";
+
+            mainWindow.keyboardInfoPage.microControllerComboBox.SelectedIndex = -1;
+            mainWindow.keyboardInfoPage.microControllerComboBox.Text = "";
+
+            mainWindow.keyboardinfomodel.SelectedJsonLayout = null;
+            mainWindow.keyboardinfomodel.SelectedMicroProc = null;
+
+
             NavigationService.Navigate(mainWindow.keyboardInfoPage);
         }
 
@@ -196,9 +209,15 @@ namespace QKeyMapper
                 keeb.keys.Clear();
                 keeb.keys = getKeyData();
                 string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
-                System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json", output); //Save file
+
+                var userTemplatePath = System.IO.Path.Combine(mainWindow.userTemplatesFolderPath, keeb.desc.product_name + ".json");
+                System.IO.File.WriteAllText(userTemplatePath, output); //Save file
+                //System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json", output); //Save file
+
+               
                 Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
+                //jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
+                jsonPath = userTemplatePath;
  
             }
             catch
@@ -286,6 +305,7 @@ namespace QKeyMapper
             }
         }
 
+        /* Todo on hold should only accept single key modifiers such as control/shift etc. Should strip + - from it.*/
         private void SetOnHoldMacro(object sender, RoutedEventArgs e)
         {
             int selected = 0;
@@ -298,19 +318,11 @@ namespace QKeyMapper
 
                     if(selected == 0)
                     {
-                        //OnHoldMacroTextBlock.Text = model.SelectedKeyMacroEditor.macroName;
 
-                        validateOnHoldMacro(model.SelectedKeyMacroEditor);
-
-                        dc.OnHoldMacro = model.SelectedKeyMacroEditor;
-                        dc.onHoldMacroListID = 0;
-                        clearMacroComboBox();
-
+                        throw new Exception("Macro on hold only takes a single modifier key. \nExample Left Control.");
                     }
                     else
                     {
-                        //OnHoldMacroTextBlock.Text = model.SelectedKeySingleMacro.macroName;
-
                         validateOnHoldMacro(model.SelectedKeySingleMacro);
 
                         dc.OnHoldMacro = model.SelectedKeySingleMacro;
@@ -338,7 +350,7 @@ namespace QKeyMapper
         {
             if((singleKeyChoiceComboBox.SelectedIndex == -1 && macroKeyChoiceComboBox.SelectedIndex != -1) ^ (macroKeyChoiceComboBox.SelectedIndex == -1 && singleKeyChoiceComboBox.SelectedIndex != -1))
             {
-                Debug.WriteLine("Exclusive or slected");
+                //Debug.WriteLine("Exclusive or slected");
                 if(singleKeyChoiceComboBox.SelectedIndex == -1)
                 {
                     return 0;
