@@ -3,6 +3,8 @@ using System.Windows;
 using GuiShellTest.ViewModels;
 using System.Windows.Navigation;
 using System.Windows.Input;
+using System;
+using System.IO;
 
 namespace QKeyMapper
 {
@@ -25,8 +27,20 @@ namespace QKeyMapper
 
         public NavigationService nav;
 
+        public string approot = AppDomain.CurrentDomain.BaseDirectory;
+        public string userTemplatesFolderPath;
+        public string macroFolderPath;
+
+
         public MainWindow()
         {
+
+            userTemplatesFolderPath = approot + "UserTemplates";
+            Directory.CreateDirectory(userTemplatesFolderPath);
+
+            macroFolderPath = approot + "UserMacros";
+            Directory.CreateDirectory(userTemplatesFolderPath);
+
             //0 set to 0 to load default panel
             //1 set to 1 to load layout editor panel
             //2 set to 2 to load binding editor panel
@@ -47,7 +61,7 @@ namespace QKeyMapper
 
             nav = NavigationService.GetNavigationService(mainFrame);
 
-            //Loaded += MainWindow_Loaded;
+          
 
             switch (panelDebug)
             {
