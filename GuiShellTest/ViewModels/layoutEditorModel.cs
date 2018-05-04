@@ -41,7 +41,7 @@ namespace GuiShellTest.ViewModels
                 new DiodeDirection("None", "")
             };
 
-            loadSupportedPins();                    
+            loadSupportedPins();
 
         }
 
@@ -71,18 +71,19 @@ namespace GuiShellTest.ViewModels
 
             set
             {
-                if(value != _selectedDiodeDirection)
+                if (value != _selectedDiodeDirection)
                 {
                     _selectedDiodeDirection = value;
                     onPropertyRaised(nameof(SelectedDiodeDirection));
 
                 }
-               
+
             }
         }
 
         /* Public binding property for showing the selected keyboard matrix row */
-        public string KeyboardMatrixRow {
+        public string KeyboardMatrixRow
+        {
             get
             {
                 return rowMatrixPins;
@@ -91,7 +92,8 @@ namespace GuiShellTest.ViewModels
             set
             {
                 string pins = "";
-                SelectedKeyboardRowPins.ForEach(p => {
+                SelectedKeyboardRowPins.ForEach(p =>
+                {
                     pins += p.pinName + ",";
                 });
 
@@ -111,7 +113,7 @@ namespace GuiShellTest.ViewModels
             }
             set
             {
-                if(value != _selectedMatrixPin)
+                if (value != _selectedMatrixPin)
                 {
                     _selectedMatrixPin = value;
 
@@ -132,7 +134,8 @@ namespace GuiShellTest.ViewModels
             set
             {
                 string pins = "";
-                SelectedKeyboardColPins.ForEach(p => {
+                SelectedKeyboardColPins.ForEach(p =>
+                {
                     pins += p.pinName + ",";
                 });
 
@@ -170,5 +173,22 @@ namespace GuiShellTest.ViewModels
             }
         }
 
+        public void reset()
+        {
+
+            _selectedDiodeDirection = null;
+
+
+            _selectedMatrixPin = null;
+
+            rowMatrixPins = "";
+            colMatrixPins = "";
+
+            SelectedKeyboardRowPins.Clear();
+            SelectedKeyboardColPins.Clear();
+
+            _productName = "";
+
+        }
     }
 }
