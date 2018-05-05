@@ -55,7 +55,11 @@ namespace QKeyMapper
         private void addKeyUp(object sender, RoutedEventArgs e)
         {
             if (model.SelectedKeyMacroEditor != null)
+            {
                 MacroStringTxt.Text += "-," + model.SelectedKeyMacroEditor.macroName + ",10ms,";
+                
+            }
+                
         }
 
         /* Clears the macro string currently constructed */
@@ -117,7 +121,8 @@ namespace QKeyMapper
 
                         writer.WriteLine(km.macroName + "," + ms);
                     }
-                    
+
+                    reset();
                     NavigationService.Navigate(mainwindow.bindingEditorPage);
                 }
                 else
@@ -173,6 +178,15 @@ namespace QKeyMapper
                     macro.Add(timedelay.Value);
                 }
             }
+        }
+
+        private void reset()
+        {
+            MacroStringTxt.Text = "";
+            customMacroName.Text = "";
+            keyPressName.SelectedIndex = -1;
+            keyPressName.Text = "";
+            model.SelectedKeyMacroEditor = null;
         }
     }
 }
