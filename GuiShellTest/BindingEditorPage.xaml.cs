@@ -139,7 +139,7 @@ namespace QKeyMapper
             KeyCapButton data = (KeyCapButton)btn.DataContext;
 
             model.SelectedKeySingleMacro = null;
-            model.SelectedKeyMacroEditor = null;
+            model.SelectedKeyMacroBinding = null;
 
             singleKeyChoiceComboBox.SelectedIndex = -1;
             singleKeyChoiceComboBox.Text = "";
@@ -155,6 +155,12 @@ namespace QKeyMapper
 
         private void loadJson(object sender, RoutedEventArgs e)
         {
+
+            clearMacroComboBox();
+            clearSingleKeyComboBox();
+
+            OnTapMacroTextBlock.Text = "";
+            OnHoldMacroTextBlock.Text = "";            
 
             if(mainWindow.keyboardinfomodel.SelectedJsonLayout == null)
             {
@@ -173,6 +179,7 @@ namespace QKeyMapper
 
                 //Debug.WriteLine("Grid child count: " + keyBoardGridPicker.Children.Count);
                 keyBoardGridPicker.Children.Clear();
+
                 GridCreate(keeb.ui_desc.rows, keeb.ui_desc.cols);
                 //generate the json specified keycaps
                 generateKeyCaps(keeb);
@@ -217,7 +224,7 @@ namespace QKeyMapper
                
                 Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
                 //jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
-                jsonPath = userTemplatePath;
+                jsonPath = "\"" + userTemplatePath + "\"";
  
             }
             catch
@@ -258,8 +265,8 @@ namespace QKeyMapper
 
                     if (selected == 0)
                     {
-                        //OnTapMacroTextBlock.Text = model.SelectedKeyMacroEditor.macroName;
-                        dc.OnTapMacro = model.SelectedKeyMacroEditor;
+                        //OnTapMacroTextBlock.Text = model.SelectedKeyMacroBinding.macroName;
+                        dc.OnTapMacro = model.SelectedKeyMacroBinding;
                         dc.onTapMacroListID = 0;
                         clearMacroComboBox();
                     }
