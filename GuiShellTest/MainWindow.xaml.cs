@@ -39,7 +39,7 @@ namespace QKeyMapper
             Directory.CreateDirectory(userTemplatesFolderPath);
 
             macroFolderPath = approot + "UserMacros";
-            Directory.CreateDirectory(userTemplatesFolderPath);
+            Directory.CreateDirectory(macroFolderPath);
 
             //0 set to 0 to load default panel
             //1 set to 1 to load layout editor panel
