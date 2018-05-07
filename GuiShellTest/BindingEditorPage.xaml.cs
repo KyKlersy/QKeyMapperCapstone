@@ -121,6 +121,10 @@ namespace QKeyMapper
             foreach (var key in kc.keys) {
                 int row = key.graphics.row;
                 int col = key.graphics.col;
+
+                key.binding.on_hold.Clear();
+                key.binding.on_tap.Clear();
+
                 KeyCapButton kcb = new KeyCapButton(key);
                 if (key.matrix.row == null && key.matrix.col == null)
                 {/*skip*/}
@@ -378,6 +382,7 @@ namespace QKeyMapper
             {
                 if (control is KeyCapButton)
                 {
+
                     keyData.Add(((KeyCapButton)control).getKeyItem());
                 }
             }
