@@ -41,12 +41,6 @@ namespace QKeyMapper
             macroFolderPath = approot + "UserMacros";
             Directory.CreateDirectory(macroFolderPath);
 
-            //0 set to 0 to load default panel
-            //1 set to 1 to load layout editor panel
-            //2 set to 2 to load binding editor panel
-            //3 set to 3 to load macro editor panel
-            int panelDebug = 0;
-
             keyboardinfomodel = new keyboardInfoModel();
             layouteditormodel = new layoutEditorModel();
             bindingeditormodel = new bindingEditorModel();
@@ -61,27 +55,8 @@ namespace QKeyMapper
 
             nav = NavigationService.GetNavigationService(mainFrame);
 
+            mainFrame.Navigate(keyboardInfoPage);
           
-
-            switch (panelDebug)
-            {
-                case 0:
-                    //mainFrame.Content = new KeyBoardInfoPage(this);
-                    mainFrame.Navigate(keyboardInfoPage);
-                    break;
-                case 1:
-                    //mainFrame.Content = new LayoutEditorPage(this);
-                    mainFrame.Navigate(layoutEditorPage);
-                    break;
-                case 2:
-                    //mainFrame.Content = new BindingEditorPage(this);
-                    mainFrame.Navigate(bindingEditorPage);
-                    break;
-                case 3:
-                    //mainFrame.Content = new MacroEditorPage();
-                    mainFrame.Navigate(macroEditorPage);
-                    break;
-            }
 
         }
 

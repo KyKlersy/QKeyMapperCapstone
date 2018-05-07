@@ -170,14 +170,13 @@ namespace QKeyMapper
 
             //store the path to the json file
             var json_path = mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath;
-            //var json_path = @"C:\Users\Kyle\Documents\Visual Studio 2015\Projects\GuiShellTest\GuiShellTest\Resources\JsonDefaultLayouts\6ball_no_macro.json";
+       
             //create keyboard oject and initialize with the contents within the json file
             try
             {
                 keeb = get_keyboard_json_from_path(json_path);
                 //create the grid for the binding editor
 
-                //Debug.WriteLine("Grid child count: " + keyBoardGridPicker.Children.Count);
                 keyBoardGridPicker.Children.Clear();
 
                 GridCreate(keeb.ui_desc.rows, keeb.ui_desc.cols);
@@ -192,8 +191,7 @@ namespace QKeyMapper
 
         private void goBackToHome(object sender, RoutedEventArgs e)
         {
-            //KeyBoardInfoPage keyboardInfoPage = new KeyBoardInfoPage();
-            //Loaded -= loadJson;
+
             mainWindow.keyboardInfoPage.keyboardLayoutComboBox.SelectedIndex = -1;
             mainWindow.keyboardInfoPage.keyboardLayoutComboBox.Text = "";
 
@@ -219,11 +217,7 @@ namespace QKeyMapper
 
                 var userTemplatePath = System.IO.Path.Combine(mainWindow.userTemplatesFolderPath, keeb.desc.product_name + ".json");
                 System.IO.File.WriteAllText(userTemplatePath, output); //Save file
-                //System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json", output); //Save file
 
-               
-                Console.WriteLine("Go this address to open Json File:" + AppDomain.CurrentDomain.BaseDirectory);     //File path
-                //jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + keeb.desc.product_name + ".json");
                 jsonPath = "\"" + userTemplatePath + "\"";
  
             }
@@ -235,8 +229,8 @@ namespace QKeyMapper
 
             try
             {
-                var solution_dir = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
-                var qmk_cgen = System.IO.Path.Combine(solution_dir, "QMKCGen", "bin", "debug", "QMKCGen.exe");
+                var solution_dir = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory).Parent.FullName;
+                var qmk_cgen = System.IO.Path.Combine(solution_dir, "QMKCGen", "QMKCGen.exe");
                 string process_output = Exec.launch(qmk_cgen, jsonPath);
                 if (process_output != string.Empty) 
                 {
@@ -265,14 +259,12 @@ namespace QKeyMapper
 
                     if (selected == 0)
                     {
-                        //OnTapMacroTextBlock.Text = model.SelectedKeyMacroBinding.macroName;
                         dc.OnTapMacro = model.SelectedKeyMacroBinding;
                         dc.onTapMacroListID = 0;
                         clearMacroComboBox();
                     }
                     else
                     {
-                        //OnTapMacroTextBlock.Text = model.SelectedKeySingleMacro.macroName;
                         dc.OnTapMacro = model.SelectedKeySingleMacro;
                         dc.onTapMacroListID = 1;
                         clearSingleKeyComboBox();
@@ -312,7 +304,7 @@ namespace QKeyMapper
             }
         }
 
-        /* Todo on hold should only accept single key modifiers such as control/shift etc. Should strip + - from it.*/
+
         private void SetOnHoldMacro(object sender, RoutedEventArgs e)
         {
             int selected = 0;
@@ -357,7 +349,7 @@ namespace QKeyMapper
         {
             if((singleKeyChoiceComboBox.SelectedIndex == -1 && macroKeyChoiceComboBox.SelectedIndex != -1) ^ (macroKeyChoiceComboBox.SelectedIndex == -1 && singleKeyChoiceComboBox.SelectedIndex != -1))
             {
-                //Debug.WriteLine("Exclusive or slected");
+
                 if(singleKeyChoiceComboBox.SelectedIndex == -1)
                 {
                     return 0;
