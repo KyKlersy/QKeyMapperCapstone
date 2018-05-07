@@ -213,6 +213,9 @@ namespace QKeyMapper
             {
                 keeb.keys.Clear();
                 keeb.keys = getKeyData();
+                keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+
                 string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
 
                 var userTemplatePath = System.IO.Path.Combine(mainWindow.userTemplatesFolderPath, keeb.desc.product_name + ".json");
