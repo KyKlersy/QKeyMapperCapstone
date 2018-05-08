@@ -52,9 +52,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" /> <!--close field command button-->
                 <RowDefinition Height=".10*" /> <!--spacer-->
+                <RowDefinition Height=".55*" /> <!--pin selection-->
+                <RowDefinition Height=".10*" /> <!--spacer-->
                 <RowDefinition Height=".35*" /> <!--matrix row input-->
+                <RowDefinition Height=".25*" /> <!--matrix row input-->
                 <RowDefinition Height=".10*" /> <!--spacer-->
                 <RowDefinition Height=".35*" /> <!--matrix column input-->
+                <RowDefinition Height=".25*" /> <!--matrix row input-->
                 <RowDefinition Height=".10*" /> <!--spacer-->
                 <RowDefinition Height="auto" /> <!-- key text input-->
                 <RowDefinition Height="*" /> <!--fill remaining space-->
@@ -68,6 +72,48 @@
             <ComboBox 
                 Grid.Row="2" 
                 Grid.Column="0" 
+                Grid.ColumnSpan="2"
+                x:Name="keycapMatrixPinSelection" 
+                Width="Auto" 
+                Background="#FF34353B" 
+                BorderBrush="#FF8D8D8D" 
+                Style="{DynamicResource ComboBoxStyle_Capstone}" 
+                Template="{DynamicResource ComboBoxEditableTemplate}" 
+                IsReadOnly="True" 
+                IsEditable="False" 
+                MinWidth="80" 
+                Margin="0,15"
+                ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
+                SelectedItem="{Binding Path = DataContext.SelectedKeyCapPin, ElementName=layoutEditorWindow}"
+                DisplayMemberPath="pinName"
+                SelectedValuePath="pinName"
+                Text="{Binding Path = DataContext.SelectedKeyCapPin.pinName, ElementName=layoutEditorWindow}"
+            />
+
+            <TextBox Grid.Row="4" Grid.Column="0" Name="selectedMatrixRow" IsReadOnly="True" MinHeight="40" VerticalAlignment="Center" Text="{Binding SelectedMatrixPinRow, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Viewbox Grid.Row="4" Grid.Column="1" Stretch="Uniform" >
+                <Label VerticalAlignment="Center" Content="Matrix Row" FontSize="24" />
+            </Viewbox>
+
+            <Button Grid.Row="5" Grid.Column="0" x:Name="addMatrixRow" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Row" FontSize="12" Click="addKeyPinRow">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Grid.Row="5" Grid.Column="1" x:Name="clearMatrixRow" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear Matrix Row" FontSize="12" Click="clearKeycapPinRow">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <!--<ComboBox 
+                Grid.Row="4" 
+                Grid.Column="0" 
                 x:Name="matrixColComboBox" 
                 Width="Auto" 
                 Background="#FF34353B" 
@@ -79,43 +125,36 @@
                 MinWidth="80" 
                 Margin="0,15"
                 ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
-                SelectedItem="{Binding matrixrow}"
+                SelectedItem="{Binding matrixcol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 DisplayMemberPath="pinName"
                 SelectedValuePath="pinName"
-                Text="{Binding matrixrow.pinName}"
-            />
-
-
-            <Viewbox Grid.Row="2" Grid.Column="1" Stretch="Uniform" >
-                <Label VerticalAlignment="Center" Content="Matrix Row" FontSize="24" />
-            </Viewbox>
-
-            <ComboBox 
-                Grid.Row="4" 
-                Grid.Column="0" 
-                x:Name="matrixRowComboBox" 
-                Width="Auto" 
-                Background="#FF34353B" 
-                BorderBrush="#FF8D8D8D" 
-                Style="{DynamicResource ComboBoxStyle_Capstone}" 
-                Template="{DynamicResource ComboBoxEditableTemplate}" 
-                IsReadOnly="True" 
-                IsEditable="False" 
-                MinWidth="80" 
-                Margin="0,15"
-                ItemsSource="{Binding Path = DataContext.SupportedPins, ElementName=layoutEditorWindow}"
-                SelectedItem="{Binding matrixcol}"
-                DisplayMemberPath="pinName"
-                SelectedValuePath="pinName"
-                Text="{Binding matrixcol.pinName}"
-            />
-            
-            <Viewbox Grid.Row="4" Grid.Column="1" Stretch="Uniform" >
+                Text="{Binding matrixcol.pinName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />-->
+            <TextBox Grid.Row="7" Grid.Column="0" Name="selectedMatrixCol" IsReadOnly="True" MinHeight="40" VerticalAlignment="Center" Text="{Binding SelectedMatrixPinCol, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Viewbox Grid.Row="7" Grid.Column="1" Stretch="Uniform" >
                 <Label Content="Matrix Column" />
             </Viewbox>
 
-            <TextBox Grid.Row="6" Grid.Column="0" Name="keyTextInput" MinHeight="40" VerticalAlignment="Center" Text="{Binding text, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Viewbox Grid.Row="6" Grid.Column="1" Stretch="Uniform" >
+            <Button Grid.Row="8" Grid.Column="0" x:Name="addMatrixCol" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Add Pin to Col" FontSize="12" Click="addKeyPinCol">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Grid.Row="8" Grid.Column="1" x:Name="clearMatrixCol" Foreground="#FFF1F1F1" BorderBrush="{x:Null}" BorderThickness="0" Content="Clear Matrix Col" FontSize="12" Click="clearKeycapPinCol">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF8736" Offset="0"/>
+                        <GradientStop Color="#FFF25204" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            
+            
+            <TextBox Grid.Row="10" Grid.Column="0" Name="keyTextInput" MinHeight="40" VerticalAlignment="Center" Text="{Binding text, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Viewbox Grid.Row="10" Grid.Column="1" Stretch="Uniform" >
                 <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="Key Text" FontSize="24" />
             </Viewbox>
         </Grid>

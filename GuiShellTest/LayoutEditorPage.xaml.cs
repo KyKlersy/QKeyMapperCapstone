@@ -15,6 +15,7 @@ using GuiShellTest.Controls;
 using GuiShellTest.ViewModels;
 using System.ComponentModel;
 using GuiShellTest.Models;
+using System.Text.RegularExpressions;
 
 namespace QKeyMapper
 {
@@ -108,9 +109,13 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
+
+      
         /* keycap event oppener */
         private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
+
+
             keyDataForm.Visibility = Visibility.Visible;
             keyboardMatrixPanel.Visibility = Visibility.Hidden;
             visualControlPanel.Visibility = Visibility.Hidden;
@@ -127,60 +132,77 @@ namespace QKeyMapper
         {
             try
             {
+
                 string KeyboardLayoutName = layoutNameTextbox.Text;     //Layout Name
+
+                validateLayoutName(KeyboardLayoutName);
+
                 qk.Keyboard keeb = new qk.Keyboard();
                 List<QKeyCommon.Keyboard_items.Keyboard> JsonInfo = new List<QKeyCommon.Keyboard_items.Keyboard>();  //List Contains Json Info
                 List<qk.Key_items.Key> KeyItems = getKeyData();  //List Contains Json Info using GetKeyData()
 
-                if (KeyboardLayoutName.Length > 0 && KeyboardLayoutName.Length <= 100)
+
+
+                if (mainWindow.layouteditormodel.SelectedDiodeDirection != null)
                 {
-                    if (mainWindow.layouteditormodel.SelectedDiodeDirection != null)
-                    {
-                        keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
-                    }
-                    else
-                    {
-                        throw new Exception("No diode direction selected. [Define Keyboard Matrix]");
-                    }
-                        
-
-                    keeb.ui_desc.rows = int.Parse(gridRow.Text);
-                    keeb.ui_desc.cols = int.Parse(gridColumn.Text);
-                    keeb.desc.product_name = model.layoutname;
-                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
-                    keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
-
-                    if(KeyItems.Count <= 0)
-                    {
-                        throw new Exception("Keyboard should have keys added.");
-                    }
-
-                    keeb.keys = KeyItems;
-
-                    if(model.SelectedKeyboardRowPins.Count() <= 0 || model.SelectedKeyboardColPins.Count() <= 0)
-                    {
-                        throw new Exception("Keyboard must have valid keyboard matrix size defined. Atleast 1 pin row/col [Define Keyboard Matrix]");
-                    }
-
-                    keeb.spec.matrix_spec.rows = model.SelectedKeyboardRowPins.Count();
-                    keeb.spec.matrix_spec.row_pins = model.KeyboardMatrixRow.TrimEnd(',').Split(',').ToList();
-
-                    keeb.spec.matrix_spec.cols = model.SelectedKeyboardColPins.Count();
-                    keeb.spec.matrix_spec.col_pins = model.KeyboardMatrixCol.TrimEnd(',').Split(',').ToList();
-
-                    string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
-                    System.IO.File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json", output); //Save file
-
-                    string jsonPath = (AppDomain.CurrentDomain.BaseDirectory + @"\" + KeyboardLayoutName + ".json");
-                    mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = jsonPath;
-                    mainWindow.keyboardinfomodel.JsonLayouts.Add(new JsonTemplateLayout(keeb.desc.product_name, jsonPath));
-                    NavigationService.Navigate(mainWindow.bindingEditorPage);
-
+                    keeb.spec.diode_direction = mainWindow.layouteditormodel.SelectedDiodeDirection.diodeValue;
                 }
                 else
                 {
-                    throw new Exception("Invalid Name layout name.");
+                    throw new Exception("No diode direction selected. [Define Keyboard Matrix]");
                 }
+                        
+
+                keeb.ui_desc.rows = int.Parse(gridRow.Text);
+                keeb.ui_desc.cols = int.Parse(gridColumn.Text);
+                keeb.desc.product_name = model.layoutname;
+
+                if(mainWindow.keyboardinfomodel.SelectedMicroProc != null)
+                {
+                    keeb.spec.avrdude.partno = mainWindow.keyboardinfomodel.SelectedMicroProc.mpCode;
+                    keeb.spec.avrdude.partno_verbose = mainWindow.keyboardinfomodel.SelectedMicroProc.mpName;
+                }
+                else
+                {
+                    throw new Exception("We are confused as to how you got here without selecting a microprocessor.");
+                }
+                
+
+                if(KeyItems.Count <= 0)
+                {
+                    throw new Exception("Keyboard should have keys added.");
+                }
+
+                keeb.keys = KeyItems;
+
+                if(model.SelectedKeyboardRowPins.Count() <= 0 || model.SelectedKeyboardColPins.Count() <= 0)
+                {
+                    throw new Exception("Keyboard must have valid keyboard matrix size defined. Atleast 1 pin row/col [Define Keyboard Matrix]");
+                }
+
+                keeb.spec.matrix_spec.rows = model.SelectedKeyboardRowPins.Count();
+                keeb.spec.matrix_spec.row_pins = model.KeyboardMatrixRow.TrimEnd(',').Split(',').ToList();
+
+                keeb.spec.matrix_spec.cols = model.SelectedKeyboardColPins.Count();
+                keeb.spec.matrix_spec.col_pins = model.KeyboardMatrixCol.TrimEnd(',').Split(',').ToList();
+
+                //string jsonPath = (mainWindow.approot + KeyboardLayoutName + ".json");
+                string output = JsonConvert.SerializeObject(keeb, Formatting.Indented); //Serialize the List and add to output string
+                var userTemplatePath = System.IO.Path.Combine(mainWindow.userTemplatesFolderPath, KeyboardLayoutName + ".json");
+                try
+                {
+                    System.IO.File.WriteAllText(userTemplatePath, output); //Save file
+                }
+                catch
+                {
+                    throw new Exception("Invalid Folder Name.");
+                }
+
+
+                mainWindow.keyboardinfomodel.SelectedJsonLayout.layoutPath = userTemplatePath;
+                mainWindow.keyboardinfomodel.JsonLayouts.Add(new JsonTemplateLayout(keeb.desc.product_name, userTemplatePath));
+                NavigationService.Navigate(mainWindow.bindingEditorPage);
+
             }
             catch(Exception err)
             {
@@ -189,28 +211,6 @@ namespace QKeyMapper
 
         }
 
-
-        private static List<qk.Key_items.Key> GetKeyItems(List<qk.Key_items.Key> KeyItems)
-        {
-            return KeyItems;
-        }
-
-        private void removeRowButton_Click(object sender, RoutedEventArgs e)
-        {
-            var lastrow = (visualEditorGrid.RowDefinitions.Count - 1);
-            var lastcol = (visualEditorGrid.ColumnDefinitions.Count - 1);
-
-            UIElement element = null;
-            
-            for (var col = lastcol; col >= 0; col--)
-            {
-
-                element = visualEditorGrid.Children.Cast<UIElement>()
-                   .First(i => Grid.GetRow(i) == lastrow && Grid.GetColumn(i) == col);
-                visualEditorGrid.Children.Remove(element);
-
-            }
-        }
 
         /* Creates and returns a dropable border ui element */
         public UIElement dropableBorder(int rowNum, int colNum, BrushConverter bc)
@@ -241,8 +241,8 @@ namespace QKeyMapper
                 if (visualEditorGrid.Children.Count != 0)
                 {
                     visualEditorGrid.Children.Clear();
-                    gridRow.Clear();
-                    gridColumn.Clear();
+                    //gridRow.Clear();
+                    //gridColumn.Clear();
                 }
 
                 if ( RowIterations > 100 || RowIterations <= 0 || ColomnIterations > 100 || ColomnIterations <= 0)
@@ -292,10 +292,10 @@ namespace QKeyMapper
                     key.graphics.col = Grid.GetColumn(control);
                     key.graphics.text = kcb.text;
 
-                    if(kcb.matrixrow != null && kcb.matrixcol != null)
+                    if(kcb.SelectedMatrixPinRow != null && kcb.SelectedMatrixPinCol != null)
                     {
-                        key.matrix.row = kcb.matrixrow.pinName;
-                        key.matrix.col = kcb.matrixcol.pinName;
+                        key.matrix.row = kcb.SelectedMatrixPinRow;
+                        key.matrix.col = kcb.SelectedMatrixPinCol;
 
                         keyData.Add(key);
                     }
@@ -327,8 +327,12 @@ namespace QKeyMapper
 
                 if (model.SelectedMatrixPin != null)
                 {
+                    
                     model.SelectedKeyboardRowPins.Add(model.SelectedMatrixPin);
                     model.KeyboardMatrixRow = "";
+
+                    pinSelectionComboBox.SelectedIndex = -1;
+                    pinSelectionComboBox.Text = "";
                 }
                 else
                 {
@@ -352,6 +356,9 @@ namespace QKeyMapper
                 {
                     model.SelectedKeyboardColPins.Add(model.SelectedMatrixPin);
                     model.KeyboardMatrixCol = "";
+
+                    pinSelectionComboBox.SelectedIndex = -1;
+                    pinSelectionComboBox.Text = "";
                 }
                 else
                 {
@@ -365,20 +372,176 @@ namespace QKeyMapper
 
         }
 
-        private void clearMatrixColPins(object sender, RoutedEventArgs e)
+        private void validateLayoutName(string layoutName)
         {
+            if (layoutName.Length > 0 && layoutName.Length <= 100)
+            {
+                System.IO.DirectoryInfo di = null;
+                System.IO.FileInfo fi = null;
+                try
+                {
+                    di = new System.IO.DirectoryInfo(mainWindow.userTemplatesFolderPath + layoutName);
+                }
+                catch
+                {
+                    throw new Exception("Invalid Name layout name. \nMust not be empty. \nMust be a valid Windows Folder / File Name.");
+                }
 
-            colPinKeyboardMatrix.Text = "";
-            model.SelectedKeyboardColPins.Clear();
-            model.KeyboardMatrixCol = "";
+
+                fi = new System.IO.FileInfo(System.IO.Path.Combine(mainWindow.userTemplatesFolderPath, layoutName + ".json"));
+
+                if(fi.Exists)
+                {
+                    throw new Exception("Template name already exists. \nTemplate names must be unique.");
+                }
+
+                return;         
+
+            }
+
+            throw new Exception("Invalid Name layout name. \nMust not be empty. \nMust be a valid Windows Folder Name.");
 
         }
 
+        private void clearMatrixColPins(object sender, RoutedEventArgs e)
+        {
+            cleanSelectedPinComboBox();
+            cleanMatrixColPins();
+        }
+
+        private void cleanMatrixColPins()
+        {
+            colPinKeyboardMatrix.Text = "";
+            model.SelectedKeyboardColPins.Clear();
+            model.KeyboardMatrixCol = "";
+        }
+
+
         private void clearMatrixRowPins(object sender, RoutedEventArgs e)
+        {
+            cleanSelectedPinComboBox();
+            cleanMatrixRowPins();
+        }
+
+        private void cleanMatrixRowPins()
         {
             rowPinKeyboardMatrix.Text = "";
             model.SelectedKeyboardRowPins.Clear();
             model.KeyboardMatrixRow = "";
         }
+
+        private void cleanSelectedPinComboBox()
+        {
+            pinSelectionComboBox.SelectedIndex = -1;
+            pinSelectionComboBox.Text = "";
+        }
+
+        private void cleanLayoutEditor()
+        {
+            layoutNameTextbox.Text = "";
+            gridRow.Text = "";
+            gridColumn.Text = "";
+            visualEditorGrid.Children.Clear();
+        }
+
+
+        public void reset()
+        {
+            cleanLayoutEditor();
+            cleanSelectedPinComboBox();
+            cleanMatrixColPins();
+            cleanMatrixRowPins();
+        }
+
+        private void addKeyPinRow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinRow = ((MatrixPin)keycapMatrixPinSelection.SelectedItem).pinName;
+                    keycapMatrixPinSelection.SelectedItem = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearKeycapPinRow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinRow = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to clear it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void addKeyPinCol(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinCol = ((MatrixPin)keycapMatrixPinSelection.SelectedItem).pinName;
+                    keycapMatrixPinSelection.SelectedItem = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearKeycapPinCol(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinCol = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to clear it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
     }
 }

@@ -20,8 +20,6 @@ namespace QKeyMapper
     public partial class MacroEditorPage : Page
     {
         
-        private string approot = AppDomain.CurrentDomain.BaseDirectory;
-        private string macroFolderPath;
         private static string MacrosTextFile = "Macros.csv";
         private MainWindow mainwindow;
         private bindingEditorModel model;
@@ -37,11 +35,7 @@ namespace QKeyMapper
             mainwindow = cmainwindow;
             model = mainwindow.bindingeditormodel;
             DataContext = model;
-            InitializeComponent();
-
-            macroFolderPath = approot + Path.DirectorySeparatorChar + "Macros";
-            Directory.CreateDirectory(macroFolderPath);
-
+            InitializeComponent(); 
         }
 
         /* Navigation event on click of back button */
@@ -61,7 +55,11 @@ namespace QKeyMapper
         private void addKeyUp(object sender, RoutedEventArgs e)
         {
             if (model.SelectedKeyMacroEditor != null)
+            {
                 MacroStringTxt.Text += "-," + model.SelectedKeyMacroEditor.macroName + ",10ms,";
+                
+            }
+                
         }
 
         /* Clears the macro string currently constructed */
@@ -102,7 +100,7 @@ namespace QKeyMapper
                     KeyMacro km = new KeyMacro { macroName = customName, macroString = macro };
                     model.MacroKeyBinds.Add(km);
 
-                    using (StreamWriter writer = File.AppendText(macroFolderPath + Path.DirectorySeparatorChar + MacrosTextFile))
+                    using (StreamWriter writer = File.AppendText(mainwindow.macroFolderPath + Path.DirectorySeparatorChar + MacrosTextFile))
                     {
                         string ms ="";
 
@@ -123,7 +121,8 @@ namespace QKeyMapper
 
                         writer.WriteLine(km.macroName + "," + ms);
                     }
-                    
+
+                    reset();
                     NavigationService.Navigate(mainwindow.bindingEditorPage);
                 }
                 else
@@ -179,6 +178,15 @@ namespace QKeyMapper
                     macro.Add(timedelay.Value);
                 }
             }
+        }
+
+        private void reset()
+        {
+            MacroStringTxt.Text = "";
+            customMacroName.Text = "";
+            keyPressName.SelectedIndex = -1;
+            keyPressName.Text = "";
+            model.SelectedKeyMacroEditor = null;
         }
     }
 }

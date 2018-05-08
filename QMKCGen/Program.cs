@@ -28,13 +28,26 @@ namespace QMKCGen
                 Cout.printf("Usage: {0} file.json", AppDomain.CurrentDomain.FriendlyName);
                 return 1;
             }
-            string json_raw = File.ReadAllText(args[0]);
-            Keyboard keyboard = new Keyboard();
-            var assembly = Assembly.GetExecutingAssembly();
+
+            string json_raw = "";
 
             try
             {
+                json_raw = File.ReadAllText(args[0]);
+            }
+            catch
+            {
+                Console.WriteLine("The provided path does not identify a file");
+                return 1;
+            }
+
+            Keyboard keyboard = new Keyboard();
+            var assembly = Assembly.GetExecutingAssembly();
+            
+            try
+            {
                 keyboard = JsonConvert.DeserializeObject<Keyboard>(json_raw);
+                keyboard.desc.product_name = keyboard.desc.product_name.Replace(" ", "_");
             }
             catch
             {
@@ -42,6 +55,7 @@ namespace QMKCGen
                 return 2;
             }
 
+            //Validations
             if (!Validations.has_valid_key_codes(keyboard))
             {
                 Console.WriteLine("Configuration File contains invalid keycodes");
@@ -109,7 +123,7 @@ namespace QMKCGen
             string exec_args = "/bin/bash -lic 'cd \"$(cygpath \"" + 
                                qmk_firmware_path + 
                                "\")\"; make " + 
-                               keyboard.desc.product_name + 
+                               keyboard.desc.product_name +
                                ":default:avrdude'";
 
             //string mintty_path = @"C:/msys64/usr/bin/mintty.exe";

@@ -174,10 +174,10 @@
                 MinWidth="120" 
                 Margin="0,0,0,10"
                 ItemsSource="{Binding MacroKeyBinds}"
-                SelectedItem="{Binding SelectedKeyMacroEditor}"
+                SelectedItem="{Binding SelectedKeyMacroBinding}"
                 DisplayMemberPath="macroName"
                 SelectedValuePath="macroString"
-                Text="{Binding SelectedKeyMacroEditor.macroName}"    
+                Text="{Binding SelectedKeyMacroBinding.macroName}"    
             />
 
             <Rectangle

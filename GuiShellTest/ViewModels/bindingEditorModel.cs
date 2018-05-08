@@ -29,6 +29,7 @@ namespace GuiShellTest.ViewModels
         //Private data variables for binding.
         private KeyMacro _selectedKeySingleMacro; 
         private KeyMacro _selectedKeyMacroEditor;
+        private KeyMacro _selectedKeyMacroBinding;
 
         public bindingEditorModel()
         {
@@ -39,7 +40,7 @@ namespace GuiShellTest.ViewModels
             keyNames = new HashSet<string>();
             customMacroNames = new HashSet<string>();
 
-            macroFolderPath = approot + Path.DirectorySeparatorChar + "Macros" + Path.DirectorySeparatorChar + "Macros.csv";
+            macroFolderPath = approot + Path.DirectorySeparatorChar + "UserMacros" + Path.DirectorySeparatorChar + "Macros.csv";
 
             loadCollection();
             loadPredefinedMacroCollection();
@@ -85,6 +86,25 @@ namespace GuiShellTest.ViewModels
                     _selectedKeyMacroEditor = value;
                     onPropertyRaised(nameof(SelectedKeyMacroEditor));
                     
+                }
+
+            }
+        }
+
+        public KeyMacro SelectedKeyMacroBinding
+        {
+            get
+            {
+                return _selectedKeyMacroBinding;
+            }
+
+            set
+            {
+                if (value != _selectedKeyMacroBinding)
+                {
+                    _selectedKeyMacroBinding = value;
+                    onPropertyRaised(nameof(SelectedKeyMacroBinding));
+
                 }
 
             }

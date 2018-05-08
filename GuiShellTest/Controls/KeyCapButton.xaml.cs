@@ -28,6 +28,9 @@ namespace GuiShellTest.Controls
         private qk.Key_items.Key keyItem;
         private MatrixPin _selectedRowMatrixPin;
         private MatrixPin _selectedColMatrixPin;
+        private string _selectedRowText;
+        private string _selectedColText;
+
         private KeyMacro _onTapMacro;
         private KeyMacro _onHoldMacro;
         private string _onTapMacroName;
@@ -65,43 +68,49 @@ namespace GuiShellTest.Controls
             }
         }
 
-        /* Public binding property for keycap selected matrix row from combobox */
-        public MatrixPin matrixrow
+        /* Public binding property for showing string representation of the pin selected */
+        public string SelectedMatrixPinRow
         {
             get
             {
-                return _selectedRowMatrixPin;
+                return _selectedRowText;
             }
-
             set
             {
-                if (value != _selectedRowMatrixPin)
+                if (value != _selectedRowText)
                 {
-                    _selectedRowMatrixPin = value;
-                    onPropertyRaised(nameof(matrixrow));
-                    keyItem.matrix.row = _selectedRowMatrixPin.pinName;
+                    _selectedRowText = value;
+
+                    if(value != null)
+                        keyItem.matrix.row = _selectedRowText;
+
+                    Debug.WriteLine("Selected Matrix Row Pin: " + keyItem.matrix.row);
+                    onPropertyRaised(nameof(SelectedMatrixPinRow));
                 }
             }
         }
 
-        public MatrixPin matrixcol
+        /* Public binding property for showing string representation of the pin selected */
+        public string  SelectedMatrixPinCol
         {
             get
             {
-                return _selectedColMatrixPin;
+                return _selectedColText;
             }
-
             set
             {
-
-                if (value != _selectedColMatrixPin)
+                if (value != _selectedColText)
                 {
-                    _selectedColMatrixPin = value;
-                    onPropertyRaised(nameof(matrixcol));
-                    keyItem.matrix.col = _selectedColMatrixPin.pinName;
+                    _selectedColText = value;
+
+                    if(value != null)
+                        keyItem.matrix.col = _selectedColText;
+
+
+                    onPropertyRaised(nameof(SelectedMatrixPinCol));
                 }
             }
-        }
+        }   
 
         /* Public binding property for showing the string representation of the macro selected. */
         public string OnTapMacroName
@@ -178,7 +187,7 @@ namespace GuiShellTest.Controls
                     _onHoldMacro = value;
                     OnHoldMacroName = _onHoldMacro.macroName;
 
-                    keyItem.binding.on_hold = _onHoldMacro.macroString;
+                    keyItem.binding.on_hold = new List<string>(_onHoldMacro.macroName.Split('\n'));
 
                     onPropertyRaised(nameof(OnHoldMacro));
 
