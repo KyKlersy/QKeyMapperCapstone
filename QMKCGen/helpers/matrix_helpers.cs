@@ -26,6 +26,9 @@ namespace QMKCGen.helpers
          */
         private static Key[,] fill_key_matrix(Keyboard keeb)
         {
+            if (keeb.spec.matrix_spec.rows != keeb.spec.matrix_spec.row_pins.Count()
+            || keeb.spec.matrix_spec.cols != keeb.spec.matrix_spec.col_pins.Count())
+                throw new ArgumentException("The number of pins specified doesn't match the lists");
             Key[,] key_matrix = new Key[keeb.spec.matrix_spec.rows, keeb.spec.matrix_spec.cols];
             var pin_map = pins_to_index(keeb);
             foreach (var key in keeb.keys)
