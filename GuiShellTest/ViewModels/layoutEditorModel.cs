@@ -19,6 +19,7 @@ namespace GuiShellTest.ViewModels
 
         public List<MatrixPin> SupportedPins { get; set; }
         private MatrixPin _selectedMatrixPin;
+        private MatrixPin _selectedKeyCapPin;
 
         private string rowMatrixPins = "";
         private string colMatrixPins = "";
@@ -123,6 +124,24 @@ namespace GuiShellTest.ViewModels
             }
         }
 
+        public MatrixPin SelectedKeyCapPin
+        {
+            get
+            {
+                return _selectedKeyCapPin;
+            }
+            set
+            {
+                if (value != _selectedKeyCapPin)
+                {
+                    _selectedKeyCapPin = value;
+
+                    onPropertyRaised(nameof(SelectedKeyCapPin));
+
+                }
+            }
+        }
+
         /* Public binding property for showing the string representation of the keyboard matrix col */
         public string KeyboardMatrixCol
         {
@@ -145,6 +164,7 @@ namespace GuiShellTest.ViewModels
                 onPropertyRaised(nameof(KeyboardMatrixCol));
             }
         }
+
 
         /* Event changed handler for updating property binding on change. */
         public event PropertyChangedEventHandler PropertyChanged;

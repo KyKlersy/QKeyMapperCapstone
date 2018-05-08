@@ -47,7 +47,6 @@ namespace QKeyMapper
             DataContext = model;
             keyDataForm.DataContext = null;
 
-            
         }
 
         //Kyles` function to create grid passing only row and coloumn recieved from textboxes
@@ -110,10 +109,12 @@ namespace QKeyMapper
             DragDrop.DoDragDrop(img, dataObj, DragDropEffects.Move);
         }
 
+
+      
         /* keycap event oppener */
         private void PopOpenSelector(object sender, RoutedEventArgs e)
         {
-            keyDataForm.DataContext = null;
+
 
             keyDataForm.Visibility = Visibility.Visible;
             keyboardMatrixPanel.Visibility = Visibility.Hidden;
@@ -123,16 +124,6 @@ namespace QKeyMapper
             KeyCapButton data = (KeyCapButton)btn.DataContext;
 
             keyDataForm.DataContext = data;
-
-
-
-
-            matrixColComboBox.SelectedIndex = -1;
-            matrixColComboBox.Text = "-";
-
-            matrixRowComboBox.SelectedIndex = -1;
-            matrixRowComboBox.Text = "-";
-
 
         }
 
@@ -301,10 +292,10 @@ namespace QKeyMapper
                     key.graphics.col = Grid.GetColumn(control);
                     key.graphics.text = kcb.text;
 
-                    if(kcb.matrixrow != null && kcb.matrixcol != null)
+                    if(kcb.SelectedMatrixPinRow != null && kcb.SelectedMatrixPinCol != null)
                     {
-                        key.matrix.row = kcb.matrixrow.pinName;
-                        key.matrix.col = kcb.matrixcol.pinName;
+                        key.matrix.row = kcb.SelectedMatrixPinRow;
+                        key.matrix.col = kcb.SelectedMatrixPinCol;
 
                         keyData.Add(key);
                     }
@@ -461,5 +452,96 @@ namespace QKeyMapper
             cleanMatrixColPins();
             cleanMatrixRowPins();
         }
+
+        private void addKeyPinRow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinRow = ((MatrixPin)keycapMatrixPinSelection.SelectedItem).pinName;
+                    keycapMatrixPinSelection.SelectedItem = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearKeycapPinRow(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinRow = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to clear it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void addKeyPinCol(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinCol = ((MatrixPin)keycapMatrixPinSelection.SelectedItem).pinName;
+                    keycapMatrixPinSelection.SelectedItem = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to add it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
+        private void clearKeycapPinCol(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (model.SupportedPins != null)
+                {
+                    KeyCapButton kcb = (KeyCapButton)keyDataForm.DataContext;
+                    kcb.SelectedMatrixPinCol = null;
+                }
+                else
+                {
+                    throw new Exception("A pin must be selected first before trying to clear it.");
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Error: " + err.Message);
+            }
+
+        }
+
     }
 }
