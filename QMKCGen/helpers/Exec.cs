@@ -30,7 +30,7 @@ namespace QMKCGen.helpers
                     exeProcess.WaitForExit();
                 }
             }
-            catch(Exception e)
+            catch
             {
                 throw;
             }
