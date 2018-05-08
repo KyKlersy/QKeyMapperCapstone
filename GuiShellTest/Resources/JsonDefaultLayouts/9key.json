@@ -5,8 +5,8 @@
   },
   "desc": {
     "manufacturer": "sample",
-    "description": "6 key macropad",
-    "product_name": "6ball"
+    "description": "9 key macropad",
+    "product_name": "9 key"
   },
   "spec": {
     "avrdude": {
@@ -15,9 +15,9 @@
       "programmer": ""
     },
     "matrix_spec": {
-      "rows": 2,
+      "rows": 3,
       "cols": 3,
-      "row_pins": [ "D7", "E6" ],
+      "row_pins": [ "D7", "E6", "B4" ],
       "col_pins": [ "F6", "F7", "B1" ]
     },
     "diode_direction": "COL2ROW"
@@ -104,6 +104,48 @@
       },
       "matrix": {
         "row": "E6",
+        "col": "B1"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 0,
+        "text": "z"
+      },
+      "binding": {
+        "on_tap": [ "Z" ]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F6"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 1,
+        "text": "x"
+      },
+      "binding": {
+        "on_tap": [ "X" ]
+      },
+      "matrix": {
+        "row": "B4",
+        "col": "F7"
+      }
+    },
+    {
+      "graphics": {
+        "row": 2,
+        "col": 2,
+        "text": "c"
+      },
+      "binding": {
+        "on_tap": [ "C" ]
+      },
+      "matrix": {
+        "row": "B4",
         "col": "B1"
       }
     }

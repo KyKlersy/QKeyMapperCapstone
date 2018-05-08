@@ -32,7 +32,7 @@ namespace QMKCGen.helpers
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw;
             }
         }
     }
